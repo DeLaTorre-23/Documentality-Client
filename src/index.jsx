@@ -8,7 +8,7 @@ import './index.scss';
 class DocumentalityApplication extends React.Component {
   render() {
     return (
-      <div className="Documentality">
+      <div className="documentality">
         <div>Good Morning</div>
       </div>
     );
