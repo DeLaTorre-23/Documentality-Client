@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
+import MovieCard from '../MovieCard/MovieCard';
+
 export class MainView extends React.Component {
   constructor() {
     super();
@@ -31,13 +33,13 @@ export class MainView extends React.Component {
     const { documentaries } = this.state;
 
     // Before the movies have been loaded
-    if (!documentaries) return <div className="main-view"/>
+    if (!documentaries) return <div className="MainView"/>
 
     return (
-     <div className="main-view">
-     { documentaries.map(documentaries => (
-       <div ClassName="movie-card" key={documentaries._id}>{documentaries.Title}</div>
-     ))}
+     <div className="MainView">
+     { documentaries.map(documentary => (
+      <MovieCard key={documentary._id} documentary={documentary}/>
+      ))}
      </div>
     );
   }
