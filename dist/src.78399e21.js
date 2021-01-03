@@ -31572,13 +31572,13 @@ module.exports.default = axios;
 
 },{"./utils":"../node_modules/axios/lib/utils.js","./helpers/bind":"../node_modules/axios/lib/helpers/bind.js","./core/Axios":"../node_modules/axios/lib/core/Axios.js","./core/mergeConfig":"../node_modules/axios/lib/core/mergeConfig.js","./defaults":"../node_modules/axios/lib/defaults.js","./cancel/Cancel":"../node_modules/axios/lib/cancel/Cancel.js","./cancel/CancelToken":"../node_modules/axios/lib/cancel/CancelToken.js","./cancel/isCancel":"../node_modules/axios/lib/cancel/isCancel.js","./helpers/spread":"../node_modules/axios/lib/helpers/spread.js","./helpers/isAxiosError":"../node_modules/axios/lib/helpers/isAxiosError.js"}],"../node_modules/axios/index.js":[function(require,module,exports) {
 module.exports = require('./lib/axios');
-},{"./lib/axios":"../node_modules/axios/lib/axios.js"}],"components/MovieCard/MovieCard.jsx":[function(require,module,exports) {
+},{"./lib/axios":"../node_modules/axios/lib/axios.js"}],"components/MovieCardView/MovieCardView.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.MovieCard = void 0;
+exports.MovieCardView = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -31606,39 +31606,50 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var MovieCard = /*#__PURE__*/function (_React$Component) {
-  _inherits(MovieCard, _React$Component);
+var MovieCardView = /*#__PURE__*/function (_React$Component) {
+  _inherits(MovieCardView, _React$Component);
 
-  var _super = _createSuper(MovieCard);
+  var _super = _createSuper(MovieCardView);
 
-  function MovieCard() {
-    _classCallCheck(this, MovieCard);
+  function MovieCardView() {
+    _classCallCheck(this, MovieCardView);
 
     return _super.apply(this, arguments);
   }
 
-  _createClass(MovieCard, [{
+  _createClass(MovieCardView, [{
     key: "render",
     value: function render() {
-      // This is given to the <MovieCard/> component by the outer world
+      // This is given to the <MovieCardView/> component by the outer world
       // which, in this case, is 'MainView', as 'MainView' is what's
       // connected to your database via the movies endpoint of your API
       var _this$props = this.props,
           documentary = _this$props.documentary,
           _onClick = _this$props.onClick;
-      return _react.default.createElement("div", {
-        onClick: function onClick() {
-          return _onClick(documentary);
-        },
-        className: "MovieCard"
-      }, documentary.Title);
+      return (// <div onClick={() => onClick(documentary)} className="MovieCardView">{documentary.Title}</div>
+        _react.default.createElement(Card, {
+          style: {
+            width: '22rem'
+          },
+          className: "movieCard"
+        }, _react.default.createElement(Card.Img, {
+          variant: "top",
+          src: documentary.ImagePath
+        }), _react.default.createElement(Card.Body, null, _react.default.createElement(Card.Title, null, documentary.Title + ' - ' + documentary.Released), _react.default.createElement(Card.Text, null, documentary.Description), _react.default.createElement(Button, {
+          onClick: function onClick() {
+            return _onClick(documentary);
+          },
+          variant: "link",
+          className: "expandDocumentary"
+        }, "Details")))
+      );
     }
   }]);
 
-  return MovieCard;
+  return MovieCardView;
 }(_react.default.Component);
 
-exports.MovieCard = MovieCard;
+exports.MovieCardView = MovieCardView;
 },{"react":"../node_modules/react/index.js"}],"components/MovieView/MovieView.jsx":[function(require,module,exports) {
 "use strict";
 
@@ -31742,7 +31753,7 @@ var _react = _interopRequireDefault(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
 
-var _MovieCard = _interopRequireDefault(require("../MovieCard/MovieCard"));
+var _MovieCardView = _interopRequireDefault(require("../MovieCardView/MovieCardView"));
 
 var _MovieView = _interopRequireDefault(require("../MovieView/MovieView"));
 
@@ -31795,7 +31806,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       _axios.default.get('<https://documentality.herokuapp.com/documentaries>').then(function (response) {
-        // Assign he result to the state
+        // Assign the result to the state
         _this2.setState({
           documentaries: response.data
         });
@@ -31831,7 +31842,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }, selectedDocumentary ? _react.default.createElement(_MovieView.default, {
         documentary: selectedDocumentary
       }) : documentaries.map(function (documentary) {
-        return _react.default.createElement(_MovieCard.default, {
+        return _react.default.createElement(_MovieCardView.default, {
           key: documentary._id,
           documentary: documentary,
           onClick: function onClick(documentary) {
@@ -31846,7 +31857,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 }(_react.default.Component);
 
 exports.MainView = MainView;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","../MovieCard/MovieCard":"components/MovieCard/MovieCard.jsx","../MovieView/MovieView":"components/MovieView/MovieView.jsx"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","../MovieCardView/MovieCardView":"components/MovieCardView/MovieCardView.jsx","../MovieView/MovieView":"components/MovieView/MovieView.jsx"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -31925,7 +31936,7 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
-var _MainView = _interopRequireDefault(require("./components/MainView/MainView"));
+var _MainView = require("./components/MainView/MainView");
 
 require("./index.scss");
 
@@ -31968,7 +31979,7 @@ var DocumentalityApplication = /*#__PURE__*/function (_React$Component) {
   _createClass(DocumentalityApplication, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement(_MainView.default, null); //<div className="BtnBack">
+      return _react.default.createElement(_MainView.MainView, null); //<div className="BtnBack">
       //  <Button/>
       //</div>
     }
@@ -32009,7 +32020,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54887" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51993" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
