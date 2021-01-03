@@ -10,6 +10,9 @@ import './index.scss';
 class DocumentalityApplication extends React.Component {
   render() {
     return <MainView/>;
+    //<div className="BtnBack">
+    //  <Button/>
+    //</div>
   }
 }
 

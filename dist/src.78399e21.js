@@ -31623,8 +31623,13 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
       // This is given to the <MovieCard/> component by the outer world
       // which, in this case, is 'MainView', as 'MainView' is what's
       // connected to your database via the movies endpoint of your API
-      var documentary = this.props.documentary;
+      var _this$props = this.props,
+          documentary = _this$props.documentary,
+          _onClick = _this$props.onClick;
       return _react.default.createElement("div", {
+        onClick: function onClick() {
+          return _onClick(documentary);
+        },
         className: "MovieCard"
       }, documentary.Title);
     }
@@ -31634,6 +31639,97 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
 }(_react.default.Component);
 
 exports.MovieCard = MovieCard;
+},{"react":"../node_modules/react/index.js"}],"components/MovieView/MovieView.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.MovieView = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+var MovieView = /*#__PURE__*/function (_React$Component) {
+  _inherits(MovieView, _React$Component);
+
+  var _super = _createSuper(MovieView);
+
+  function MovieView() {
+    var _this;
+
+    _classCallCheck(this, MovieView);
+
+    _this = _super.call(this);
+    _this.state = {};
+    return _this;
+  }
+
+  _createClass(MovieView, [{
+    key: "render",
+    value: function render() {
+      var documentary = this.props.documentary;
+      if (!documentary) return null;
+      return _react.default.createElement("div", {
+        className: "MovieView"
+      }, _react.default.createElement("img", {
+        className: "MoviePoster",
+        src: documentary.ImagePath
+      }), _react.default.createElement("div", {
+        className: "MovieTitle"
+      }, _react.default.createElement("span", {
+        className: "label"
+      }, "Title: "), _react.default.createElement("span", {
+        className: "value"
+      }, documentary.Title)), _react.default.createElement("div", {
+        className: "MovieDescription"
+      }, _react.default.createElement("span", {
+        className: "label"
+      }, "Description: "), _react.default.createElement("span", {
+        className: "value"
+      }, documentary.Description)), _react.default.createElement("div", {
+        className: "MovieGenre"
+      }, _react.default.createElement("span", {
+        className: "label"
+      }, "Genre: "), _react.default.createElement("span", {
+        className: "value"
+      }, documentary.Genre.Name)), _react.default.createElement("div", {
+        className: "MovieDirector"
+      }, _react.default.createElement("span", {
+        className: "label"
+      }, "Director: "), _react.default.createElement("span", {
+        className: "value"
+      }, documentary.Director.Name)));
+    }
+  }]);
+
+  return MovieView;
+}(_react.default.Component);
+
+exports.MovieView = MovieView;
 },{"react":"../node_modules/react/index.js"}],"components/MainView/MainView.jsx":[function(require,module,exports) {
 "use strict";
 
@@ -31647,6 +31743,8 @@ var _react = _interopRequireDefault(require("react"));
 var _axios = _interopRequireDefault(require("axios"));
 
 var _MovieCard = _interopRequireDefault(require("../MovieCard/MovieCard"));
+
+var _MovieView = _interopRequireDefault(require("../MovieView/MovieView"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31684,7 +31782,10 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this); // Initialize the state to an empty object so we can destructure it later
 
-    _this.state = {};
+    _this.state = {
+      documentaries: null,
+      selectedDocumentary: null
+    };
     return _this;
   }
 
@@ -31701,25 +31802,41 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }).catch(function (error) {
         console.log(error);
       });
+    }
+  }, {
+    key: "onDocumentaryClick",
+    value: function onDocumentaryClick(documentary) {
+      this.setState({
+        selectedDocumentary: documentary
+      });
     } // This overrides the render() method of the superclass
     // No need to call super() though, as it does nothing by default
 
   }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
       // If the state isn't initialized, this will throw on runtime
       // before tha data is initially loaded
-      var documentaries = this.state.documentaries; // Before the movies have been loaded
+      var _this$state = this.state,
+          documentaries = _this$state.documentaries,
+          selectedDocumentary = _this$state.selectedDocumentary; // Before the movies have been loaded
 
       if (!documentaries) return _react.default.createElement("div", {
         className: "MainView"
       });
       return _react.default.createElement("div", {
         className: "MainView"
-      }, documentaries.map(function (documentary) {
+      }, selectedDocumentary ? _react.default.createElement(_MovieView.default, {
+        documentary: selectedDocumentary
+      }) : documentaries.map(function (documentary) {
         return _react.default.createElement(_MovieCard.default, {
           key: documentary._id,
-          documentary: documentary
+          documentary: documentary,
+          onClick: function onClick(documentary) {
+            return _this3.onDocumentaryClick(documentary);
+          }
         });
       }));
     }
@@ -31729,7 +31846,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 }(_react.default.Component);
 
 exports.MainView = MainView;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","../MovieCard/MovieCard":"components/MovieCard/MovieCard.jsx"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","../MovieCard/MovieCard":"components/MovieCard/MovieCard.jsx","../MovieView/MovieView":"components/MovieView/MovieView.jsx"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -31851,7 +31968,9 @@ var DocumentalityApplication = /*#__PURE__*/function (_React$Component) {
   _createClass(DocumentalityApplication, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement(_MainView.default, null);
+      return _react.default.createElement(_MainView.default, null); //<div className="BtnBack">
+      //  <Button/>
+      //</div>
     }
   }]);
 
@@ -31890,7 +32009,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52465" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54887" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

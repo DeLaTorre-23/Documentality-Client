@@ -1,14 +1,18 @@
 import React from 'react';
 import axios from 'axios';
 
-import MovieCard from '../MovieCard/MovieCard';
+import MovieCardView from '../MovieCardView/MovieCardView';
+import MovieView from '../MovieView/MovieView';
 
 export class MainView extends React.Component {
   constructor() {
     super();
 
     // Initialize the state to an empty object so we can destructure it later
-    this.state = {};
+    this.state = {
+      documentaries: null,
+      selectedDocumentary: null
+    };
   }
 
   componentDidMount() {
@@ -25,21 +29,30 @@ export class MainView extends React.Component {
       });
   }
 
+  onDocumentaryClick(documentary) {
+    this.setState({
+      selectedDocumentary: documentary
+    });
+  }
+
   // This overrides the render() method of the superclass
   // No need to call super() though, as it does nothing by default
   render() {
     // If the state isn't initialized, this will throw on runtime
     // before tha data is initially loaded
-    const { documentaries } = this.state;
+    const { documentaries, selectedDocumentary } = this.state;
 
     // Before the movies have been loaded
     if (!documentaries) return <div className="MainView"/>
 
     return (
      <div className="MainView">
-     { documentaries.map(documentary => (
-      <MovieCard key={documentary._id} documentary={documentary}/>
-      ))}
+     {selectedDocumentary
+      ? <MovieView documentary={selectedDocumentary}/>
+      : documentaries.map(documentary => (
+        <MovieCardView key={documentary._id} documentary={documentary} onClick={documentary => this.onDocumentaryClick(documentary)}/>
+      )) 
+     }
      </div>
     );
   }
