@@ -19,7 +19,7 @@ export class MainView extends React.Component {
     axios
       .get('<https://documentality.herokuapp.com/documentaries>')
       .then(response => {
-        // Assign he result to the state
+        // Assign the result to the state
         this.setState({
           documentaries: response.data
         });
@@ -50,7 +50,11 @@ export class MainView extends React.Component {
      {selectedDocumentary
       ? <MovieView documentary={selectedDocumentary}/>
       : documentaries.map(documentary => (
-        <MovieCardView key={documentary._id} documentary={documentary} onClick={documentary => this.onDocumentaryClick(documentary)}/>
+        <MovieCardView 
+          key={documentary._id} 
+          documentary={documentary} 
+          onClick={documentary => this.onDocumentaryClick(documentary)}
+        />
       )) 
      }
      </div>

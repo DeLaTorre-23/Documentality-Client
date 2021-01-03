@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import MainView from './components/MainView/MainView';
+import MainView /*{}*/ from './components/MainView/MainView';
 
 // Import statement to indicate that you need to bundle  `./index.scss`
 import './index.scss';
