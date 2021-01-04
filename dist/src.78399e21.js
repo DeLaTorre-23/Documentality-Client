@@ -31753,9 +31753,9 @@ var _react = _interopRequireDefault(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
 
-var _MovieCardView = _interopRequireDefault(require("../MovieCardView/MovieCardView"));
+var _MovieCardView = require("../MovieCardView/MovieCardView");
 
-var _MovieView = _interopRequireDefault(require("../MovieView/MovieView"));
+var _MovieView = require("../MovieView/MovieView");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31839,10 +31839,10 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       });
       return _react.default.createElement("div", {
         className: "MainView"
-      }, selectedDocumentary ? _react.default.createElement(_MovieView.default, {
+      }, selectedDocumentary ? _react.default.createElement(_MovieView.MovieView, {
         documentary: selectedDocumentary
       }) : documentaries.map(function (documentary) {
-        return _react.default.createElement(_MovieCardView.default, {
+        return _react.default.createElement(_MovieCardView.MovieCardView, {
           key: documentary._id,
           documentary: documentary,
           onClick: function onClick(documentary) {
@@ -32020,7 +32020,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51993" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52074" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
