@@ -31733,7 +31733,11 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
         className: "label"
       }, "Director: "), _react.default.createElement("span", {
         className: "value"
-      }, documentary.Director.Name)));
+      }, documentary.Director.Name)), _react.default.createElement("div", {
+        className: "BtnBack"
+      }, _react.default.createElement("a", {
+        href: "window.history.back();"
+      }, "Go Back")));
     }
   }]);
 
