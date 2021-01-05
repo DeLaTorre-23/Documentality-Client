@@ -31809,7 +31809,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      _axios.default.get('<https://documentality.herokuapp.com/documentaries>').then(function (response) {
+      _axios.default.get('https://documentality.herokuapp.com/documentaries').then(function (response) {
         // Assign the result to the state
         _this2.setState({
           documentaries: response.data
@@ -31841,6 +31841,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       if (!documentaries) return _react.default.createElement("div", {
         className: "MainView"
       });
+      console.log(documentaries);
       return _react.default.createElement("div", {
         className: "MainView"
       }, selectedDocumentary ? _react.default.createElement(_MovieView.MovieView, {
@@ -32024,7 +32025,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52074" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61658" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

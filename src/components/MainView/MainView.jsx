@@ -17,7 +17,7 @@ export class MainView extends React.Component {
 
   componentDidMount() {
     axios
-      .get('<https://documentality.herokuapp.com/documentaries>')
+      .get('https://documentality.herokuapp.com/documentaries')
       .then(response => {
         // Assign the result to the state
         this.setState({
@@ -44,6 +44,8 @@ export class MainView extends React.Component {
 
     // Before the movies have been loaded
     if (!documentaries) return <div className="MainView"/>
+
+    console.log(documentaries);
 
     return (
      <div className="MainView">
