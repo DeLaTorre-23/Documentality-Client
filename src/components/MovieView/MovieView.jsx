@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Button } from 'react-bootstrap'
 export class MovieView extends React.Component {
   constructor() {
     super();
@@ -36,7 +36,11 @@ export class MovieView extends React.Component {
         </div>   
 
         <div className="BtnBack">
-          <a href="window.history.back();">Go Back</a>
+          {/* Reload all the page*/}
+          {/* <a href="window.history.back();">Go Back</a>*/}
+
+          {/* Don't reload the page, just go back*/}
+          <Button onClick={this.props.removeDocumentaryFromSelected} variant="danger">Go Back Me</Button>
         </div>     
       </div>
     );

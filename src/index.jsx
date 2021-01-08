@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css'; //for bootstrap
 
 import { MainView } from './components/MainView/MainView';
 
@@ -10,9 +11,7 @@ import './index.scss';
 class DocumentalityApplication extends React.Component {
   render() {
     return <MainView/>;
-    //<div className="BtnBack">
-    //  <Button/>
-    //</div>
+  
   }
 }
 

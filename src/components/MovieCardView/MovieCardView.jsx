@@ -1,4 +1,5 @@
 import React from 'react';
+import {Card, Button} from 'react-bootstrap'
 
 export class MovieCardView extends React.Component {
   render() {
@@ -9,7 +10,7 @@ export class MovieCardView extends React.Component {
 
     return (
      // <div onClick={() => onClick(documentary)} className="MovieCardView">{documentary.Title}</div>
-      <Card style={{ width: '22rem' }} className="movieCard">
+      <Card style={{ width: '22rem' }} className="movieCard mb-3">
         <Card.Img variant="top" src={documentary.ImagePath} />
         <Card.Body>
           <Card.Title>{documentary.Title + ' - ' + documentary.Released}</Card.Title>

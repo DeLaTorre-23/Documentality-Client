@@ -13,6 +13,8 @@ export class MainView extends React.Component {
       documentaries: null,
       selectedDocumentary: null
     };
+
+    this.removeDocumentaryFromSelected = this.removeDocumentaryFromSelected.bind(this)
   }
 
   componentDidMount() {
@@ -35,6 +37,12 @@ export class MainView extends React.Component {
     });
   }
 
+  removeDocumentaryFromSelected() {
+    this.setState({
+      selectedDocumentary: null
+    });
+  }
+
   // This overrides the render() method of the superclass
   // No need to call super() though, as it does nothing by default
   render() {
@@ -45,12 +53,10 @@ export class MainView extends React.Component {
     // Before the movies have been loaded
     if (!documentaries) return <div className="MainView"/>
 
-    console.log(documentaries);
-
     return (
      <div className="MainView">
      {selectedDocumentary
-      ? <MovieView documentary={selectedDocumentary}/>
+      ? <MovieView documentary={selectedDocumentary} removeDocumentaryFromSelected={this.removeDocumentaryFromSelected}/>
       : documentaries.map(documentary => (
         <MovieCardView 
           key={documentary._id} 
