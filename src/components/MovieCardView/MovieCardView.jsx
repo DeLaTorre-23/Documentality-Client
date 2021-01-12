@@ -13,8 +13,8 @@ export class MovieCardView extends React.Component {
       <Card style={{ width: '22rem' }} className="movieCard mb-3">
         <Card.Img variant="top" src={documentary.ImagePath} />
         <Card.Body>
-          <Card.Title>{documentary.Title + ' - ' + documentary.Released}</Card.Title>
-          <Card.Text>{documentary.Description}</Card.Text>
+          <Card.Title>{documentary.Title /*+ ' - ' + documentary.Released*/}</Card.Title>
+          {/*<Card.Text>{documentary.Description}</Card.Text>*/}
           <Button  
             onClick={() => onClick(documentary)}
             variant="link"
@@ -24,6 +24,6 @@ export class MovieCardView extends React.Component {
           </Button> 
         </Card.Body>
       </Card>            
-     );
+    );
   }
 }

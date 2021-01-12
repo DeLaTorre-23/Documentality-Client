@@ -19,16 +19,16 @@ export class MainView extends React.Component {
 
   componentDidMount() {
     axios
-      .get('https://documentality.herokuapp.com/documentaries')
-      .then(response => {
-        // Assign the result to the state
-        this.setState({
-          documentaries: response.data
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
+    .get('https://documentality.herokuapp.com/documentaries')
+    .then(response => {
+      // Assign the result to the state
+      this.setState({
+        documentaries: response.data
       });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   onDocumentaryClick(documentary) {
