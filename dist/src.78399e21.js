@@ -31687,7 +31687,7 @@ function LoginView(props) {
     console.log(username, password);
     /* Send a request to the server for authentication then call props.onLoggedIn(username) */
 
-    /* props.onLoggedIn(username); */
+    props.onLoggedIn(username);
   };
 
   return _react.default.createElement("form", null, _react.default.createElement("label", null, "Username:", _react.default.createElement("input", {
@@ -48120,8 +48120,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
 
   }, {
-    key: "onLogged",
-    value: function onLogged(user) {
+    key: "onLoggedIn",
+    value: function onLoggedIn(user) {
       this.setState({
         user: user
       });
