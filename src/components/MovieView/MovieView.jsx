@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-bootstrap'
+import Button from 'react-bootstrap/Button'
 export class MovieView extends React.Component {
   constructor() {
     super();
@@ -14,7 +14,7 @@ export class MovieView extends React.Component {
 
     return (
       <div className="MovieView">
-        <img className="MoviePoster" src={documentary.ImagePath} />
+        <img className="MoviePoster" style={{ width: '18rem' }} src={documentary.ImagePath} />
         <div className="MovieTitle">
           <span className="label">Title: </span>
           <span className="value">{documentary.Title}</span>
