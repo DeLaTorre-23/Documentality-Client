@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import FormGroup from 'react-bootstrap/FormGroup';
 import FormLabel from 'react-bootstrap/FormLabel';
@@ -10,9 +7,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import FormText from 'react-bootstrap/FormText';
 import Button from 'react-bootstrap/Button';
 
-import './LoginView.scss';
-
-export function LoginView(props) {
+export function SingUpView(props) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
 
@@ -24,47 +19,36 @@ export function LoginView(props) {
   };
 
   return (  
-    <React.Fragment>
-      <Form className="loginForm">
-      <h1 className='loginTitle text-primary text-center'>Sing In</h1>
-        <Form.Group controlId="usernameInputForm">
-          <Form.Label>Username:</Form.Label>
-          <Form.Control 
-            type="text" 
-            placeholder="Username" 
-            value={username} 
-            onChange={e => setUsername(e.target.value)} 
-          />
-        </Form.Group>
+    <Form>
+      <FormGroup controlId="formUsername.ControlInput">
+        <FormLabel>Username:</FormLabel>
+        <FormControl 
+          type="text" 
+          value={username} 
+          onChange={e => setUsername(e.target.value)} 
+          placeholder="Username" 
+        />
+      </FormGroup>
 
-        <Form.Group controlId="passwordInputForm">
-          <Form.Label>Password:</Form.Label>
-          <Form.Control 
-            type="password" 
-            placeholder="Password" 
-            value={password} 
-            onChange={e => setPassword(e.target.value)} 
-          />
-        </Form.Group>
-        
-        <Button className="btnLoginForm" type="submit" onClick={handleSubmit} >
-          Login
-        </Button>
-        <Form.Text className="text-muted">
-          If you forgot your password, contact us.
-        </Form.Text>
-      </Form>
-    </React.Fragment>
+      <FormGroup controlId="formPassword.ControlInput">
+        <FormLabel>Password:</FormLabel>
+        <FormControl 
+          type="password" 
+          value={password} 
+          onChange={e => setPassword(e.target.value)} 
+          placeholder="Password" 
+        />
+      </FormGroup>
+      
+      <Button className="btnFormLogin" type="submit" onClick={handleSubmit} >
+        Submit
+      </Button>
+      <FormText className="text-muted">
+        We'll never share your email with anyone else.
+      </FormText>
+    </Form>
   );
 }
-
-LoginView.propTypes = {
-  user: PropTypes.shape({
-    username: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired
-  }).isRequired,
-  onClick: PropTypes.func.isRequired
-};
 
 {/* DEFAULT
   <Form>
