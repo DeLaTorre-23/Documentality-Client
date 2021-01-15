@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import FormGroup from 'react-bootstrap/FormGroup';
-import FormLabel from 'react-bootstrap/FormLabel';
-import FormControl from 'react-bootstrap/FormControl';
-import FormText from 'react-bootstrap/FormText';
 import Button from 'react-bootstrap/Button';
 
 import './LoginView.scss';
@@ -28,7 +22,7 @@ export function LoginView(props) {
       <Form className="loginForm">
       <h1 className='loginTitle text-primary text-center'>Sing In</h1>
         <Form.Group controlId="usernameInputForm">
-          <Form.Label>Username:</Form.Label>
+          {/*<Form.Label>Username:</Form.Label>*/}
           <Form.Control 
             type="text" 
             placeholder="Username" 
@@ -38,7 +32,7 @@ export function LoginView(props) {
         </Form.Group>
 
         <Form.Group controlId="passwordInputForm">
-          <Form.Label>Password:</Form.Label>
+          {/*<Form.Label>Password:</Form.Label>*/}
           <Form.Control 
             type="password" 
             placeholder="Password" 
@@ -47,7 +41,10 @@ export function LoginView(props) {
           />
         </Form.Group>
         
-        <Button className="btnLoginForm" type="submit" onClick={handleSubmit} >
+        <Button 
+          className="btnLoginForm" 
+          type="submit" 
+          onClick={handleSubmit} >
           Login
         </Button>
         <Form.Text className="text-muted">
@@ -65,26 +62,6 @@ LoginView.propTypes = {
   }).isRequired,
   onClick: PropTypes.func.isRequired
 };
-
-{/* DEFAULT
-  <Form>
-      <label>
-        Username:
-        <input 
-          type="text" 
-          value={username} 
-          onChange={e => setUsername(e.target.value)} />
-      </label>
-      <label>
-        Password:
-        <input 
-          type="password" 
-          value={password} 
-          onChange={e => setPassword(e.target.value)} />
-      </label>
-      <button type="button" onClick={handleSubmit}>Submit</button>
-    </Form>
-*/}
 
 {/*
  <div className="input-group">

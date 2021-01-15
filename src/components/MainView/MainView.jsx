@@ -16,7 +16,8 @@ export class MainView extends React.Component {
     this.state = {
       documentaries: null,
       selectedDocumentary: null,
-      user: null
+      user: null,
+      singUpSelected: null
     };
 
     this.removeDocumentaryFromSelected = this.removeDocumentaryFromSelected.bind(this)
@@ -56,16 +57,25 @@ export class MainView extends React.Component {
     });
   }
 
+  onSingUp() {
+    this.setState({
+      singUpSelected: true
+    })
+}
+
   // This overrides the render() method of the superclass
   // No need to call super() though, as it does nothing by default
   render() {
 
     // If the state isn't initialized, this will throw on runtime
     // before tha data is initially loaded
-    const { documentaries, selectedDocumentary, user } = this.state;
+    const { documentaries, selectedDocumentary, user, singUpSelected } = this.state;
 
-    /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
+    // If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*
     if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+
+    //If there is no user and singUpRegistration is True, the SingUpView is rendered.
+    if (!user && !singUpSelected) return <SingUpView onLoggedIn={user => this.onLoggedIn(user)} />;
 
     // Before the movies have been loaded
     if (!documentaries) return <div className="MainView"/>;
@@ -79,6 +89,8 @@ export class MainView extends React.Component {
               <MovieView 
                 documentary={selectedDocumentary} 
                 removeDocumentaryFromSelected={this.removeDocumentaryFromSelected}
+                //goBack={() => this.onMovieClick(null)}
+                singUpSelected={singUpSelected}
               />
             </Col>
             )

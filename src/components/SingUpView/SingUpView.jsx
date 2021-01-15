@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import Form from 'react-bootstrap/Form';
-import FormGroup from 'react-bootstrap/FormGroup';
-import FormLabel from 'react-bootstrap/FormLabel';
-import FormControl from 'react-bootstrap/FormControl';
-import FormText from 'react-bootstrap/FormText';
 import Button from 'react-bootstrap/Button';
+
+import './SingUpView.scss';
 
 export function SingUpView(props) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
+  const [ email, setEmail ] = useState('');
+  const [ birthday, setBirthday ] = useState('');
+  const [ phone, setPhone ] = useState('');
+
+  // const handleRegister = (e) => {
+  //  e.preventDefault();
+  //  console.log(username, password, email, birthday, phone);
+  //  props.onLoggedIn(username);
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,124 +27,75 @@ export function SingUpView(props) {
   };
 
   return (  
-    <Form>
-      <FormGroup controlId="formUsername.ControlInput">
-        <FormLabel>Username:</FormLabel>
-        <FormControl 
-          type="text" 
-          value={username} 
-          onChange={e => setUsername(e.target.value)} 
-          placeholder="Username" 
-        />
-      </FormGroup>
-
-      <FormGroup controlId="formPassword.ControlInput">
-        <FormLabel>Password:</FormLabel>
-        <FormControl 
-          type="password" 
-          value={password} 
-          onChange={e => setPassword(e.target.value)} 
-          placeholder="Password" 
-        />
-      </FormGroup>
+    <React.Fragment>
+      <Form className="singUpForm">
+      <h1 className='singUpTitle text-primary text-center'>Create an account!</h1>
       
-      <Button className="btnFormLogin" type="submit" onClick={handleSubmit} >
-        Submit
-      </Button>
-      <FormText className="text-muted">
-        We'll never share your email with anyone else.
-      </FormText>
-    </Form>
+        <Form.Group controlId="usernameSingUpForm">
+          <Form.Label>Username:</Form.Label>
+          <Form.Control 
+            type="text" 
+            placeholder="Enter username" 
+            value={username} 
+            onChange={e => setUsername(e.target.value)} 
+          />
+          <Form.Text className="text-muted">
+            Username just allow alphanumeric characters.
+          </Form.Text>
+        </Form.Group>
+
+        <Form.Group controlId="emailSingUpForm">
+          <Form.Label>Email:</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group controlId="birthdaySingUpForm">
+          <Form.Label>Birthday:</Form.Label>
+          <Form.Control
+            type="date"
+            placeholder="DD/MM/YYYY"
+            value={birthday}
+            onChange={(e) => setBirthday(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group controlId="passwordInputForm">
+          <Form.Label>Password:</Form.Label>
+          <Form.Control 
+            type="password" 
+            placeholder="Enter password" 
+            value={password} 
+            onChange={e => setPassword(e.target.value)} 
+          />
+          <Form.Text className="text-muted">
+            Password must be between 8-12 alphanumeric characters.
+          </Form.Text>
+        </Form.Group>
+        
+        <Button 
+          className="btnSingUpForm" 
+          type="submit" 
+          onClick={handleSubmit} >
+          Login
+        </Button>
+        <Form.Text className="text-muted">
+          We will never trade your data.
+        </Form.Text>
+      </Form>
+    </React.Fragment>
   );
 }
 
-{/* DEFAULT
-  <Form>
-      <label>
-        Username:
-        <input 
-          type="text" 
-          value={username} 
-          onChange={e => setUsername(e.target.value)} />
-      </label>
-      <label>
-        Password:
-        <input 
-          type="password" 
-          value={password} 
-          onChange={e => setPassword(e.target.value)} />
-      </label>
-      <button type="button" onClick={handleSubmit}>Submit</button>
-    </Form>
-*/}
-
-{/*
- <div className="input-group">
-      <div className="input-group-prepend">
-        <span className="input-group-text" id="basic-addon">
-          <MDBIcon icon="user"></MDBIcon>
-        </span>
-      </div>
-      <input 
-        type="text" 
-        className="form-control-username" 
-        placeholder="Username" 
-        aria-label="Username" 
-        aria-describedby="basic-addon"
-        value={username} 
-        onChange={e => setUsername(e.target.value)}
-      />
-      
-      <div className="input-group-prepend">
-        <span className="input-group-text" id="basic-addon">
-        <MDBIcon icon="lock"></MDBIcon>
-        </span>
-      </div>
-      <input 
-        type="password" 
-        className="form-control-password" 
-        placeholder="Password" 
-        aria-label="Password" 
-        aria-describedby="basic-addon"
-        value={password} 
-        onChange={e => setPassword(e.target.value)}
-      />
-      
-      <div>
-        <button type="button" onClick={handleSubmit}>Submit</button>
-      </div>
-    </div>
-*/}
-
-{/* INPUT
-  <div>
-    <div className="containerUsername">
-    <InputGroup className="mb-3">
-        <InputGroup.Prepend>
-          <i className="usernameIcon"></i>
-        </InputGroup.Prepend>
-        <FormControl
-          value={username} 
-          onChange={e => setUsername(e.target.value)} 
-          placeholder="Username"
-          aria-label="Username"
-          aria-describedby="usernameIcon"
-        />
-      </InputGroup>
-    </div>
-    <div className="containerPassword">
-    <InputGroup className="mb-9" value={password}>
-        <InputGroup.Prepend>
-          <i className="passwordIcon"></i>
-        </InputGroup.Prepend>
-        <FormControl
-          value={password} 
-          onChange={e => setUsername(e.target.value)} 
-          placeholder="Password"
-          aria-label="Password"
-          aria-describedby="passwordIcon"
-        />
-      </InputGroup>
-    </div>
-  </div>
-*/}
+SingUpView.propTypes = {
+  user: PropTypes.shape({
+      username: PropTypes.string.isRequired,
+      password: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+      birthday: PropTypes.instanceOf(Date).isRequired
+  })
+};
