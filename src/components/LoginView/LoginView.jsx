@@ -20,7 +20,8 @@ export function LoginView(props) {
   return (  
     <React.Fragment>
       <Form className="loginForm">
-      <h1 className='loginTitle text-primary text-center'>Sing In</h1>
+      <h1 className="loginTitle text-center">Sing In</h1>
+
         <Form.Group controlId="usernameInputForm">
           {/*<Form.Label>Username:</Form.Label>*/}
           <Form.Control 

@@ -1,20 +1,27 @@
 .loginForm {
-  padding-top: 60px;
-  padding-bottom: 60px;
-  margin-top: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  //border: 2px solid blue;
+  align-content: center;
+  justify-content: space-around;
+  max-width: 500px;
+  min-height: 400px;
+  padding: 40px;
+  margin: 7% auto;
+  border-radius: 23px;
+  background-color: #bce7ff;
+  border: 3px solid #53d4ff;
 }
 
 .loginTitle {
-  padding-bottom: 60px;
+  color: #0069c0;
 }
 
 .btnLoginForm {
-  width: 228px;
-  background-color: blue;
-  border-color: aqua;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  width: 203px;
+  background-color: #0069c0;
+  border: 2px solid #53d4ff;
+  color: #fff;
 }

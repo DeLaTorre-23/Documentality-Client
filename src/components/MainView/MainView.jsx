@@ -5,8 +5,12 @@ import { LoginView } from '../LoginView/LoginView';
 import { SingUpView } from '../SingUpView/SingUpView';
 import { MovieCardView } from '../MovieCardView/MovieCardView';
 import { MovieView } from '../MovieView/MovieView';
+
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { Container } from 'react-bootstrap';
+
+import './MainView.scss';
 
 export class MainView extends React.Component {
   constructor() {
@@ -81,30 +85,32 @@ export class MainView extends React.Component {
     if (!documentaries) return <div className="MainView"/>;
 
     return (
-      <Row className=" MainView justify-content-md-center">
-        {/*If the state of `selectedDocumentary` is not null, that selected movie will be returned otherwise, all *movies will be returned */}     
-        {selectedDocumentary
-          ? (
-            <Col md={8}>
-              <MovieView 
-                documentary={selectedDocumentary} 
-                removeDocumentaryFromSelected={this.removeDocumentaryFromSelected}
-                //goBack={() => this.onMovieClick(null)}
-                singUpSelected={singUpSelected}
-              />
-            </Col>
-            )
-          : documentaries.map(documentary => (
-            <Col md={3}>
-              <MovieCardView 
-                key={documentary._id} 
-                documentary={documentary} 
-                onClick={documentary => this.onDocumentaryClick(documentary)}
-              />
-            </Col>
-          ))
-        }
-      </Row>    
+      <Container className="mainView">
+        <Row className=" justify-content-md-center">
+          {/*If the state of `selectedDocumentary` is not null, that selected movie will be returned otherwise, all *movies will be returned */}     
+          {selectedDocumentary
+            ? (
+              <Col > {/*md={8} justify-content-md-center*/}
+                <MovieView 
+                  documentary={selectedDocumentary} 
+                  removeDocumentaryFromSelected={this.removeDocumentaryFromSelected}
+                  //goBack={() => this.onMovieClick(null)}
+                  //singUpSelected={singUpSelected}
+                />
+              </Col>
+              )
+            : documentaries.map(documentary => (
+              <Col >  {/*md={3}*/}
+                <MovieCardView 
+                  key={documentary._id} 
+                  documentary={documentary} 
+                  onClick={documentary => this.onDocumentaryClick(documentary)}
+                />
+              </Col>
+            ))
+          }
+        </Row>    
+      </Container>
     ); 
   }
 }

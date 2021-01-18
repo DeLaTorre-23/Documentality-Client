@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+
+import './MovieCardView.scss';
 
 export class MovieCardView extends React.Component {
   render() {
@@ -13,21 +15,21 @@ export class MovieCardView extends React.Component {
 
     return (
      // <div onClick={() => onClick(documentary)} className="MovieCardView">{documentary.Title}</div>
-      <Card style={{ width: '14rem' }} className="movieCard text-center">
-        <Card.Img variant="top" src={documentary.ImagePath} />
+      <Card className="movieCard" >
         {/*<Card.Body>
           <Card.Title>{documentary.Title + ' - ' + documentary.Released}</Card.Title>
           <Card.Text>{documentary.Description}</Card.Text>     
         </Card.Body>*/}
-        <Card.Footer>
-          <Button 
-              variant='primary'
-              onClick={() => onClick(documentary)}
-              className="expandDocumentary MovieCardView"
-            >  
-              {documentary.Title}
-            </Button>
-        </Card.Footer>
+        <Card.Body className="movieCardBody">
+          <Card.Img variant="top" src={documentary.ImagePath} />
+          <Button
+                className="btnMovieCardView"
+                variant='primary'
+                onClick={() => onClick(documentary)}
+              >  
+                {documentary.Title}
+          </Button>
+        </Card.Body>
       </Card>            
     );
   }
