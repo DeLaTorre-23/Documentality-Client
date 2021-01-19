@@ -34183,12 +34183,12 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function LoginView(props) {
-  var _useState = (0, _react.useState)(''),
+  var _useState = (0, _react.useState)(""),
       _useState2 = _slicedToArray(_useState, 2),
       username = _useState2[0],
       setUsername = _useState2[1];
 
-  var _useState3 = (0, _react.useState)(''),
+  var _useState3 = (0, _react.useState)(""),
       _useState4 = _slicedToArray(_useState3, 2),
       password = _useState4[0],
       setPassword = _useState4[1];
@@ -34230,13 +34230,15 @@ function LoginView(props) {
   }, "Login"), _react.default.createElement(_Form.default.Text, {
     className: "text-muted"
   }, "If you forgot your password,", _react.default.createElement(_Button.default, {
+    className: "linkPassword",
     variant: "link"
   }, "contact us"), "."), _react.default.createElement(_Form.default.Text, {
     className: "text-muted"
   }, "If you don't have account,", _react.default.createElement(_Button.default, {
+    className: "linkRegister",
     variant: "link",
     onClick: handleSubmit
-  }, "Register here"), ".")));
+  }, "register here"), ".")));
 }
 
 LoginView.propTypes = {
@@ -34250,74 +34252,74 @@ LoginView.propTypes = {
 {
   /*
   <div className="input-group">
-       <div className="input-group-prepend">
-         <span className="input-group-text" id="basic-addon">
-           <MDBIcon icon="user"></MDBIcon>
-         </span>
-       </div>
-       <input 
-         type="text" 
-         className="form-control-username" 
-         placeholder="Username" 
-         aria-label="Username" 
-         aria-describedby="basic-addon"
-         value={username} 
-         onChange={e => setUsername(e.target.value)}
-       />
-       
-       <div className="input-group-prepend">
-         <span className="input-group-text" id="basic-addon">
-         <MDBIcon icon="lock"></MDBIcon>
-         </span>
-       </div>
-       <input 
-         type="password" 
-         className="form-control-password" 
-         placeholder="Password" 
-         aria-label="Password" 
-         aria-describedby="basic-addon"
-         value={password} 
-         onChange={e => setPassword(e.target.value)}
-       />
-       
-       <div>
-         <button type="button" onClick={handleSubmit}>Submit</button>
-       </div>
-     </div>
+      <div className="input-group-prepend">
+        <span className="input-group-text" id="basic-addon">
+          <MDBIcon icon="user"></MDBIcon>
+        </span>
+      </div>
+      <input 
+        type="text" 
+        className="form-control-username" 
+        placeholder="Username" 
+        aria-label="Username" 
+        aria-describedby="basic-addon"
+        value={username} 
+        onChange={e => setUsername(e.target.value)}
+      />
+      
+      <div className="input-group-prepend">
+        <span className="input-group-text" id="basic-addon">
+        <MDBIcon icon="lock"></MDBIcon>
+        </span>
+      </div>
+      <input 
+        type="password" 
+        className="form-control-password" 
+        placeholder="Password" 
+        aria-label="Password" 
+        aria-describedby="basic-addon"
+        value={password} 
+        onChange={e => setPassword(e.target.value)}
+      />
+      
+      <div>
+        <button type="button" onClick={handleSubmit}>Submit</button>
+      </div>
+    </div>
   */
 }
 {
   /* INPUT
-   <div>
-     <div className="containerUsername">
-     <InputGroup className="mb-3">
-         <InputGroup.Prepend>
-           <i className="usernameIcon"></i>
-         </InputGroup.Prepend>
-         <FormControl
-           value={username} 
-           onChange={e => setUsername(e.target.value)} 
-           placeholder="Username"
-           aria-label="Username"
-           aria-describedby="usernameIcon"
-         />
-       </InputGroup>
-     </div>
-     <div className="containerPassword">
-     <InputGroup className="mb-9" value={password}>
-         <InputGroup.Prepend>
-           <i className="passwordIcon"></i>
-         </InputGroup.Prepend>
-         <FormControl
-           value={password} 
-           onChange={e => setUsername(e.target.value)} 
-           placeholder="Password"
-           aria-label="Password"
-           aria-describedby="passwordIcon"
-         />
-       </InputGroup>
-     </div>
-   </div>
+  <div>
+    <div className="containerUsername">
+    <InputGroup className="mb-3">
+        <InputGroup.Prepend>
+          <i className="usernameIcon"></i>
+        </InputGroup.Prepend>
+        <FormControl
+          value={username} 
+          onChange={e => setUsername(e.target.value)} 
+          placeholder="Username"
+          aria-label="Username"
+          aria-describedby="usernameIcon"
+        />
+      </InputGroup>
+    </div>
+    <div className="containerPassword">
+    <InputGroup className="mb-9" value={password}>
+        <InputGroup.Prepend>
+          <i className="passwordIcon"></i>
+        </InputGroup.Prepend>
+        <FormControl
+          value={password} 
+          onChange={e => setUsername(e.target.value)} 
+          placeholder="Password"
+          aria-label="Password"
+          aria-describedby="passwordIcon"
+        />
+      </InputGroup>
+    </div>
+  </div>
   */
 }
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./LoginView.scss":"components/LoginView/LoginView.scss"}],"components/SingUpView/SingUpView.scss":[function(require,module,exports) {

@@ -33,6 +33,16 @@
   border: 2px solid #53d4ff;
   color: #fff;
 }
+
+.linkPassword {
+  margin: 0px auto;
+  padding: 1px;
+}
+
+.linkRegister {
+  margin: 0px auto;
+  padding: 1px;
+}
 .singUpForm {
   display: flex;
   flex-direction: column;
