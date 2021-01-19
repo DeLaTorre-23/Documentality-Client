@@ -1,57 +1,36 @@
-import React from 'react';
+import React from "react";
 
-import { Link } from 'react-router-dom';
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import Button from "react-bootstrap/Button";
+import Link from "react-router-dom/";
 
-import { Navbar, Nav, Button } from 'react-bootstrap';
-
-import './NavBarView.scss';
-
-
+import "./NavBarView.scss";
 export class NavBarView extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {};
-  }
-
-  loggedOut = () => {
-    localStorage.clear();
-    window.open('/', '_self');
-  }
-
   render() {
-    const { user } = this.props;
-
-    if (!user) return null;
-
-    return( 
-      <Navbar collapseOnSelect expand="lg" sticky="top" bg="dark" variant="dark">
-        <Navbar.Brand href="/">DOCumentality</Navbar.Brand>
+    return (
+      <Navbar
+        collapseOnSelect
+        expand="lg"
+        sticky="top"
+        bg="dark"
+        variant="dark"
+        fixed="top"
+      >
+        <Navbar.Brand href="/">
+          <img
+            src={logo}
+            className="d-inline-block align-top"
+            alt="React Bootstrap logo"
+          />
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="#">Features</Nav.Link>
-          </Nav>
-          <Nav>
-            <Link to={'/'}>
-              <Button 
-                className="btnProfile" 
-                variant="primary"
-              >
-                Profile
-              </Button>
-            </Link>
-          </Nav>
-          <Nav>
-            <Link to={'/'}>
-              <Button 
-                className="btnLogout" 
-                variant="outline-danger" 
-                onClick={this.loggedOut}
-              >
-                Log Out
-              </Button>
-            </Link>
+            <Nav.Link href="#Documentaries">Movies</Nav.Link>
+            <Nav.Link href="#Genre">Genre</Nav.Link>
+            <Nav.Link href="#Director">Director</Nav.Link>
+            <Nav.Link href="#Login">Logout</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

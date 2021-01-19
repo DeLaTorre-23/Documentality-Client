@@ -18,6 +18,7 @@
   border-radius: 23px;
   background-color: #bce7ff;
   border: 3px solid #53d4ff;
+  font-family: Trebuchet MS, Helvetica, Arial, sans-serif;
 }
 
 .loginTitle {
@@ -46,6 +47,7 @@
   border-radius: 23px;
   background-color: #bce7ff;
   border: 3px solid #53d4ff;
+  font-family: Trebuchet MS, Helvetica, Arial, sans-serif;
 }
 .singUpForm input {
   width: 350px;
@@ -75,10 +77,15 @@ h1 {
   border: 5px solid #53d4ff;
   padding: 4px;
   text-align: center;
+  font-family: Trebuchet MS, Helvetica, Arial, sans-serif;
+  margin-bottom: 25px;
 }
 
 .movieCardBody {
   padding: 0;
+}
+.movieCardBody .movieCardImg {
+  height: 250px;
 }
 .movieCardBody button {
   margin-top: 3px;
@@ -96,12 +103,22 @@ h1 {
   border: 2px solid #53d4ff;
   color: #fff;
 }
+
+/*
+.moviePoster {
+  height: 250px;
+  width: 100%;
+  cursor: pointer;
+}
+
+*/
 .movieView {
   width: 100%;
   position: static;
   text-align: center;
   padding-left: 15px;
   padding-right: 15px;
+  font-family: Trebuchet MS, Helvetica, Arial, sans-serif;
 }
 
 .btnAddFavorite {
@@ -130,6 +147,7 @@ h1 {
 
 .movieInfo {
   flex-flow: column wrap;
+  font-family: Trebuchet MS, Helvetica, Arial, sans-serif;
 }
 
 .movieInfo > * {
@@ -148,6 +166,10 @@ h1 {
   font-size: large;
   font-family: sans-serif;
 }
+.navBar {
+  margin-bottom: 20px;
+  font-family: Trebuchet MS, Helvetica, Arial, sans-serif;
+}
 .mainView {
   display: flex;
   flex-flow: row wrap;
@@ -157,7 +179,7 @@ h1 {
   margin-top: 30px;
   margin-bottom: 30px;
   background-color: #0cb7f2;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: Trebuchet MS, Helvetica, Arial, sans-serif;
   flex: 1 0 auto;
 }
 /*{.mainWrap 

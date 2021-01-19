@@ -10,10 +10,15 @@
   border: 5px solid #53d4ff;
   padding: 4px;
   text-align: center;
+  font-family: Trebuchet MS, Helvetica, Arial, sans-serif;
+  margin-bottom: 25px;
 }
 
 .movieCardBody {
   padding: 0;
+  .movieCardImg {
+    height: 250px;
+  }
   button {
     margin-top: 3px;
   }
@@ -31,3 +36,12 @@
   border: 2px solid #53d4ff;
   color: #fff;
 }
+
+/*
+.moviePoster {
+  height: 250px;
+  width: 100%;
+  cursor: pointer;
+}
+
+*/

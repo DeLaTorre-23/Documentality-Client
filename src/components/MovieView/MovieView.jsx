@@ -64,40 +64,33 @@ MovieView.propTypes = {
     }),
     Director: PropTypes.shape({
       Name: PropTypes.string.isRequired
-    })
+    }),
   }).isRequired,
   onClick: PropTypes.func.isRequired
 };
 
-{/*(
-  <div className="MovieView">
-    <img className="MoviePoster" style={{ width: '18rem' }} src={documentary.ImagePath} />
-    <div className="MovieTitle">
-      <span className="label">Title: </span>
-      <span className="value">{documentary.Title}</span>
-    </div>
-
-    <div className="MovieDescription">
-      <span className="label">Description: </span>
-      <span className="value">{documentary.Description}</span>
-    </div>
-
-    <div className="MovieGenre">
-      <span className="label">Genre: </span>
-      <span className="value">{documentary.Genre.Name}</span>
-    </div>
-
-    <div className="MovieDirector">
-      <span className="label">Director: </span>
-      <span className="value">{documentary.Director.Name}</span>
-    </div>   
-
-    <div className="BtnBack">
-      {/* Reload all the page*/}
-      {/* <a href="window.history.back();">Go Back</a>*/}
-
-      {/* Don't reload the page, just go back*/}
-      {/*<Button onClick={this.props.removeDocumentaryFromSelected} variant="danger">Go Back Me</Button>
-    </div>     
-  </div>
-);*/}
+{/*
+  <div className='movie-view'>
+        <Card style={{ width: '18rem' }}>
+          <Card.Img variant='top' src={movie.imagePath} />
+          <Card.Body>
+            <Card.Title>{movie.title}</Card.Title>
+            <Card.Text>
+              <span className='label text-danger'>Description: </span>
+              <span className='value'>{movie.description}</span>
+            </Card.Text>
+            <Card.Text>
+              <span className='label text-danger'>Genre: </span>
+              <span className='value'>{movie.genre.name}</span>
+            </Card.Text>
+            <Card.Text>
+              <span className='label text-danger'>Director: </span>
+              <span className='value'>{movie.director.name}</span>
+            </Card.Text>
+            <Button onClick={() => onClick()} variant='primary'>
+              Back
+            </Button>
+          </Card.Body>
+        </Card>
+      </div>
+*/}
