@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
-import './LoginView.scss';
+import "./LoginView.scss";
 
 export function LoginView(props) {
-  const [ username, setUsername ] = useState('');
-  const [ password, setPassword ] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,52 +17,50 @@ export function LoginView(props) {
     props.onLoggedIn(username);
   };
 
-  return (  
+  return (
     <React.Fragment>
       <Form className="loginForm">
-      <h1 className="loginTitle text-center">Sing In</h1>
+        <h1 className="loginTitle text-center">Sing In</h1>
 
         <Form.Group controlId="usernameInputForm">
           {/*<Form.Label>Username:</Form.Label>*/}
-          <Form.Control 
-            type="text" 
-            placeholder="Username" 
-            value={username} 
-            onChange={e => setUsername(e.target.value)} 
+          <Form.Control
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </Form.Group>
 
         <Form.Group controlId="passwordInputForm">
           {/*<Form.Label>Password:</Form.Label>*/}
-          <Form.Control 
-            type="password" 
-            placeholder="Password" 
+          <Form.Control
+            type="password"
+            placeholder="Password"
             value={password}
-            onChange={e => setPassword(e.target.value)} 
+            onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        
-        <Button
-          className="btnLoginForm"
-          type="submit"
-          onClick={handleSubmit}>
+
+        <Button className="btnLoginForm" type="submit" onClick={handleSubmit}>
           Login
         </Button>
         <Form.Text className="text-muted">
-          If you forgot your password, 
-          <Button 
-            variant='link'>
+          If you forgot your password,
+          <Button className="linkPassword" variant="link">
             {/*onClick={handleRegister} */}
             contact us
           </Button>
           .
         </Form.Text>
         <Form.Text className="text-muted">
-          If you don't have account, 
-          <Button 
-            variant='link'
-            onClick={handleSubmit}> 
-            Register here
+          If you don't have account,
+          <Button
+            className="linkRegister"
+            variant="link"
+            onClick={handleSubmit}
+          >
+            register here
           </Button>
           .
         </Form.Text>
@@ -74,13 +72,14 @@ export function LoginView(props) {
 LoginView.propTypes = {
   user: PropTypes.shape({
     username: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired
+    password: PropTypes.string.isRequired,
   }),
   onLoggedIn: PropTypes.func.isRequired,
   onRegister: PropTypes.func,
 };
 
-{/*
+{
+  /*
  <div className="input-group">
       <div className="input-group-prepend">
         <span className="input-group-text" id="basic-addon">
@@ -116,9 +115,11 @@ LoginView.propTypes = {
         <button type="button" onClick={handleSubmit}>Submit</button>
       </div>
     </div>
-*/}
+*/
+}
 
-{/* INPUT
+{
+  /* INPUT
   <div>
     <div className="containerUsername">
     <InputGroup className="mb-3">
@@ -149,4 +150,5 @@ LoginView.propTypes = {
       </InputGroup>
     </div>
   </div>
-*/}
+*/
+}
