@@ -2,12 +2,15 @@ import React from 'react';
 import axios from 'axios';
 
 import { LoginView } from '../LoginView/LoginView';
+//import { NavBarView } from '../NavBarView/NavBarView';
 import { SingUpView } from '../SingUpView/SingUpView';
 import { MovieCardView } from '../MovieCardView/MovieCardView';
 import { MovieView } from '../MovieView/MovieView';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+//import Nav from 'react-bootstrap/Nav';
+//import Navbar from 'react-bootstrap/Navbar';
 import { Container } from 'react-bootstrap';
 
 import './MainView.scss';
@@ -21,7 +24,7 @@ export class MainView extends React.Component {
       documentaries: null,
       selectedDocumentary: null,
       user: null,
-      singUpSelected: null
+      singUp: null
     };
 
     this.removeDocumentaryFromSelected = this.removeDocumentaryFromSelected.bind(this)
@@ -33,6 +36,7 @@ export class MainView extends React.Component {
     .then(response => {
       // Assign the result to the state
       this.setState({
+        // Its bring data from the response/API
         documentaries: response.data
       });
     })
@@ -44,47 +48,49 @@ export class MainView extends React.Component {
   /*When a movie is clicked, this function is invoked and updates the state of the `selectedMovie` *property to that movie*/
   onDocumentaryClick(documentary) {
     this.setState({
-      selectedDocumentary: documentary
+      selectedDocumentary: documentary,
     });
   }
 
   /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
   onLoggedIn(user) {
     this.setState({
-      user
+      user,
     });
   }
-
+  
+  onRegister(register) {
+    this.setState({
+      register,
+    });
+  }
+  
   removeDocumentaryFromSelected() {
     this.setState({
-      selectedDocumentary: null
+      selectedDocumentary: null,
     });
   }
 
-  onSingUp() {
-    this.setState({
-      singUpSelected: true
-    })
-}
 
   // This overrides the render() method of the superclass
   // No need to call super() though, as it does nothing by default
   render() {
-
+    
     // If the state isn't initialized, this will throw on runtime
     // before tha data is initially loaded
-    const { documentaries, selectedDocumentary, user, singUpSelected } = this.state;
+    const { documentaries, selectedDocumentary, user, register } = this.state;
 
     // If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*
     if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
     //If there is no user and singUpRegistration is True, the SingUpView is rendered.
-    if (!user && !singUpSelected) return <SingUpView onLoggedIn={user => this.onLoggedIn(user)} />;
+    if (!register) return <SingUpView onRegister={register => this.onRegister(register)} />;
 
     // Before the movies have been loaded
     if (!documentaries) return <div className="MainView"/>;
 
     return (
+      
       <Container className="mainView">
         <Row className=" justify-content-md-center">
           {/*If the state of `selectedDocumentary` is not null, that selected movie will be returned otherwise, all *movies will be returned */}     
@@ -95,7 +101,7 @@ export class MainView extends React.Component {
                   documentary={selectedDocumentary} 
                   removeDocumentaryFromSelected={this.removeDocumentaryFromSelected}
                   //goBack={() => this.onMovieClick(null)}
-                  //singUpSelected={singUpSelected}
+                  //singUp={singUp}
                 />
               </Col>
               )

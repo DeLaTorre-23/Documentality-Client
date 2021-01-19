@@ -37,19 +37,34 @@ export function LoginView(props) {
           <Form.Control 
             type="password" 
             placeholder="Password" 
-            value={password} 
+            value={password}
             onChange={e => setPassword(e.target.value)} 
           />
         </Form.Group>
         
-        <Button 
-          className="btnLoginForm" 
-          type="submit" 
-          onClick={handleSubmit} >
+        <Button
+          className="btnLoginForm"
+          type="submit"
+          onClick={handleSubmit}>
           Login
         </Button>
         <Form.Text className="text-muted">
-          If you forgot your password, contact us.
+          If you forgot your password, 
+          <Button 
+            variant='link'>
+            {/*onClick={handleRegister} */}
+            contact us
+          </Button>
+          .
+        </Form.Text>
+        <Form.Text className="text-muted">
+          If you don't have account, 
+          <Button 
+            variant='link'
+            onClick={handleSubmit}> 
+            Register here
+          </Button>
+          .
         </Form.Text>
       </Form>
     </React.Fragment>
@@ -60,8 +75,9 @@ LoginView.propTypes = {
   user: PropTypes.shape({
     username: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired
-  }).isRequired,
-  onClick: PropTypes.func.isRequired
+  }),
+  onLoggedIn: PropTypes.func.isRequired,
+  onRegister: PropTypes.func,
 };
 
 {/*

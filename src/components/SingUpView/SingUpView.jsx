@@ -8,22 +8,22 @@ import './SingUpView.scss';
 
 export function SingUpView(props) {
   const [ username, setUsername ] = useState('');
-  const [ password, setPassword ] = useState('');
   const [ email, setEmail ] = useState('');
   const [ birthday, setBirthday ] = useState('');
+  const [ password, setPassword ] = useState('');
   const [ phone, setPhone ] = useState('');
 
-  // const handleRegister = (e) => {
-  //  e.preventDefault();
-  //  console.log(username, password, email, birthday, phone);
-  //  props.onLoggedIn(username);
-  // };
+  const handleRegister = (e) => {
+    e.preventDefault();
+    console.log(username, password, email, birthday, phone);
+    props.onRegisterIn(username);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password);
+    console.log(username, birthday, email, password);
     /* Send a request to the server for authentication then call props.onLoggedIn(username) */
-    props.onLoggedIn(username);
+    props.onRegister(username);
   };
 
   return (  
@@ -78,10 +78,10 @@ export function SingUpView(props) {
         </Form.Group>
         
         <Button 
-          className="btnSingUpForm" 
-          type="submit" 
-          onClick={handleSubmit} >
-          Login
+          className="btnSingUpForm"
+          type="submit"
+          onClick={handleSubmit}>
+          Register
         </Button>
         <Form.Text className="text-muted">
           We will never trade your data.
@@ -92,10 +92,11 @@ export function SingUpView(props) {
 }
 
 SingUpView.propTypes = {
-  user: PropTypes.shape({
+  register: PropTypes.shape({
       username: PropTypes.string.isRequired,
-      password: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
-      birthday: PropTypes.instanceOf(Date).isRequired
-  })
+      birthday: PropTypes.instanceOf(Date).isRequired,
+      password: PropTypes.string.isRequired
+  }),
+  onRegister: PropTypes.func.isRequired,
 };

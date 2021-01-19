@@ -34229,15 +34229,23 @@ function LoginView(props) {
     onClick: handleSubmit
   }, "Login"), _react.default.createElement(_Form.default.Text, {
     className: "text-muted"
-  }, "If you forgot your password, contact us.")));
+  }, "If you forgot your password,", _react.default.createElement(_Button.default, {
+    variant: "link"
+  }, "contact us"), "."), _react.default.createElement(_Form.default.Text, {
+    className: "text-muted"
+  }, "If you don't have account,", _react.default.createElement(_Button.default, {
+    variant: "link",
+    onClick: handleSubmit
+  }, "Register here"), ".")));
 }
 
 LoginView.propTypes = {
   user: _propTypes.default.shape({
     username: _propTypes.default.string.isRequired,
     password: _propTypes.default.string.isRequired
-  }).isRequired,
-  onClick: _propTypes.default.func.isRequired
+  }),
+  onLoggedIn: _propTypes.default.func.isRequired,
+  onRegister: _propTypes.default.func
 };
 {
   /*
@@ -34361,35 +34369,36 @@ function SingUpView(props) {
 
   var _useState3 = (0, _react.useState)(''),
       _useState4 = _slicedToArray(_useState3, 2),
-      password = _useState4[0],
-      setPassword = _useState4[1];
+      email = _useState4[0],
+      setEmail = _useState4[1];
 
   var _useState5 = (0, _react.useState)(''),
       _useState6 = _slicedToArray(_useState5, 2),
-      email = _useState6[0],
-      setEmail = _useState6[1];
+      birthday = _useState6[0],
+      setBirthday = _useState6[1];
 
   var _useState7 = (0, _react.useState)(''),
       _useState8 = _slicedToArray(_useState7, 2),
-      birthday = _useState8[0],
-      setBirthday = _useState8[1];
+      password = _useState8[0],
+      setPassword = _useState8[1];
 
   var _useState9 = (0, _react.useState)(''),
       _useState10 = _slicedToArray(_useState9, 2),
       phone = _useState10[0],
-      setPhone = _useState10[1]; // const handleRegister = (e) => {
-  //  e.preventDefault();
-  //  console.log(username, password, email, birthday, phone);
-  //  props.onLoggedIn(username);
-  // };
+      setPhone = _useState10[1];
 
+  var handleRegister = function handleRegister(e) {
+    e.preventDefault();
+    console.log(username, password, email, birthday, phone);
+    props.onRegisterIn(username);
+  };
 
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
-    console.log(username, password);
+    console.log(username, birthday, email, password);
     /* Send a request to the server for authentication then call props.onLoggedIn(username) */
 
-    props.onLoggedIn(username);
+    props.onRegister(username);
   };
 
   return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_Form.default, {
@@ -34440,18 +34449,19 @@ function SingUpView(props) {
     className: "btnSingUpForm",
     type: "submit",
     onClick: handleSubmit
-  }, "Login"), _react.default.createElement(_Form.default.Text, {
+  }, "Register"), _react.default.createElement(_Form.default.Text, {
     className: "text-muted"
   }, "We will never trade your data.")));
 }
 
 SingUpView.propTypes = {
-  user: _propTypes.default.shape({
+  register: _propTypes.default.shape({
     username: _propTypes.default.string.isRequired,
-    password: _propTypes.default.string.isRequired,
     email: _propTypes.default.string.isRequired,
-    birthday: _propTypes.default.instanceOf(Date).isRequired
-  })
+    birthday: _propTypes.default.instanceOf(Date).isRequired,
+    password: _propTypes.default.string.isRequired
+  }),
+  onRegister: _propTypes.default.func.isRequired
 };
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./SingUpView.scss":"components/SingUpView/SingUpView.scss"}],"../node_modules/react-bootstrap/esm/divWithClassName.js":[function(require,module,exports) {
 "use strict";
@@ -48437,7 +48447,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       documentaries: null,
       selectedDocumentary: null,
       user: null,
-      singUpSelected: null
+      singUp: null
     };
     _this.removeDocumentaryFromSelected = _this.removeDocumentaryFromSelected.bind(_assertThisInitialized(_this));
     return _this;
@@ -48451,6 +48461,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       _axios.default.get('https://documentality.herokuapp.com/documentaries').then(function (response) {
         // Assign the result to the state
         _this2.setState({
+          // Its bring data from the response/API
           documentaries: response.data
         });
       }).catch(function (error) {
@@ -48476,17 +48487,17 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "onRegister",
+    value: function onRegister(register) {
+      this.setState({
+        register: register
+      });
+    }
+  }, {
     key: "removeDocumentaryFromSelected",
     value: function removeDocumentaryFromSelected() {
       this.setState({
         selectedDocumentary: null
-      });
-    }
-  }, {
-    key: "onSingUp",
-    value: function onSingUp() {
-      this.setState({
-        singUpSelected: true
       });
     } // This overrides the render() method of the superclass
     // No need to call super() though, as it does nothing by default
@@ -48502,7 +48513,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           documentaries = _this$state.documentaries,
           selectedDocumentary = _this$state.selectedDocumentary,
           user = _this$state.user,
-          singUpSelected = _this$state.singUpSelected; // If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*
+          register = _this$state.register; // If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*
 
       if (!user) return _react.default.createElement(_LoginView.LoginView, {
         onLoggedIn: function onLoggedIn(user) {
@@ -48510,9 +48521,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         }
       }); //If there is no user and singUpRegistration is True, the SingUpView is rendered.
 
-      if (!user && !singUpSelected) return _react.default.createElement(_SingUpView.SingUpView, {
-        onLoggedIn: function onLoggedIn(user) {
-          return _this3.onLoggedIn(user);
+      if (!register) return _react.default.createElement(_SingUpView.SingUpView, {
+        onRegister: function onRegister(register) {
+          return _this3.onRegister(register);
         }
       }); // Before the movies have been loaded
 
@@ -48526,7 +48537,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }, selectedDocumentary ? _react.default.createElement(_Col.default, null, " ", _react.default.createElement(_MovieView.MovieView, {
         documentary: selectedDocumentary,
         removeDocumentaryFromSelected: this.removeDocumentaryFromSelected //goBack={() => this.onMovieClick(null)}
-        //singUpSelected={singUpSelected}
+        //singUp={singUp}
 
       })) : documentaries.map(function (documentary) {
         return _react.default.createElement(_Col.default, null, "  ", _react.default.createElement(_MovieCardView.MovieCardView, {
@@ -48642,7 +48653,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51191" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64759" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
