@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -13,7 +15,7 @@ export function LoginView(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    /* Send a request to the server for authentication*/
+    /* Send an authentication request made for the 'login' endpoint of DOCumentality API using Axios */
     axios
       .post("https://documentality.herokuapp.com/login", {
         Username: username,
@@ -62,9 +64,9 @@ export function LoginView(props) {
           .
         </Form.Text>
         <Form.Text className="text-muted">
-          If you don't have account,
+          Don't have an account?
           <Button className="linkRegister" variant="link">
-            register here
+            Register here
           </Button>
           .
         </Form.Text>

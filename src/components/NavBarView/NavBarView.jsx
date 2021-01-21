@@ -1,36 +1,47 @@
 import React from "react";
-
+import axios from "axios";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
-import Link from "react-router-dom/";
+// import { NavLink } from "react-router-dom/NavLink";
 
 import "./NavBarView.scss";
 export class NavBarView extends React.Component {
   render() {
+    const handleLoggedOut = (e) => {
+      e.preventDefault();
+      axios.get("https://documentality.herokuapp.com/login");
+
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+    };
+
     return (
       <Navbar
+        className="navBarWrap"
         collapseOnSelect
         expand="lg"
         sticky="top"
-        bg="dark"
-        variant="dark"
+        //bg="dark"
+        //variant="dark"
         fixed="top"
       >
         <Navbar.Brand href="/">
           <img
-            src={logo}
+            src="../dist/logoDOC.png"
             className="d-inline-block align-top"
             alt="React Bootstrap logo"
           />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="mr-auto">
+          <Nav className="navBarLinks">
+            <Nav.Link href="#login" onClick={handleLoggedOut}>
+              Logout
+            </Nav.Link>
             <Nav.Link href="#Documentaries">Movies</Nav.Link>
             <Nav.Link href="#Genre">Genre</Nav.Link>
             <Nav.Link href="#Director">Director</Nav.Link>
-            <Nav.Link href="#Login">Logout</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

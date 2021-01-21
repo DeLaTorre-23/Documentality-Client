@@ -2,10 +2,10 @@ import React from "react";
 import axios from "axios";
 
 import { LoginView } from "../LoginView/LoginView";
-import { SingUpView } from "../SingUpView/SingUpView";
+import { NavBarView } from "../NavBarView/NavBarView";
+// import { SingUpView } from "../SingUpView/SingUpView";
 import { MovieCardView } from "../MovieCardView/MovieCardView";
 import { MovieView } from "../MovieView/MovieView";
-// import { NavBarView } from "../NavBarView/NavBarView";
 
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -40,6 +40,8 @@ export class MainView extends React.Component {
     }
   }
 
+  /* A GET request is made to the 'documentaries' endpoint (of DOCumentality API using Axios) 
+  by passing the bearer authorization */
   getDocumentaries(token) {
     axios
       .get("https://documentality.herokuapp.com/documentaries", {
@@ -87,7 +89,7 @@ export class MainView extends React.Component {
   render() {
     // If the state isn't initialized, this will throw on runtime
     // before tha data is initially loaded
-    const { documentaries, selectedDocumentary, user } = this.state;
+    const { documentaries, selectedDocumentary, user, loggedOut } = this.state;
 
     // If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*
     if (!user)
@@ -99,7 +101,9 @@ export class MainView extends React.Component {
     return (
       <React.Fragment>
         <div className="mainWrap">
-          <header>{/*<NavBarView />*/}</header>
+          <header>
+            <NavBarView documentary={loggedOut} />
+          </header>
 
           <Container className="mainView">
             <Row className=" justify-content-md-center">

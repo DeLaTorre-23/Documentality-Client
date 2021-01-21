@@ -11,7 +11,7 @@ export function SingUpView(props) {
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
   const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState("");
+  //const [phone, setPhone] = useState("");
 
   return (
     <React.Fragment>
