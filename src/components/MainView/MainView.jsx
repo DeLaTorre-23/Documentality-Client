@@ -5,7 +5,7 @@ import { LoginView } from "../LoginView/LoginView";
 import { SingUpView } from "../SingUpView/SingUpView";
 import { MovieCardView } from "../MovieCardView/MovieCardView";
 import { MovieView } from "../MovieView/MovieView";
-import { NavBarView } from "../NavBarView/NavBarView";
+// import { NavBarView } from "../NavBarView/NavBarView";
 
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -31,8 +31,20 @@ export class MainView extends React.Component {
   }
 
   componentDidMount() {
+    let accessToken = localStorage.getItem("token");
+    if (accessToken !== null) {
+      this.setState({
+        user: localStorage.getItem("user"),
+      });
+      this.getDocumentaries(accessToken);
+    }
+  }
+
+  getDocumentaries(token) {
     axios
-      .get("https://documentality.herokuapp.com/documentaries")
+      .get("https://documentality.herokuapp.com/documentaries", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => {
         // Assign the result to the state
         this.setState({
@@ -45,23 +57,22 @@ export class MainView extends React.Component {
       });
   }
 
+  /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
+  onLoggedIn(authData) {
+    console.log(authData);
+    this.setState({
+      user: authData.user.Username,
+    });
+
+    localStorage.setItem("token", authData.token);
+    localStorage.setItem("user", authData.user.Username);
+    this.getDocumentaries(authData.token);
+  }
+
   /*When a movie is clicked, this function is invoked and updates the state of the `selectedMovie` *property to that movie*/
   onDocumentaryClick(documentary) {
     this.setState({
       selectedDocumentary: documentary,
-    });
-  }
-
-  /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
-  onLoggedIn(user) {
-    this.setState({
-      user,
-    });
-  }
-
-  onRegister(register) {
-    this.setState({
-      register,
     });
   }
 
@@ -76,17 +87,11 @@ export class MainView extends React.Component {
   render() {
     // If the state isn't initialized, this will throw on runtime
     // before tha data is initially loaded
-    const { documentaries, selectedDocumentary, user, register } = this.state;
+    const { documentaries, selectedDocumentary, user } = this.state;
 
     // If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*
     if (!user)
       return <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />;
-
-    //If there is no user and singUpRegistration is True, the SingUpView is rendered.
-    if (!register)
-      return (
-        <SingUpView onRegister={(register) => this.onRegister(register)} />
-      );
 
     // Before the movies have been loaded
     if (!documentaries) return <div className="MainView" />;

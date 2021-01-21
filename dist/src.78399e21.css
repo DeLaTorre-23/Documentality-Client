@@ -120,7 +120,6 @@ h1 {
   width: 100%;
   cursor: pointer;
 }
-
 */
 .movieView {
   width: 100%;
@@ -176,10 +175,6 @@ h1 {
   font-size: large;
   font-family: sans-serif;
 }
-.navBar {
-  margin-bottom: 20px;
-  font-family: Trebuchet MS, Helvetica, Arial, sans-serif;
-}
 .mainView {
   display: flex;
   flex-flow: row wrap;
@@ -189,6 +184,7 @@ h1 {
   margin-top: 30px;
   margin-bottom: 30px;
   background-color: #0cb7f2;
+  border: 3px solid #53d4ff;
   font-family: Trebuchet MS, Helvetica, Arial, sans-serif;
   flex: 1 0 auto;
 }
