@@ -43,6 +43,39 @@
   margin: 0px auto;
   padding: 1px;
 }
+.singUpForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  margin-top: 100px;
+  padding: 40px;
+  margin: 7% auto;
+  max-width: 500px;
+  min-height: 400px;
+  border-radius: 23px;
+  background-color: #bce7ff;
+  border: 3px solid #53d4ff;
+  font-family: Trebuchet MS, Helvetica, Arial, sans-serif;
+}
+.singUpForm input {
+  width: 350px;
+}
+
+h1 {
+  color: #0069c0;
+  margin-bottom: 50px;
+}
+
+.btnSingUpForm {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  width: 350px;
+  background-color: #0069c0;
+  border: 2px solid #53d4ff;
+  color: #fff;
+}
 .navBarWrap {
   margin-bottom: 20px;
   font-family: Trebuchet MS, Helvetica, Arial, sans-serif;
