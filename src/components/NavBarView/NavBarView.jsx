@@ -1,13 +1,15 @@
-import React from "react";
+import React, { Component } from "react";
 import axios from "axios";
+
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
-// import { NavLink } from "react-router-dom/NavLink";
+
 import logo from "../../assets/logoDOC.png";
 
+// import Logo from "../../assets/images/logoDoc.png";
 import "./NavBarView.scss";
-export class NavBarView extends React.Component {
+export class NavBarView extends Component {
   render() {
     const handleLoggedOut = (e) => {
       e.preventDefault();
@@ -42,12 +44,12 @@ export class NavBarView extends React.Component {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="navBarLinks">
-            <Nav.Link href="#login" onClick={handleLoggedOut}>
+            <Nav.Link to={`/documentaries`}>Movies</Nav.Link>
+            <Nav.Link to={`/genres`}>Genre</Nav.Link>
+            <Nav.Link to={`/directors`}>Director</Nav.Link>
+            <Nav.Link to={`/login`} onClick={handleLoggedOut}>
               Logout
             </Nav.Link>
-            <Nav.Link href="#Documentaries">Movies</Nav.Link>
-            <Nav.Link href="#Genre">Genre</Nav.Link>
-            <Nav.Link href="#Director">Director</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

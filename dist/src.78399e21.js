@@ -39968,7 +39968,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.NavBarView = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
 
@@ -39983,6 +39983,10 @@ var _logoDOC = _interopRequireDefault(require("../../assets/logoDOC.png"));
 require("./NavBarView.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -40006,8 +40010,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var NavBarView = /*#__PURE__*/function (_React$Component) {
-  _inherits(NavBarView, _React$Component);
+var NavBarView = /*#__PURE__*/function (_Component) {
+  _inherits(NavBarView, _Component);
 
   var _super = _createSuper(NavBarView);
 
@@ -40054,20 +40058,20 @@ var NavBarView = /*#__PURE__*/function (_React$Component) {
       }, _react.default.createElement(_Nav.default, {
         className: "navBarLinks"
       }, _react.default.createElement(_Nav.default.Link, {
-        href: "#login",
-        onClick: handleLoggedOut
-      }, "Logout"), _react.default.createElement(_Nav.default.Link, {
-        href: "#Documentaries"
+        to: "/documentaries"
       }, "Movies"), _react.default.createElement(_Nav.default.Link, {
-        href: "#Genre"
+        to: "/genres"
       }, "Genre"), _react.default.createElement(_Nav.default.Link, {
-        href: "#Director"
-      }, "Director"))));
+        to: "/directors"
+      }, "Director"), _react.default.createElement(_Nav.default.Link, {
+        to: "/login",
+        onClick: handleLoggedOut
+      }, "Logout"))));
     }
   }]);
 
   return NavBarView;
-}(_react.default.Component);
+}(_react.Component);
 
 exports.NavBarView = NavBarView;
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-bootstrap/Navbar":"../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/Nav":"../node_modules/react-bootstrap/esm/Nav.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","../../assets/logoDOC.png":"assets/logoDOC.png","./NavBarView.scss":"components/NavBarView/NavBarView.scss"}],"../node_modules/react-bootstrap/esm/divWithClassName.js":[function(require,module,exports) {
@@ -51697,7 +51701,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62835" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55465" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
