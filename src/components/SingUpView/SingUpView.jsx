@@ -13,6 +13,28 @@ export function SingUpView(props) {
   const [password, setPassword] = useState("");
   //const [phone, setPhone] = useState("");
 
+  const handleRegister = (e) => {
+    e.preventDefault();
+
+    /* Send an authentication request made for the 'login' endpoint of DOCumentality API using Axios */
+    axios
+      .post("https://documentality.herokuapp.com/users", {
+        Username: username,
+        Email: email,
+        Birthday: birthday,
+        Password: password,
+      })
+      .then((response) => {
+        const data = response.data;
+        console.log(data);
+        // the second argument '_self' is necessary so that the page will open in the current tab
+        windows.open("/", "_self");
+      })
+      .catch((e) => {
+        console.log("Error registering the user");
+      });
+  };
+
   return (
     <React.Fragment>
       <Form className="singUpForm">
@@ -66,8 +88,11 @@ export function SingUpView(props) {
           </Form.Text>
         </Form.Group>
 
-        <Button className="btnSingUpForm" type="submit">
-          {/*onClick={handleSubmit}*/}
+        <Button
+          className="btnSingUpForm"
+          type="submit"
+          onClick={handleRegister}
+        >
           Register
         </Button>
         <Form.Text className="text-muted">
