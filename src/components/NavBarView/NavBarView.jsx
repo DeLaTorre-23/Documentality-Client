@@ -4,6 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 // import { NavLink } from "react-router-dom/NavLink";
+import logo from "../../assets/logoDOC.png";
 
 import "./NavBarView.scss";
 export class NavBarView extends React.Component {
@@ -27,11 +28,16 @@ export class NavBarView extends React.Component {
         fixed="top"
       >
         <Navbar.Brand href="/">
-          <img
-            src="../dist/logoDOC.png"
-            className="d-inline-block align-top"
-            alt="React Bootstrap logo"
-          />
+          <div className="logo">
+            <img
+              src={logo}
+              className="logoImg d-inline-block align-top"
+              alt="DOCumentality"
+            />
+            <span id="brand">
+              <strong>DOC</strong>umentality
+            </span>
+          </div>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">

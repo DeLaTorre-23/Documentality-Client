@@ -39953,7 +39953,9 @@ Nav.Item = _NavItem.default;
 Nav.Link = _NavLink.default;
 var _default = Nav;
 exports.default = _default;
-},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","classnames":"../node_modules/classnames/index.js","prop-types-extra/lib/all":"../node_modules/prop-types-extra/lib/all.js","react":"../node_modules/react/index.js","uncontrollable":"../node_modules/uncontrollable/esm/index.js","./ThemeProvider":"../node_modules/react-bootstrap/esm/ThemeProvider.js","./NavbarContext":"../node_modules/react-bootstrap/esm/NavbarContext.js","./CardContext":"../node_modules/react-bootstrap/esm/CardContext.js","./AbstractNav":"../node_modules/react-bootstrap/esm/AbstractNav.js","./NavItem":"../node_modules/react-bootstrap/esm/NavItem.js","./NavLink":"../node_modules/react-bootstrap/esm/NavLink.js"}],"components/NavBarView/NavBarView.scss":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","classnames":"../node_modules/classnames/index.js","prop-types-extra/lib/all":"../node_modules/prop-types-extra/lib/all.js","react":"../node_modules/react/index.js","uncontrollable":"../node_modules/uncontrollable/esm/index.js","./ThemeProvider":"../node_modules/react-bootstrap/esm/ThemeProvider.js","./NavbarContext":"../node_modules/react-bootstrap/esm/NavbarContext.js","./CardContext":"../node_modules/react-bootstrap/esm/CardContext.js","./AbstractNav":"../node_modules/react-bootstrap/esm/AbstractNav.js","./NavItem":"../node_modules/react-bootstrap/esm/NavItem.js","./NavLink":"../node_modules/react-bootstrap/esm/NavLink.js"}],"assets/logoDOC.png":[function(require,module,exports) {
+module.exports = "/logoDOC.82620065.png";
+},{}],"components/NavBarView/NavBarView.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -39975,6 +39977,8 @@ var _Navbar = _interopRequireDefault(require("react-bootstrap/Navbar"));
 var _Nav = _interopRequireDefault(require("react-bootstrap/Nav"));
 
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
+
+var _logoDOC = _interopRequireDefault(require("../../assets/logoDOC.png"));
 
 require("./NavBarView.scss");
 
@@ -40035,11 +40039,15 @@ var NavBarView = /*#__PURE__*/function (_React$Component) {
         fixed: "top"
       }, _react.default.createElement(_Navbar.default.Brand, {
         href: "/"
+      }, _react.default.createElement("div", {
+        className: "logo"
       }, _react.default.createElement("img", {
-        src: "../dist/logoDOC.png",
-        className: "d-inline-block align-top",
-        alt: "React Bootstrap logo"
-      })), _react.default.createElement(_Navbar.default.Toggle, {
+        src: _logoDOC.default,
+        className: "logoImg d-inline-block align-top",
+        alt: "DOCumentality"
+      }), _react.default.createElement("span", {
+        id: "brand"
+      }, _react.default.createElement("strong", null, "DOC"), "umentality"))), _react.default.createElement(_Navbar.default.Toggle, {
         "aria-controls": "responsive-navbar-nav"
       }), _react.default.createElement(_Navbar.default.Collapse, {
         id: "responsive-navbar-nav"
@@ -40062,7 +40070,7 @@ var NavBarView = /*#__PURE__*/function (_React$Component) {
 }(_react.default.Component);
 
 exports.NavBarView = NavBarView;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-bootstrap/Navbar":"../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/Nav":"../node_modules/react-bootstrap/esm/Nav.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./NavBarView.scss":"components/NavBarView/NavBarView.scss"}],"../node_modules/react-bootstrap/esm/divWithClassName.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-bootstrap/Navbar":"../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/Nav":"../node_modules/react-bootstrap/esm/Nav.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","../../assets/logoDOC.png":"assets/logoDOC.png","./NavBarView.scss":"components/NavBarView/NavBarView.scss"}],"../node_modules/react-bootstrap/esm/divWithClassName.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
