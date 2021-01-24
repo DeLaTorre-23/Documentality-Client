@@ -40117,19 +40117,12 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
 
-var _reactRouterDom = require("react-router-dom");
-
 var _Navbar = _interopRequireDefault(require("react-bootstrap/Navbar"));
 
 var _Nav = _interopRequireDefault(require("react-bootstrap/Nav"));
 
-<<<<<<< HEAD
-var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
-
 var _logoDOC = _interopRequireDefault(require("../../assets/logoDOC.png"));
 
-=======
->>>>>>> 2244faf1e0f665246951956ef079d431b49de97e
 require("./NavBarView.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -40196,19 +40189,12 @@ var NavBarView = /*#__PURE__*/function (_Component) {
       }, _react.default.createElement("div", {
         className: "logo"
       }, _react.default.createElement("img", {
-<<<<<<< HEAD
         src: _logoDOC.default,
         className: "logoImg d-inline-block align-top",
         alt: "DOCumentality"
       }), _react.default.createElement("span", {
         id: "brand"
       }, _react.default.createElement("strong", null, "DOC"), "umentality"))), _react.default.createElement(_Navbar.default.Toggle, {
-=======
-        //src={Logo}
-        className: "d-inline-block align-top",
-        alt: "React Bootstrap logo"
-      })), _react.default.createElement(_Navbar.default.Toggle, {
->>>>>>> 2244faf1e0f665246951956ef079d431b49de97e
         "aria-controls": "responsive-navbar-nav"
       }), _react.default.createElement(_Navbar.default.Collapse, {
         id: "responsive-navbar-nav"
@@ -40231,11 +40217,7 @@ var NavBarView = /*#__PURE__*/function (_Component) {
 }(_react.Component);
 
 exports.NavBarView = NavBarView;
-<<<<<<< HEAD
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-bootstrap/Navbar":"../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/Nav":"../node_modules/react-bootstrap/esm/Nav.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","../../assets/logoDOC.png":"assets/logoDOC.png","./NavBarView.scss":"components/NavBarView/NavBarView.scss"}],"../node_modules/react-bootstrap/esm/divWithClassName.js":[function(require,module,exports) {
-=======
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap/Navbar":"../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/Nav":"../node_modules/react-bootstrap/esm/Nav.js","./NavBarView.scss":"components/NavBarView/NavBarView.scss"}],"../node_modules/react-bootstrap/esm/divWithClassName.js":[function(require,module,exports) {
->>>>>>> 2244faf1e0f665246951956ef079d431b49de97e
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-bootstrap/Navbar":"../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/Nav":"../node_modules/react-bootstrap/esm/Nav.js","../../assets/logoDOC.png":"assets/logoDOC.png","./NavBarView.scss":"components/NavBarView/NavBarView.scss"}],"../node_modules/react-bootstrap/esm/divWithClassName.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51922,15 +51904,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-<<<<<<< HEAD
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52279" + '/');
-=======
-<<<<<<< HEAD
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62835" + '/');
-=======
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60813" + '/');
->>>>>>> 2244faf1e0f665246951956ef079d431b49de97e
->>>>>>> f739e71a2d563a712755a9126b7a3bb78e8bc545
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54188" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
