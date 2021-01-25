@@ -5,6 +5,9 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 import logo from "../../assets/logoDOC.png";
 
 // import Logo from "../../assets/images/logoDoc.png";
@@ -44,12 +47,26 @@ export class NavBarView extends Component {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="navBarLinks">
-            <Nav.Link to={`/documentaries`}>Movies</Nav.Link>
-            <Nav.Link to={`/genres`}>Genre</Nav.Link>
-            <Nav.Link to={`/directors`}>Director</Nav.Link>
-            <Nav.Link to={`/login`} onClick={handleLoggedOut}>
-              Logout
-            </Nav.Link>
+            <Link to={`/home`}>
+              <Button className="navLink" variant="link">
+                Movies
+              </Button>
+            </Link>
+            <Link to={`/genres`}>
+              <Button className="navLink" variant="link">
+                Genre
+              </Button>
+            </Link>
+            <Link to={`/directors`}>
+              <Button className="navLink" variant="link">
+                Director
+              </Button>
+            </Link>
+            <Link to={`/loginView`} onClick={handleLoggedOut}>
+              <Button className="navLink" variant="link">
+                Logout
+              </Button>
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

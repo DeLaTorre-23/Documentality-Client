@@ -1,10 +1,12 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import Button from "react-bootstrap/Button";
 
+import { Link } from "react-router-dom";
+
 import "./MovieView.scss";
-export class MovieView extends React.Component {
+export class MovieView extends Component {
   constructor() {
     super();
 
@@ -45,17 +47,12 @@ export class MovieView extends React.Component {
           </div>
 
           <div className="btnMovieView">
-            {/* Reload all the page*/}
-            {/* <a href="window.history.back();">Go Back</a>*/}
+            <Link to={`/home`}>
+              <Button className="btnBack" variant="danger">
+                Go Back Me
+              </Button>
+            </Link>
 
-            {/* Don't reload the page, just go back*/}
-            <Button
-              className="btnBack"
-              onClick={this.props.removeDocumentaryFromSelected}
-              variant="danger"
-            >
-              Go Back Me
-            </Button>
             <Button className="btnAddFavorite" onClick={addFavorite}>
               Add to Favorites
             </Button>
