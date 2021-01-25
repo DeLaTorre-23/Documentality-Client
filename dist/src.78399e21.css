@@ -58,6 +58,14 @@
 .logoImg {
   margin-right: 5px;
 }
+
+#responsive-navbar-nav {
+  display: block;
+}
+
+.navBarLinks {
+  align-content: right;
+}
 .movieCard {
   border: solid 2px;
   border-radius: 3px;

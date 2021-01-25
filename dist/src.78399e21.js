@@ -40447,6 +40447,11 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var documentary = this.props.documentary;
       if (!documentary) return null;
+
+      var addFavorite = function addFavorite() {
+        console.log("Added in Favorite List");
+      };
+
       return _react.default.createElement("div", {
         className: "movieView"
       }, _react.default.createElement("img", {
@@ -40486,7 +40491,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
         variant: "danger"
       }, "Go Back Me"), _react.default.createElement(_Button.default, {
         className: "btnAddFavorite",
-        onClick: this.addFavorite
+        onClick: addFavorite
       }, "Add to Favorites"))));
     }
   }]);
@@ -40506,34 +40511,33 @@ MovieView.propTypes = {
     Director: _propTypes.default.shape({
       Name: _propTypes.default.string.isRequired
     })
-  }).isRequired,
-  onClick: _propTypes.default.func.isRequired
+  }).isRequired
 };
 {
   /*
-   <div className='movie-view'>
-         <Card style={{ width: '18rem' }}>
-           <Card.Img variant='top' src={movie.imagePath} />
-           <Card.Body>
-             <Card.Title>{movie.title}</Card.Title>
-             <Card.Text>
-               <span className='label text-danger'>Description: </span>
-               <span className='value'>{movie.description}</span>
-             </Card.Text>
-             <Card.Text>
-               <span className='label text-danger'>Genre: </span>
-               <span className='value'>{movie.genre.name}</span>
-             </Card.Text>
-             <Card.Text>
-               <span className='label text-danger'>Director: </span>
-               <span className='value'>{movie.director.name}</span>
-             </Card.Text>
-             <Button onClick={() => onClick()} variant='primary'>
-               Back
-             </Button>
-           </Card.Body>
-         </Card>
-       </div>
+  <div className='movie-view'>
+        <Card style={{ width: '18rem' }}>
+          <Card.Img variant='top' src={movie.imagePath} />
+          <Card.Body>
+            <Card.Title>{movie.title}</Card.Title>
+            <Card.Text>
+              <span className='label text-danger'>Description: </span>
+              <span className='value'>{movie.description}</span>
+            </Card.Text>
+            <Card.Text>
+              <span className='label text-danger'>Genre: </span>
+              <span className='value'>{movie.genre.name}</span>
+            </Card.Text>
+            <Card.Text>
+              <span className='label text-danger'>Director: </span>
+              <span className='value'>{movie.director.name}</span>
+            </Card.Text>
+            <Button onClick={() => onClick()} variant='primary'>
+              Back
+            </Button>
+          </Card.Body>
+        </Card>
+      </div>
   */
 }
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./MovieView.scss":"components/MovieView/MovieView.scss"}],"../node_modules/react-bootstrap/esm/Row.js":[function(require,module,exports) {
@@ -51481,7 +51485,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       documentaries: null,
       selectedDocumentary: null,
       user: null,
-      singUp: null
+      singUp: null,
+      addFavorite: {}
     };
     _this.removeDocumentaryFromSelected = _this.removeDocumentaryFromSelected.bind(_assertThisInitialized(_this));
     return _this;
@@ -51701,7 +51706,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56438" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62672" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

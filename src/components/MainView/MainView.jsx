@@ -23,6 +23,7 @@ export class MainView extends React.Component {
       selectedDocumentary: null,
       user: null,
       singUp: null,
+      addFavorite: {},
     };
 
     this.removeDocumentaryFromSelected = this.removeDocumentaryFromSelected.bind(

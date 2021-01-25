@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import Button from 'react-bootstrap/Button'
+import Button from "react-bootstrap/Button";
 
-import './MovieView.scss';
+import "./MovieView.scss";
 export class MovieView extends React.Component {
   constructor() {
     super();
@@ -16,10 +16,14 @@ export class MovieView extends React.Component {
 
     if (!documentary) return null;
 
+    const addFavorite = () => {
+      console.log("Added in Favorite List");
+    };
+
     return (
       <div className="movieView">
-        <img className="moviePoster"  src={documentary.ImagePath} />
-        <div className="movieInfo" >
+        <img className="moviePoster" src={documentary.ImagePath} />
+        <div className="movieInfo">
           <div className="movieTitle">
             <span className="labelBold">Title: </span>
             <span className="value">{documentary.Title}</span>
@@ -38,17 +42,25 @@ export class MovieView extends React.Component {
           <div className="movieDirector">
             <span className="labelBold">Director: </span>
             <span className="value">{documentary.Director.Name}</span>
-          </div>   
+          </div>
 
           <div className="btnMovieView">
             {/* Reload all the page*/}
             {/* <a href="window.history.back();">Go Back</a>*/}
 
             {/* Don't reload the page, just go back*/}
-            <Button className="btnBack" onClick={this.props.removeDocumentaryFromSelected} variant="danger">Go Back Me</Button>
-            <Button className="btnAddFavorite" onClick={this.addFavorite}>Add to Favorites</Button>
-          </div>     
-        </div>      
+            <Button
+              className="btnBack"
+              onClick={this.props.removeDocumentaryFromSelected}
+              variant="danger"
+            >
+              Go Back Me
+            </Button>
+            <Button className="btnAddFavorite" onClick={addFavorite}>
+              Add to Favorites
+            </Button>
+          </div>
+        </div>
       </div>
     );
   }
@@ -60,16 +72,16 @@ MovieView.propTypes = {
     Description: PropTypes.string.isRequired,
     ImagePath: PropTypes.string.isRequired,
     Genre: PropTypes.shape({
-      Name: PropTypes.string.isRequired
+      Name: PropTypes.string.isRequired,
     }),
     Director: PropTypes.shape({
-      Name: PropTypes.string.isRequired
+      Name: PropTypes.string.isRequired,
     }),
   }).isRequired,
-  onClick: PropTypes.func.isRequired
 };
 
-{/*
+{
+  /*
   <div className='movie-view'>
         <Card style={{ width: '18rem' }}>
           <Card.Img variant='top' src={movie.imagePath} />
@@ -93,4 +105,5 @@ MovieView.propTypes = {
           </Card.Body>
         </Card>
       </div>
-*/}
+*/
+}
