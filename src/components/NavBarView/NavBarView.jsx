@@ -8,11 +8,11 @@ import Button from "react-bootstrap/Button";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import logo from "../../assets/logoDOC.png";
+import logo from "../../assets/images/logoDOC.svg";
 
-// import Logo from "../../assets/images/logoDoc.png";
-import "./NavBarView.scss";
-export class NavBarView extends Component {
+import "./NavbarView.scss";
+
+export class NavbarView extends Component {
   render() {
     const handleLoggedOut = (e) => {
       e.preventDefault();
@@ -24,7 +24,7 @@ export class NavBarView extends Component {
 
     return (
       <Navbar
-        className="navBarWrap"
+        className="navbarWrap"
         collapseOnSelect
         expand="lg"
         sticky="top"
@@ -60,6 +60,11 @@ export class NavBarView extends Component {
             <Link to={`/directors`}>
               <Button className="navLink" variant="link">
                 Director
+              </Button>
+            </Link>
+            <Link to={`/profile`}>
+              <Button className="navLink" variant="link">
+                Profile
               </Button>
             </Link>
             <Link to={`/loginView`} onClick={handleLoggedOut}>

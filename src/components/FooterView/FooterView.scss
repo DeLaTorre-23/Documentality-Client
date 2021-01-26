@@ -1,0 +1,17 @@
+.footer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  padding: 30px;
+  margin-top: 50px;
+  font-family: "Segoe UI", Trebuchet MS, Helvetica, Arial, sans-serif;
+  font-size: x-large;
+  background-color: #0cb7f2;
+  border-top: 3px solid #53d4ff;
+  p {
+    margin: 0px auto;
+    padding: 0px auto;
+  }
+}

@@ -4,10 +4,13 @@ import axios from "axios";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import { LoginView } from "../LoginView/LoginView";
-import { NavBarView } from "../NavBarView/NavBarView";
 import { SingUpView } from "../SingUpView/SingUpView";
 import { MovieCardView } from "../MovieCardView/MovieCardView";
 import { MovieView } from "../MovieView/MovieView";
+import { DirectorView } from "../DirectorView/DirectorView";
+import { GenreView } from "../GenreView/GenreView";
+import { NavbarView } from "../NavbarView/NavbarView";
+import { FooterView } from "../FooterView/FooterView";
 
 import { Container } from "react-bootstrap";
 
@@ -102,9 +105,9 @@ export class MainView extends Component {
     return (
       <Router>
         <header>
-          <NavBarView documentary={loggedOut} />
+          <NavbarView documentary={loggedOut} />
         </header>
-        {/* <Route path="/SingUp" render={({ match }) => <SingUpView />} />*/}
+        <Route path="/SingUp" render={({ match }) => <SingUpView />} />
         <Container className="center">
           <Route
             exact
@@ -147,11 +150,25 @@ export class MainView extends Component {
                       (m) => m.Director.Name === match.params.name
                     ).Director
                   }
+                  documentaries={documentaries.filter(
+                    (m) => m.Director.Name === match.params.name
+                  )}
                 />
               );
             }}
           />
+          <Route
+            path="/profile"
+            render={() => (
+              <ProfileView
+                user={user}
+                userToken={this.state.userToken}
+                documentaries={documentaries}
+              />
+            )}
+          />
         </Container>
+        <FooterView />
       </Router>
     );
   }

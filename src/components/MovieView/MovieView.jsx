@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
+import Card from "react-bootstrap/Card";
+import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 
 import { Link } from "react-router-dom";
@@ -23,7 +25,7 @@ export class MovieView extends Component {
     };
 
     return (
-      <div className="movieView">
+      <Container className="movieView">
         <img className="moviePoster" src={documentary.ImagePath} />
         <div className="movieInfo">
           <div className="movieTitle">
@@ -58,7 +60,7 @@ export class MovieView extends Component {
             </Button>
           </div>
         </div>
-      </div>
+      </Container>
     );
   }
 }
