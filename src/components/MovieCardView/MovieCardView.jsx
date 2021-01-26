@@ -43,34 +43,6 @@ export class MovieCardView extends Component {
 
 {
   /*
-  <Card
-        onClick={() => onClick(documentary)}
-        border='danger'
-        style={{ width: '200', height: 'auto' }}
-      >
-        <Card.Header>{documentary.Title}</Card.Header>
-        <img
-          className='moviePoster'
-          src={documentary.ImagePath}
-          alt='movie poster'
-        />
-      </Card>
-    */
-}
-
-{
-  /*
-    // <div onClick={() => onClick(documentary)} className="MovieCardView">{documentary.Title}</div>
-      <Card 
-        className="movieCard" 
-        onClick={() => onClick(documentary)} >
-        {/*<Card.Body>
-          <Card.Title>{documentary.Title + ' - ' + documentary.Released}</Card.Title>
-          <Card.Text>{documentary.Description}</Card.Text>     
-        </Card.Body>*/
-}
-{
-  /*
         <Card.Body className="movieCardBody">
           <Card.Img variant="top" src={documentary.ImagePath} />
           <Button

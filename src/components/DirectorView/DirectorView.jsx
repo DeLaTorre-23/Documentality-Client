@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
+//import ErrorView from "./ErrorView/ErrorView";
+
 import Button from "react-bootstrap/Button";
 
 import { Link } from "react-router-dom";
@@ -14,36 +16,51 @@ export class DirectorView extends Component {
   }
 
   render() {
-    const { director } = this.props;
+    const { director, documentaries } = this.props;
+
+    if (!director) return <ErrorView />;
 
     return (
       <div className="directorView">
-        <div className="directorName">
-          <span className="label">Name: </span>
-          <span className="value">{director.Name}</span>
+        <h2>Director Info</h2>
+        <hr />
+        <div className="cardBodyInfo">
+          <div className="directorName">
+            <span className="labelBold">Name: </span>
+            <span className="value">{director.Name}</span>
+          </div>
+          <br />
+          <div className="directorBio">
+            <span className="labelBold">Description: </span>
+            <span className="value">{director.Bio}</span>
+          </div>
+          <br />
+          <div className="directorBirth">
+            <span className="labelBold">Birth: </span>
+            <React.Fragment>
+              <span className="value">
+                {director.Birth && (
+                  <React.Fragment>{director.Birth}</React.Fragment>
+                )}
+                {!director.Birth && <React.Fragment>{"-"}</React.Fragment>}
+              </span>
+            </React.Fragment>
+          </div>
+          <hr className="lastHr" />
+          <div className="directorDocumentaries">
+            <span className="labelBold">More Documentaries: </span>
+            {documentaries.map((m) => (
+              <div className="documentary" key={m._id}>
+                {m.Title}
+              </div>
+            ))}
+          </div>
+          <br />
         </div>
-        <br />
-        <div className="directorBio">
-          <span className="label">Description: </span>
-          <span className="value">{director.Bio}</span>
-        </div>
-        <br />
-        <div className="directorBirth">
-          <span className="label">Birth: </span>
-          <span className="value">{director.Birthyear}</span>
-        </div>
-        <br />
-        <div className="director-movies">
-          <span className="label">Documentaries: </span>
-          {documentaries.map((m) => (
-            <div className="documentary" key={m._id}>
-              {m.Title}
-            </div>
-          ))}
-        </div>
-        <br />
         <Link to={"/"}>
-          <Button variant="outline-danger">Back</Button>
+          <Button variant="danger" className="btnBack">
+            Go Back Me
+          </Button>
         </Link>
       </div>
     );

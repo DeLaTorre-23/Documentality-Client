@@ -37374,6 +37374,8 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
+var _axios = _interopRequireDefault(require("axios"));
+
 var _Form = _interopRequireDefault(require("react-bootstrap/Form"));
 
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
@@ -37426,7 +37428,7 @@ function SingUpView(props) {
     e.preventDefault();
     /* Send an authentication request made for the 'login' endpoint of DOCumentality API using Axios */
 
-    axios.post("https://documentality.herokuapp.com/singUp", {
+    _axios.default.post("https://documentality.herokuapp.com/singUp", {
       Username: username,
       Password: password,
       Email: email,
@@ -37503,7 +37505,7 @@ SingUpView.propTypes = {
     password: _propTypes.default.string.isRequired
   })
 };
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./SingUpView.scss":"components/SingUpView/SingUpView.scss"}],"../node_modules/react-bootstrap/esm/divWithClassName.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","axios":"../node_modules/axios/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./SingUpView.scss":"components/SingUpView/SingUpView.scss"}],"../node_modules/react-bootstrap/esm/divWithClassName.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37779,33 +37781,6 @@ var MovieCardView = /*#__PURE__*/function (_Component) {
 exports.MovieCardView = MovieCardView;
 {
   /*
-  <Card
-        onClick={() => onClick(documentary)}
-        border='danger'
-        style={{ width: '200', height: 'auto' }}
-      >
-        <Card.Header>{documentary.Title}</Card.Header>
-        <img
-          className='moviePoster'
-          src={documentary.ImagePath}
-          alt='movie poster'
-        />
-      </Card>
-    */
-}
-{
-  /*
-    // <div onClick={() => onClick(documentary)} className="MovieCardView">{documentary.Title}</div>
-      <Card 
-        className="movieCard" 
-        onClick={() => onClick(documentary)} >
-        {/*<Card.Body>
-          <Card.Title>{documentary.Title + ' - ' + documentary.Released}</Card.Title>
-          <Card.Text>{documentary.Description}</Card.Text>     
-        </Card.Body>*/
-}
-{
-  /*
         <Card.Body className="movieCardBody">
           <Card.Img variant="top" src={documentary.ImagePath} />
           <Button
@@ -37972,15 +37947,23 @@ var MovieView = /*#__PURE__*/function (_Component) {
         className: "movieGenre"
       }, _react.default.createElement("span", {
         className: "labelBold"
-      }, "Genre: "), _react.default.createElement("span", {
+      }, "Genre: "), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/genres/".concat(documentary.Genre.Name)
+      }, _react.default.createElement("span", {
         className: "value"
-      }, documentary.Genre.Name)), _react.default.createElement("div", {
+      }, _react.default.createElement(_Button.default, {
+        variant: "link"
+      }, documentary.Genre.Name)))), _react.default.createElement("div", {
         className: "movieDirector"
       }, _react.default.createElement("span", {
         className: "labelBold"
-      }, "Director: "), _react.default.createElement("span", {
+      }, "Director: "), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/directors/".concat(documentary.Director.Name)
+      }, _react.default.createElement("span", {
         className: "value"
-      }, documentary.Director.Name)), _react.default.createElement("div", {
+      }, _react.default.createElement(_Button.default, {
+        variant: "link"
+      }, documentary.Director.Name)))), _react.default.createElement("div", {
         className: "btnMovieView"
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/home"
@@ -38107,41 +38090,49 @@ var DirectorView = /*#__PURE__*/function (_Component) {
   _createClass(DirectorView, [{
     key: "render",
     value: function render() {
-      var director = this.props.director;
+      var _this$props = this.props,
+          director = _this$props.director,
+          documentaries = _this$props.documentaries;
+      if (!director) return _react.default.createElement(ErrorView, null);
       return _react.default.createElement("div", {
         className: "directorView"
+      }, _react.default.createElement("h2", null, "Director Info"), _react.default.createElement("hr", null), _react.default.createElement("div", {
+        className: "cardBodyInfo"
       }, _react.default.createElement("div", {
         className: "directorName"
       }, _react.default.createElement("span", {
-        className: "label"
+        className: "labelBold"
       }, "Name: "), _react.default.createElement("span", {
         className: "value"
       }, director.Name)), _react.default.createElement("br", null), _react.default.createElement("div", {
         className: "directorBio"
       }, _react.default.createElement("span", {
-        className: "label"
+        className: "labelBold"
       }, "Description: "), _react.default.createElement("span", {
         className: "value"
       }, director.Bio)), _react.default.createElement("br", null), _react.default.createElement("div", {
         className: "directorBirth"
       }, _react.default.createElement("span", {
-        className: "label"
-      }, "Birth: "), _react.default.createElement("span", {
+        className: "labelBold"
+      }, "Birth: "), _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("span", {
         className: "value"
-      }, director.Birthyear)), _react.default.createElement("br", null), _react.default.createElement("div", {
-        className: "director-movies"
+      }, director.Birth && _react.default.createElement(_react.default.Fragment, null, director.Birth), !director.Birth && _react.default.createElement(_react.default.Fragment, null, "-")))), _react.default.createElement("hr", {
+        className: "lastHr"
+      }), _react.default.createElement("div", {
+        className: "directorDocumentaries"
       }, _react.default.createElement("span", {
-        className: "label"
-      }, "Documentaries: "), documentaries.map(function (m) {
+        className: "labelBold"
+      }, "More Documentaries: "), documentaries.map(function (m) {
         return _react.default.createElement("div", {
           className: "documentary",
           key: m._id
         }, m.Title);
-      })), _react.default.createElement("br", null), _react.default.createElement(_reactRouterDom.Link, {
+      })), _react.default.createElement("br", null)), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_Button.default, {
-        variant: "outline-danger"
-      }, "Back")));
+        variant: "danger",
+        className: "btnBack"
+      }, "Go Back Me")));
     }
   }]);
 
@@ -51578,21 +51569,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.GenreView = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
+var _reactBootstrap = _interopRequireDefault(require("react-bootstrap"));
+
 var _reactRouterDom = require("react-router-dom");
-
-var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
-
-var _reactBootstrap = require("react-bootstrap");
-
-var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
 
 require("./GenreView.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -51616,8 +51607,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var GenreView = /*#__PURE__*/function (_React$Component) {
-  _inherits(GenreView, _React$Component);
+var GenreView = /*#__PURE__*/function (_Component) {
+  _inherits(GenreView, _Component);
 
   var _super = _createSuper(GenreView);
 
@@ -51634,30 +51625,46 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
   _createClass(GenreView, [{
     key: "render",
     value: function render() {
-      var genre = this.props.genre;
-      return _react.default.createElement(_Container.default, {
-        className: "genre-view"
-      }, _react.default.createElement("h2", null, "Genre Info"), _react.default.createElement(_reactBootstrap.Row, {
-        className: "genre-row"
-      }, _react.default.createElement(_Card.default, {
-        className: "genreCard"
-      }, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Text, null, _react.default.createElement("span", {
-        className: "label"
-      }, "Genre: "), genre.Name, _react.default.createElement("br", null), _react.default.createElement("span", {
-        className: "label"
-      }, "Description: "), genre.Description)))), _react.default.createElement(_reactBootstrap.Row, {
-        className: "btnGenreView"
-      }, _react.default.createElement(_reactRouterDom.Link, {
+      var _this$props = this.props,
+          genre = _this$props.genre,
+          documentaries = _this$props.documentaries; //if (!genre) return <ErrorView />;
+
+      return _react.default.createElement("div", {
+        className: "genreView"
+      }, _react.default.createElement("h2", null, "Genre Info"), _react.default.createElement("hr", null), _react.default.createElement("div", {
+        className: "cardBodyInfo"
+      }, _react.default.createElement("div", {
+        className: "genreName"
+      }, _react.default.createElement("span", {
+        className: "labelBold"
+      }, "Name: "), _react.default.createElement("span", {
+        className: "value"
+      }, genre.Name)), _react.default.createElement("br", null), _react.default.createElement("div", {
+        className: "genreDescription"
+      }, _react.default.createElement("span", {
+        className: "labelBold"
+      }, "Description: "), _react.default.createElement("span", {
+        className: "value"
+      }, genre.Description)), _react.default.createElement("div", {
+        className: "genreDocumentaries"
+      }, _react.default.createElement("span", {
+        className: "labelBold"
+      }, "More Documentaries: "), documentaries.map(function (m) {
+        return _react.default.createElement("div", {
+          className: "documentary",
+          key: m._id
+        }, m.Title);
+      })), _react.default.createElement("br", null)), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
-      }, _react.default.createElement(_reactBootstrap.Button, {
+      }, _react.default.createElement(_reactBootstrap.default, {
         variant: "danger",
         className: "btnBack"
-      }, "Go Back Me"))));
+      }, "Go Back Me")));
     }
   }]);
 
   return GenreView;
-}(_react.default.Component);
+}(_react.Component);
 
 exports.GenreView = GenreView;
 GenreView.propTypes = {
@@ -51666,7 +51673,7 @@ GenreView.propTypes = {
     Description: _propTypes.default.string.isRequired
   })
 };
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","./GenreView.scss":"components/GenreView/GenreView.scss"}],"assets/images/logoDOC.svg":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./GenreView.scss":"components/GenreView/GenreView.scss"}],"assets/images/logoDOC.svg":[function(require,module,exports) {
 module.exports = "/logoDOC.416af8a2.svg";
 },{}],"components/NavbarView/NavbarView.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
@@ -54247,36 +54254,19 @@ var MainView = /*#__PURE__*/function (_Component) {
     _this = _super.call(this); // Initialize the state to an empty object so we can destructure it later
 
     _this.state = {
-      documentaries: null,
+      documentaries: [],
       //selectedDocumentary: null,
       user: null //singUp: null,
       //addFavorite: {},
 
     };
-    _this.removeDocumentaryFromSelected = _this.removeDocumentaryFromSelected.bind(_assertThisInitialized(_this));
     return _this;
   }
-  /*When a movie is clicked, this function is invoked and updates the state of the `selectedMovie` *property to that movie*/
+  /* A GET request is made to the 'documentaries' endpoint (of DOCumentality API using Axios) 
+  by passing the bearer authorization */
 
 
   _createClass(MainView, [{
-    key: "onDocumentaryClick",
-    value: function onDocumentaryClick(documentary) {
-      this.setState({
-        selectedDocumentary: documentary
-      });
-    }
-  }, {
-    key: "removeDocumentaryFromSelected",
-    value: function removeDocumentaryFromSelected() {
-      this.setState({
-        selectedDocumentary: null
-      });
-    }
-    /* A GET request is made to the 'documentaries' endpoint (of DOCumentality API using Axios) 
-    by passing the bearer authorization */
-
-  }, {
     key: "getDocumentaries",
     value: function getDocumentaries(token) {
       var _this2 = this;
@@ -54402,12 +54392,19 @@ var MainView = /*#__PURE__*/function (_Component) {
           });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
-        path: "/profile",
-        render: function render() {
-          return _react.default.createElement(ProfileView, {
-            user: user,
-            userToken: _this3.state.userToken,
-            documentaries: documentaries
+        path: "/genres/:name",
+        render: function render(_ref4) {
+          var match = _ref4.match;
+          if (!documentaries) return _react.default.createElement("div", {
+            className: "mainView"
+          });
+          return _react.default.createElement(_GenreView.GenreView, {
+            director: documentaries.find(function (m) {
+              return m.Genre.Name === match.params.name;
+            }).Genre,
+            documentaries: documentaries.filter(function (m) {
+              return m.Genre.Name === match.params.name;
+            })
           });
         }
       })), _react.default.createElement(_FooterView.FooterView, null));

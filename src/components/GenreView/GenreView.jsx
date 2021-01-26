@@ -1,15 +1,14 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
+
+//import ErrorView from "./ErrorView/ErrorView";
+
+import Button from "react-bootstrap";
+
 import { Link } from "react-router-dom";
 
-import Container from "react-bootstrap/Container";
-import { Row } from "react-bootstrap";
-import { Button } from "react-bootstrap";
-import Card from "react-bootstrap/Card";
-
 import "./GenreView.scss";
-
-export class GenreView extends React.Component {
+export class GenreView extends Component {
   constructor() {
     super();
 
@@ -17,33 +16,40 @@ export class GenreView extends React.Component {
   }
 
   render() {
-    const { genre } = this.props;
+    const { genre, documentaries } = this.props;
+
+    //if (!genre) return <ErrorView />;
 
     return (
-      <Container className="genre-view">
+      <div className="genreView">
         <h2>Genre Info</h2>
-        <Row className="genre-row">
-          <Card className="genreCard">
-            <Card.Body>
-              <Card.Text>
-                <span className="label">Genre: </span>
-                {genre.Name}
-                <br />
-                <span className="label">Description: </span>
-                {genre.Description}
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </Row>
-
-        <Row className="btnGenreView">
-          <Link to="/">
-            <Button variant="danger" className="btnBack">
-              Go Back Me
-            </Button>
-          </Link>
-        </Row>
-      </Container>
+        <hr />
+        <div className="cardBodyInfo">
+          <div className="genreName">
+            <span className="labelBold">Name: </span>
+            <span className="value">{genre.Name}</span>
+          </div>
+          <br />
+          <div className="genreDescription">
+            <span className="labelBold">Description: </span>
+            <span className="value">{genre.Description}</span>
+          </div>
+          <div className="genreDocumentaries">
+            <span className="labelBold">More Documentaries: </span>
+            {documentaries.map((m) => (
+              <div className="documentary" key={m._id}>
+                {m.Title}
+              </div>
+            ))}
+          </div>
+          <br />
+        </div>
+        <Link to={"/"}>
+          <Button variant="danger" className="btnBack">
+            Go Back Me
+          </Button>
+        </Link>
+      </div>
     );
   }
 }

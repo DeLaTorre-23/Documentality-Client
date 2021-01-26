@@ -11,6 +11,7 @@ import { DirectorView } from "../DirectorView/DirectorView";
 import { GenreView } from "../GenreView/GenreView";
 import { NavbarView } from "../NavbarView/NavbarView";
 import { FooterView } from "../FooterView/FooterView";
+//import { ErrorView } from "../ErrorView/ErrorView";
 
 import { Container } from "react-bootstrap";
 
@@ -22,29 +23,12 @@ export class MainView extends Component {
 
     // Initialize the state to an empty object so we can destructure it later
     this.state = {
-      documentaries: null,
+      documentaries: [],
       //selectedDocumentary: null,
       user: null,
       //singUp: null,
       //addFavorite: {},
     };
-
-    this.removeDocumentaryFromSelected = this.removeDocumentaryFromSelected.bind(
-      this
-    );
-  }
-
-  /*When a movie is clicked, this function is invoked and updates the state of the `selectedMovie` *property to that movie*/
-  onDocumentaryClick(documentary) {
-    this.setState({
-      selectedDocumentary: documentary,
-    });
-  }
-
-  removeDocumentaryFromSelected() {
-    this.setState({
-      selectedDocumentary: null,
-    });
   }
 
   /* A GET request is made to the 'documentaries' endpoint (of DOCumentality API using Axios) 
@@ -158,16 +142,30 @@ export class MainView extends Component {
             }}
           />
           <Route
-            path="/profile"
-            render={() => (
-              <ProfileView
-                user={user}
-                userToken={this.state.userToken}
-                documentaries={documentaries}
-              />
-            )}
+            path="/genres/:name"
+            render={({ match }) => {
+              if (!documentaries) return <div className="mainView" />;
+              return (
+                <GenreView
+                  director={
+                    documentaries.find(
+                      (m) => m.Genre.Name === match.params.name
+                    ).Genre
+                  }
+                  documentaries={documentaries.filter(
+                    (m) => m.Genre.Name === match.params.name
+                  )}
+                />
+              );
+            }}
           />
         </Container>
+        {/*
+        <Switch>
+          <Route component={ErrorView} />
+        </Switch>
+        */}
+
         <FooterView />
       </Router>
     );

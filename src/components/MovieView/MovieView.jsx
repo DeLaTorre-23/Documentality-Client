@@ -40,12 +40,20 @@ export class MovieView extends Component {
 
           <div className="movieGenre">
             <span className="labelBold">Genre: </span>
-            <span className="value">{documentary.Genre.Name}</span>
+            <Link to={`/genres/${documentary.Genre.Name}`}>
+              <span className="value">
+                <Button variant="link">{documentary.Genre.Name}</Button>
+              </span>
+            </Link>
           </div>
 
           <div className="movieDirector">
             <span className="labelBold">Director: </span>
-            <span className="value">{documentary.Director.Name}</span>
+            <Link to={`/directors/${documentary.Director.Name}`}>
+              <span className="value">
+                <Button variant="link">{documentary.Director.Name}</Button>
+              </span>
+            </Link>
           </div>
 
           <div className="btnMovieView">
