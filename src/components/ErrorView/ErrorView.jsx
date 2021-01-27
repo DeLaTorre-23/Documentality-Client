@@ -5,8 +5,8 @@ export class FooterView extends Component {
     return (
       <React.Fragment>
         <section className="center">
-          <h2 className="ErrorTitle">Web doesn't found</h2>
-          <p>The website that you are trying to access doesn't exist.</p>
+          <h2 className="ErrorTitle">Page Not Found</h2>
+          <h3>We couldn't find what you were looking for.</h3>
         </section>
       </React.Fragment>
     );

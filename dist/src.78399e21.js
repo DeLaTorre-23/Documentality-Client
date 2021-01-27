@@ -37311,7 +37311,6 @@ function LoginView(props) {
   }, "Don't have an account?", _react.default.createElement(_reactRouterDom.Link, {
     to: "/singUp"
   }, _react.default.createElement(_Button.default, {
-    className: "linkRegister",
     variant: "link"
   }, "Register here")), "."))));
 }
@@ -38110,13 +38109,15 @@ var DirectorView = /*#__PURE__*/function (_Component) {
         className: "labelBold"
       }, "Description: "), _react.default.createElement("span", {
         className: "value"
-      }, director.Bio)), _react.default.createElement("br", null), _react.default.createElement("div", {
+      }, director.Bio)), _react.default.createElement("br", null), _react.default.createElement(_react.default.Fragment, null, director.Birth ? _react.default.createElement("div", {
         className: "directorBirth"
       }, _react.default.createElement("span", {
         className: "labelBold"
-      }, "Birth: "), _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("span", {
-        className: "value"
-      }, director.Birth && _react.default.createElement(_react.default.Fragment, null, director.Birth), !director.Birth && _react.default.createElement(_react.default.Fragment, null, "-")))), _react.default.createElement("hr", {
+      }, "Birth: "), _react.default.createElement("span", null, director.Birth)) : _react.default.createElement("div", {
+        className: "directorBirth"
+      }, _react.default.createElement("span", {
+        className: "labelBold"
+      }, "Birth: "), _react.default.createElement("span", null, "Birth date not found."), " ")), _react.default.createElement("hr", {
         className: "lastHr"
       }), _react.default.createElement("div", {
         className: "directorDocumentaries"
@@ -38125,10 +38126,10 @@ var DirectorView = /*#__PURE__*/function (_Component) {
       }, "More Documentaries: "), documentaries.map(function (m) {
         return _react.default.createElement("div", {
           className: "documentary",
-          key: m._id
+          key: m.Title
         }, m.Title);
       })), _react.default.createElement("br", null)), _react.default.createElement(_reactRouterDom.Link, {
-        to: "/"
+        to: "/home"
       }, _react.default.createElement(_Button.default, {
         variant: "danger",
         className: "btnBack"
@@ -51639,7 +51640,7 @@ var GenreView = /*#__PURE__*/function (_Component) {
         className: "labelBold"
       }, "Name: "), _react.default.createElement("span", {
         className: "value"
-      }, genre.Name)), _react.default.createElement("br", null), _react.default.createElement("div", {
+      }, "/genre.Name")), _react.default.createElement("br", null), _react.default.createElement("div", {
         className: "genreDescription"
       }, _react.default.createElement("span", {
         className: "labelBold"
@@ -51652,10 +51653,10 @@ var GenreView = /*#__PURE__*/function (_Component) {
       }, "More Documentaries: "), documentaries.map(function (m) {
         return _react.default.createElement("div", {
           className: "documentary",
-          key: m._id
+          key: m.Title
         }, m.Title);
       })), _react.default.createElement("br", null)), _react.default.createElement(_reactRouterDom.Link, {
-        to: "/"
+        to: "/home"
       }, _react.default.createElement(_reactBootstrap.default, {
         variant: "danger",
         className: "btnBack"
@@ -51746,13 +51747,10 @@ var NavbarView = /*#__PURE__*/function (_Component) {
   _createClass(NavbarView, [{
     key: "render",
     value: function render() {
-      var handleLoggedOut = function handleLoggedOut(e) {
-        e.preventDefault();
-
-        _axios.default.get("https://documentality.herokuapp.com/login");
-
+      var handleLoggedOut = function handleLoggedOut() {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
+        window.open("/", "_self");
       };
 
       return _react.default.createElement(_Navbar.default, {
@@ -51784,7 +51782,7 @@ var NavbarView = /*#__PURE__*/function (_Component) {
       }, _react.default.createElement(_Button.default, {
         className: "navLink",
         variant: "link"
-      }, "Movies")), _react.default.createElement(_reactRouterDom.Link, {
+      }, "Documentaries")), _react.default.createElement(_reactRouterDom.Link, {
         to: "/genres"
       }, _react.default.createElement(_Button.default, {
         className: "navLink",
@@ -54321,38 +54319,36 @@ var MainView = /*#__PURE__*/function (_Component) {
       // before tha data is initially loaded
       var _this$state = this.state,
           documentaries = _this$state.documentaries,
-          user = _this$state.user,
-          loggedOut = _this$state.loggedOut; // If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*
-
-      if (!user) return _react.default.createElement(_LoginView.LoginView, {
-        onLoggedIn: function onLoggedIn(user) {
-          return _this3.onLoggedIn(user);
-        }
-      }); // Before the movies have been loaded
+          user = _this$state.user; // If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*
+      //if (!user)
+      // return <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />;
+      // Before the movies have been loaded
 
       if (!documentaries) return _react.default.createElement("div", {
         className: "MainView"
       });
-      return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("header", null, _react.default.createElement(_NavbarView.NavbarView, {
-        documentary: loggedOut
-      })), _react.default.createElement(_reactRouterDom.Route, {
-        path: "/SingUp",
-        render: function render(_ref) {
-          var match = _ref.match;
-          return _react.default.createElement(_SingUpView.SingUpView, null);
-        }
-      }), _react.default.createElement(_reactBootstrap.Container, {
+      return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("header", null, _react.default.createElement(_NavbarView.NavbarView, null)), _react.default.createElement(_reactBootstrap.Container, {
         className: "center"
       }, _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
         path: "/",
         render: function render() {
+          if (!user) return _react.default.createElement(_LoginView.LoginView, {
+            onLoggedIn: function onLoggedIn(user) {
+              return _this3.onLoggedIn(user);
+            }
+          });
           return documentaries.map(function (m) {
             return _react.default.createElement(_MovieCardView.MovieCardView, {
               key: m.Title,
-              documentary: m
+              documentaries: m
             });
           });
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        path: "/singUp",
+        render: function render() {
+          return _react.default.createElement(_SingUpView.SingUpView, null);
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
@@ -54367,8 +54363,8 @@ var MainView = /*#__PURE__*/function (_Component) {
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/documentaries/:documentaryTitle",
-        render: function render(_ref2) {
-          var match = _ref2.match;
+        render: function render(_ref) {
+          var match = _ref.match;
           return _react.default.createElement(_MovieView.MovieView, {
             documentary: documentaries.find(function (m) {
               return m.Title === match.params.documentaryTitle;
@@ -54377,8 +54373,8 @@ var MainView = /*#__PURE__*/function (_Component) {
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/directors/:name",
-        render: function render(_ref3) {
-          var match = _ref3.match;
+        render: function render(_ref2) {
+          var match = _ref2.match;
           if (!documentaries) return _react.default.createElement("div", {
             className: "mainView"
           });
@@ -54389,6 +54385,19 @@ var MainView = /*#__PURE__*/function (_Component) {
             documentaries: documentaries.filter(function (m) {
               return m.Director.Name === match.params.name;
             })
+          });
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        path: "/home/directors/:name",
+        render: function render(_ref3) {
+          var match = _ref3.match;
+          if (!documentaries) return _react.default.createElement("div", {
+            className: "mainView"
+          });
+          return _react.default.createElement(_DirectorView.DirectorView, {
+            director: documentaries.find(function (m) {
+              return m.Director.Name === match.params.name;
+            }).Director
           });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
@@ -54417,31 +54426,89 @@ var MainView = /*#__PURE__*/function (_Component) {
 exports.MainView = MainView;
 {
   /*
-  <Container className="mainView">
-  <Row className=" justify-content-md-center">
-    {If the state of `selectedDocumentary` is not null, that selected movie will be returned otherwise, all *movies will be returned }
-    {selectedDocumentary ? (
-      <MovieView
-        documentary={selectedDocumentary}
-        removeDocumentaryFromSelected={
-          this.removeDocumentaryFromSelected
-        }
-      />
-    ) : (
-      documentaries.map((documentary) => (
-        <Col>
-          <MovieCardView
-            key={documentary._id}
-            documentary={documentary}
-            onClick={(documentary) =>
-              this.onDocumentaryClick(documentary)
-            }
-          />
-        </Col>
-      ))
-    )}
-  </Row>
-  </Container>
+  <React.Fragment>
+        <Router>
+          <div className="MainWrap">
+            <Route
+              exact
+              path="/"
+              render={() => {
+                if (!user)
+                  return (
+                    <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
+                  );
+                return documentaries.map((m) => (
+                  <MovieCardView key={m.Title} documentaries={m} />
+                ));
+              }}
+            />
+            <Route path="/singUp" render={() => <SingUpView />} />
+          </div>
+        </Router>
+        <Router>
+          <NavbarView />
+            <Container className="center">
+            <Route
+              exact
+              path="/home"
+              render={() =>
+                documentaries.map((m) => (
+                  <MovieCardView key={m.Title} documentary={m} />
+                ))
+              }
+            />
+            <Route
+              path="/documentaries/:documentaryTitle"
+              render={({ match }) => (
+                <MovieView
+                  documentary={documentaries.find(
+                    (m) => m.Title === match.params.documentaryTitle
+                  )}
+                />
+              )}
+            />
+            <Route
+              path="/directors/:name"
+              render={({ match }) => {
+                if (!documentaries) return <div className="mainView" />;
+                return (
+                  <DirectorView
+                    director={
+                      documentaries.find(
+                        (m) => m.Director.Name === match.params.name
+                      ).Director
+                    }
+                    documentaries={documentaries.filter(
+                      (m) => m.Director.Name === match.params.name
+                    )}
+                  />
+                );
+              }}
+            />
+            <Route
+              path="/genres/:name"
+              render={({ match }) => {
+                if (!documentaries) return <div className="mainView" />;
+                return (
+                  <GenreView
+                    director={
+                      documentaries.find(
+                        (m) => m.Genre.Name === match.params.name
+                      ).Genre
+                    }
+                    documentaries={documentaries.filter(
+                      (m) => m.Genre.Name === match.params.name
+                    )}
+                  />
+                );
+              }}
+            />
+          </Container>
+         
+          <Route component={ErrorView} />     
+            <FooterView />
+        </Router>
+      </React.Fragment>
   */
 }
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../LoginView/LoginView":"components/LoginView/LoginView.jsx","../SingUpView/SingUpView":"components/SingUpView/SingUpView.jsx","../MovieCardView/MovieCardView":"components/MovieCardView/MovieCardView.jsx","../MovieView/MovieView":"components/MovieView/MovieView.jsx","../DirectorView/DirectorView":"components/DirectorView/DirectorView.jsx","../GenreView/GenreView":"components/GenreView/GenreView.jsx","../NavbarView/NavbarView":"components/NavbarView/NavbarView.jsx","../FooterView/FooterView":"components/FooterView/FooterView.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./MainView.scss":"components/MainView/MainView.scss"}],"index.scss":[function(require,module,exports) {
@@ -54542,7 +54609,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50305" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58434" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -14,12 +14,10 @@ import "./NavbarView.scss";
 
 export class NavbarView extends Component {
   render() {
-    const handleLoggedOut = (e) => {
-      e.preventDefault();
-      axios.get("https://documentality.herokuapp.com/login");
-
+    const handleLoggedOut = () => {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
+      window.open("/", "_self");
     };
 
     return (
@@ -49,7 +47,7 @@ export class NavbarView extends Component {
           <Nav className="navBarLinks">
             <Link to={`/home`}>
               <Button className="navLink" variant="link">
-                Movies
+                Documentaries
               </Button>
             </Link>
             <Link to={`/genres`}>

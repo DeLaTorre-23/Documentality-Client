@@ -27,7 +27,7 @@ export class GenreView extends Component {
         <div className="cardBodyInfo">
           <div className="genreName">
             <span className="labelBold">Name: </span>
-            <span className="value">{genre.Name}</span>
+            <span className="value">{`/genre.Name`}</span>
           </div>
           <br />
           <div className="genreDescription">
@@ -37,14 +37,14 @@ export class GenreView extends Component {
           <div className="genreDocumentaries">
             <span className="labelBold">More Documentaries: </span>
             {documentaries.map((m) => (
-              <div className="documentary" key={m._id}>
+              <div className="documentary" key={m.Title}>
                 {m.Title}
               </div>
             ))}
           </div>
           <br />
         </div>
-        <Link to={"/"}>
+        <Link to={"/home"}>
           <Button variant="danger" className="btnBack">
             Go Back Me
           </Button>

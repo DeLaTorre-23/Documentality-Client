@@ -69,10 +69,13 @@ export function LoginView(props) {
           <Form.Text className="text-muted">
             Don't have an account?
             <Link to={`/singUp`}>
-              <Button className="linkRegister" variant="link">
-                Register here
-              </Button>
+              <Button variant="link">Register here</Button>
             </Link>
+            {/*
+            <Link to={`/singUp`} className="linkRegister">
+              Register here
+            </Link>
+            */}
             .
           </Form.Text>
         </Form>

@@ -30,34 +30,39 @@ export class DirectorView extends Component {
             <span className="value">{director.Name}</span>
           </div>
           <br />
+
           <div className="directorBio">
             <span className="labelBold">Description: </span>
             <span className="value">{director.Bio}</span>
           </div>
           <br />
-          <div className="directorBirth">
-            <span className="labelBold">Birth: </span>
-            <React.Fragment>
-              <span className="value">
-                {director.Birth && (
-                  <React.Fragment>{director.Birth}</React.Fragment>
-                )}
-                {!director.Birth && <React.Fragment>{"-"}</React.Fragment>}
-              </span>
-            </React.Fragment>
-          </div>
+
+          <React.Fragment>
+            {director.Birth ? (
+              <div className="directorBirth">
+                <span className="labelBold">Birth: </span>
+                <span>{director.Birth}</span>
+              </div>
+            ) : (
+              <div className="directorBirth">
+                <span className="labelBold">Birth: </span>
+                <span>Birth date not found.</span> {/* or <span>" - "</span> */}
+              </div>
+            )}
+          </React.Fragment>
+
           <hr className="lastHr" />
           <div className="directorDocumentaries">
             <span className="labelBold">More Documentaries: </span>
             {documentaries.map((m) => (
-              <div className="documentary" key={m._id}>
+              <div className="documentary" key={m.Title}>
                 {m.Title}
               </div>
             ))}
           </div>
           <br />
         </div>
-        <Link to={"/"}>
+        <Link to={"/home"}>
           <Button variant="danger" className="btnBack">
             Go Back Me
           </Button>
