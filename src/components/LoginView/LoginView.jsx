@@ -5,8 +5,7 @@ import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import "./LoginView.scss";
 
@@ -34,52 +33,46 @@ export function LoginView(props) {
 
   return (
     <React.Fragment>
-      <Router>
-        <Form className="loginForm">
-          <h1 className="loginTitle text-center">Sing In</h1>
+      <Form className="loginForm">
+        <h1 className="loginTitle text-center">Sign In</h1>
 
-          <Form.Group controlId="usernameInputForm">
-            <Form.Control
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </Form.Group>
+        <Form.Group controlId="usernameInputForm">
+          <Form.Control
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </Form.Group>
 
-          <Form.Group controlId="passwordInputForm">
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </Form.Group>
+        <Form.Group controlId="passwordInputForm">
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </Form.Group>
 
-          <Button className="btnLoginForm" type="submit" onClick={handleSubmit}>
-            Login
+        <Button className="btnLoginForm" type="submit" onClick={handleSubmit}>
+          Login
+        </Button>
+        <Form.Text className="text-muted">
+          If you forgot your password,
+          <Button className="linkPassword" variant="link">
+            contact us
           </Button>
-          <Form.Text className="text-muted">
-            If you forgot your password,
-            <Button className="linkPassword" variant="link">
-              contact us
-            </Button>
-            .
-          </Form.Text>
-          <Form.Text className="text-muted">
-            Don't have an account?
-            <Link to={`/singUp`}>
-              <Button variant="link">Register here</Button>
-            </Link>
-            {/*
-            <Link to={`/singUp`} className="linkRegister">
-              Register here
-            </Link>
-            */}
-            .
-          </Form.Text>
-        </Form>
-      </Router>
+          .
+        </Form.Text>
+        <Form.Text className="text-muted">
+          Don't have an account?
+          <NavLink to="/signup">Register here</NavLink>
+          {/* <a href={`/signup`} className="linkRegister">
+            Register here
+          </a> */}
+          .
+        </Form.Text>
+      </Form>
     </React.Fragment>
   );
 }

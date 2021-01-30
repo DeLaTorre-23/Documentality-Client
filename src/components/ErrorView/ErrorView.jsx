@@ -1,6 +1,6 @@
 import React, { Component } from "React";
 
-export class FooterView extends Component {
+export class ErrorView extends Component {
   render() {
     return (
       <React.Fragment>

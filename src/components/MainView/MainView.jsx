@@ -1,17 +1,24 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 
 import { LoginView } from "../LoginView/LoginView";
-import { SingUpView } from "../SingUpView/SingUpView";
+import { SignUpView } from "../SignUpView/SignUpView";
+import { ProfileView } from "../ProfileView/ProfileView";
 import { MovieCardView } from "../MovieCardView/MovieCardView";
 import { MovieView } from "../MovieView/MovieView";
 import { DirectorView } from "../DirectorView/DirectorView";
 import { GenreView } from "../GenreView/GenreView";
 import { NavbarView } from "../NavbarView/NavbarView";
 import { FooterView } from "../FooterView/FooterView";
-//import { ErrorView } from "../ErrorView/ErrorView";
+import { Slider } from "../Slider/Slider";
+import { ErrorView } from "../ErrorView/ErrorView";
 
 import { Container } from "react-bootstrap";
 
@@ -78,227 +85,169 @@ export class MainView extends Component {
     // If the state isn't initialized, this will throw on runtime
     // before tha data is initially loaded
     const { documentaries, user } = this.state;
+    // console.log(documentaries);
+    const genres = documentaries.map((mov) => mov.Genre);
 
+    const directors = documentaries.map((mov) => mov.Director);
+
+    // console.log(genres);
     // If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*
     //if (!user)
     // return <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />;
 
     // Before the movies have been loaded
-    if (!documentaries) return <div className="MainView" />;
+    // if (!documentaries) return <div className="MainView" />;
 
     return (
-      <Router>
-        <header>
-          <NavbarView />
-        </header>
+      <React.Fragment>
+        {user ? (
+          <Router>
+            <React.Fragment>
+              <header>
+                <NavbarView />
+              </header>
+              <Slider />
+            </React.Fragment>
 
-        <Container className="center">
-          <Route
-            exact
-            path="/"
-            render={() => {
-              if (!user)
-                return (
-                  <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
-                );
-              return documentaries.map((m) => (
-                <MovieCardView key={m.Title} documentaries={m} />
-              ));
-            }}
-          />
-          {/*
-          <Route
-            exact
-            path="/"
-            render={() => {
-              return (
-                <React.Fragment>
-                  {user ? (
-                    documentaries.map((m) => (
-                      <MovieCardView key={m.Title} documentaries={m} />
-                    ))
-                  ) : (
-                    <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
+            <Container className="center">
+              <Switch>
+                <Route
+                  exact
+                  path="/"
+                  render={() => {
+                    return documentaries.map((m) => (
+                      <MovieCardView key={m.Title} documentary={m} />
+                    ));
+                  }}
+                />
+
+                <Route exact path="/profile" render={() => <ProfileView />} />
+
+                <Route
+                  path="/documentaries/:documentaryTitle"
+                  render={({ match }) => (
+                    <MovieView
+                      documentary={documentaries.find(
+                        (m) => m.Title === match.params.documentaryTitle
+                      )}
+                    />
                   )}
-                </React.Fragment>
-              );
-            }}
-          />
-          */}
+                />
 
-          <Route path="/singUp" render={() => <SingUpView />} />
+                <Route
+                  path="/directors/:name"
+                  render={({ match }) => {
+                    if (!documentaries) return <div className="mainView" />;
+                    return (
+                      <DirectorView
+                        director={
+                          documentaries.find(
+                            (m) => m.Director.Name === match.params.name
+                          ).Director
+                        }
+                        documentaries={documentaries.filter(
+                          (m) => m.Director.Name === match.params.name
+                        )}
+                      />
+                    );
+                  }}
+                />
 
-          <Route
-            exact
-            path="/home"
-            render={() =>
-              documentaries.map((m) => (
-                <MovieCardView key={m.Title} documentary={m} />
-              ))
-            }
-          />
+                <Route
+                  exact
+                  path="/directors"
+                  render={() => {
+                    return directors.map((elm, idx) => (
+                      <div key={idx}>
+                        <li>{elm.Name}</li>
+                      </div>
+                    ));
+                  }}
+                />
+                <Route
+                  path="/genres"
+                  render={() => {
+                    return genres.map((elm, idx) => (
+                      <div key={idx}>
+                        <li>
+                          {elm.Name} - {elm.Description}
+                        </li>
+                      </div>
+                    ));
+                  }}
+                />
+                <Route
+                  path="/directors/:name"
+                  render={({ match }) => {
+                    if (!documentaries) return <div className="mainView" />;
+                    return (
+                      <DirectorView
+                        director={
+                          documentaries.find(
+                            (m) => m.Director.Name === match.params.name
+                          ).Director
+                        }
+                        directors={documentaries}
+                      />
+                    );
+                  }}
+                />
 
-          <Route
-            path="/documentaries/:documentaryTitle"
-            render={({ match }) => (
-              <MovieView
-                documentary={documentaries.find(
-                  (m) => m.Title === match.params.documentaryTitle
+                <Route
+                  path="/genres/:name"
+                  render={({ match }) => {
+                    if (!documentaries) return <div className="mainView" />;
+                    return (
+                      <GenreView
+                        genre={
+                          documentaries.find(
+                            (m) => m.Genre.Name === match.params.name
+                          ).Genre
+                        }
+                        genres={documentaries}
+                      />
+                    );
+                  }}
+                />
+
+                <Route
+                  path="/genres/:name"
+                  render={({ match }) => {
+                    if (!documentaries) return <div className="mainView" />;
+                    return (
+                      <GenreView
+                        genre={
+                          documentaries.find(
+                            (m) => m.Genre.Name === match.params.name
+                          ).Genre
+                        }
+                        genres={documentaries}
+                      />
+                    );
+                  }}
+                />
+
+                <Route path="*" component={ErrorView} />
+              </Switch>
+            </Container>
+
+            <FooterView />
+          </Router>
+        ) : (
+          <Router>
+            <Switch>
+              <Route exact path="/signup" render={() => <SignUpView />} />
+              <Route
+                exact
+                path="/"
+                render={() => (
+                  <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
                 )}
               />
-            )}
-          />
-
-          <Route
-            path="/directors/:name"
-            render={({ match }) => {
-              if (!documentaries) return <div className="mainView" />;
-              return (
-                <DirectorView
-                  director={
-                    documentaries.find(
-                      (m) => m.Director.Name === match.params.name
-                    ).Director
-                  }
-                  documentaries={documentaries.filter(
-                    (m) => m.Director.Name === match.params.name
-                  )}
-                />
-              );
-            }}
-          />
-          <Route
-            path="/home/directors/:name"
-            render={({ match }) => {
-              if (!documentaries) return <div className="mainView" />;
-              return (
-                <DirectorView
-                  director={
-                    documentaries.find(
-                      (m) => m.Director.Name === match.params.name
-                    ).Director
-                  }
-                />
-              );
-            }}
-          />
-
-          <Route
-            path="/genres/:name"
-            render={({ match }) => {
-              if (!documentaries) return <div className="mainView" />;
-              return (
-                <GenreView
-                  director={
-                    documentaries.find(
-                      (m) => m.Genre.Name === match.params.name
-                    ).Genre
-                  }
-                  documentaries={documentaries.filter(
-                    (m) => m.Genre.Name === match.params.name
-                  )}
-                />
-              );
-            }}
-          />
-        </Container>
-        {/*
-          <Route component={ErrorView} />
-        */}
-
-        <FooterView />
-      </Router>
+            </Switch>
+          </Router>
+        )}
+      </React.Fragment>
     );
   }
-}
-
-{
-  /*
-
-<React.Fragment>
-        <Router>
-          <div className="MainWrap">
-            <Route
-              exact
-              path="/"
-              render={() => {
-                if (!user)
-                  return (
-                    <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
-                  );
-                return documentaries.map((m) => (
-                  <MovieCardView key={m.Title} documentaries={m} />
-                ));
-              }}
-            />
-            <Route path="/singUp" render={() => <SingUpView />} />
-          </div>
-        </Router>
-        <Router>
-          <NavbarView />
-
-          <Container className="center">
-            <Route
-              exact
-              path="/home"
-              render={() =>
-                documentaries.map((m) => (
-                  <MovieCardView key={m.Title} documentary={m} />
-                ))
-              }
-            />
-            <Route
-              path="/documentaries/:documentaryTitle"
-              render={({ match }) => (
-                <MovieView
-                  documentary={documentaries.find(
-                    (m) => m.Title === match.params.documentaryTitle
-                  )}
-                />
-              )}
-            />
-            <Route
-              path="/directors/:name"
-              render={({ match }) => {
-                if (!documentaries) return <div className="mainView" />;
-                return (
-                  <DirectorView
-                    director={
-                      documentaries.find(
-                        (m) => m.Director.Name === match.params.name
-                      ).Director
-                    }
-                    documentaries={documentaries.filter(
-                      (m) => m.Director.Name === match.params.name
-                    )}
-                  />
-                );
-              }}
-            />
-            <Route
-              path="/genres/:name"
-              render={({ match }) => {
-                if (!documentaries) return <div className="mainView" />;
-                return (
-                  <GenreView
-                    director={
-                      documentaries.find(
-                        (m) => m.Genre.Name === match.params.name
-                      ).Genre
-                    }
-                    documentaries={documentaries.filter(
-                      (m) => m.Genre.Name === match.params.name
-                    )}
-                  />
-                );
-              }}
-            />
-          </Container>
-         
-          <Route component={ErrorView} />     
-
-          <FooterView />
-        </Router>
-      </React.Fragment>
-*/
 }

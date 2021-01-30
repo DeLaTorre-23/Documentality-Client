@@ -10,6 +10,7 @@ import "./MovieCardView.scss";
 
 export class MovieCardView extends Component {
   render() {
+    //console.log(this.props.documentary);
     // This is given to the <MovieCardView/> component by the outer world
     // which, in this case, is 'MainView', as 'MainView' is what's
     // connected to your database via the movies endpoint of your API
@@ -41,25 +42,9 @@ export class MovieCardView extends Component {
   }
 }
 
-{
-  /*
-        <Card.Body className="movieCardBody">
-          <Card.Img variant="top" src={documentary.ImagePath} />
-          <Button
-                className="btnMovieCardView"
-                variant='primary'
-                onClick={() => onClick(documentary)}
-              >  
-                {documentary.Title}
-          </Button>
-        </Card.Body>
-      </Card>   
-    */
-}
-
-MovieCardView.propTypes = {
-  documentary: PropTypes.shape({
-    Title: PropTypes.string.isRequired,
-    ImagePath: PropTypes.string.isRequired,
-  }).isRequired,
-};
+// MovieCardView.propTypes = {
+//   documentary: PropTypes.shape({
+//     Title: PropTypes.string.isRequired,
+//     ImagePath: PropTypes.string.isRequired,
+//   }).isRequired,
+// };

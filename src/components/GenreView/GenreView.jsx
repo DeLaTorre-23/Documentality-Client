@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-//import ErrorView from "./ErrorView/ErrorView";
+import { ErrorView } from "../ErrorView/ErrorView";
 
 import Button from "react-bootstrap";
 
@@ -18,7 +18,7 @@ export class GenreView extends Component {
   render() {
     const { genre, documentaries } = this.props;
 
-    //if (!genre) return <ErrorView />;
+    if (!genre) return <ErrorView />;
 
     return (
       <div className="genreView">
@@ -27,13 +27,16 @@ export class GenreView extends Component {
         <div className="cardBodyInfo">
           <div className="genreName">
             <span className="labelBold">Name: </span>
-            <span className="value">{`/genre.Name`}</span>
+            <span className="value">{genre.Name}</span>
           </div>
           <br />
+
           <div className="genreDescription">
             <span className="labelBold">Description: </span>
             <span className="value">{genre.Description}</span>
           </div>
+
+          <hr className="lastHr" />
           <div className="genreDocumentaries">
             <span className="labelBold">More Documentaries: </span>
             {documentaries.map((m) => (
@@ -44,7 +47,7 @@ export class GenreView extends Component {
           </div>
           <br />
         </div>
-        <Link to={"/home"}>
+        <Link to={"/"}>
           <Button variant="danger" className="btnBack">
             Go Back Me
           </Button>

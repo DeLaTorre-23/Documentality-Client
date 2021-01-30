@@ -62,7 +62,7 @@
   margin-left: 5px;
   margin-bottom: 7px;
 }
-.singUpForm {
+.signUpForm {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -78,7 +78,7 @@
   border: 3px solid #53d4ff;
   font-family: "Segoe UI", Trebuchet MS, Helvetica, Arial, sans-serif;
 }
-.singUpForm input {
+.signUpForm input {
   width: 350px;
 }
 
@@ -87,7 +87,7 @@ h1 {
   margin-bottom: 50px;
 }
 
-.btnSingUpForm {
+.btnSignUpForm {
   margin-top: 15px;
   margin-bottom: 5px;
   width: 350px;
@@ -282,6 +282,50 @@ hr {
 .footer p {
   margin: 0px auto;
   padding: 0px auto;
+}
+.sliderWrap {
+  width: 90%;
+  margin: auto;
+}
+
+/* ---- ---- ---- main-container & arrows ---- ---- ----*/
+.slider-favoriteList {
+  margin-bottom: 70px;
+}
+
+.slider-favoriteList .main-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.slider-favoriteList .main-container .left-arrow,
+.slider-favoriteList .main-container .right-arrow {
+  position: absolute;
+  border: none;
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 40px;
+  height: 50%;
+  top: calc(50% - 25%);
+  line-height: 40px;
+  width: 50px;
+  color: #fff;
+  cursor: pointer;
+  z-index: 500;
+  transition: 0.2s ease all;
+}
+
+.slider-favoriteList .main-container .left-arrow:hover,
+.slider-favoriteList .main-container .right-arrow:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.slider-favoriteList .main-container .left-arrow {
+  left: 0;
+}
+
+.slider-favoriteList .main-container .right-arrow {
+  right: 0;
 }
 body {
   text-align: center;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-//import ErrorView from "./ErrorView/ErrorView";
+import { ErrorView } from "../ErrorView/ErrorView";
 
 import Button from "react-bootstrap/Button";
 
@@ -38,17 +38,10 @@ export class DirectorView extends Component {
           <br />
 
           <React.Fragment>
-            {director.Birth ? (
-              <div className="directorBirth">
-                <span className="labelBold">Birth: </span>
-                <span>{director.Birth}</span>
-              </div>
-            ) : (
-              <div className="directorBirth">
-                <span className="labelBold">Birth: </span>
-                <span>Birth date not found.</span> {/* or <span>" - "</span> */}
-              </div>
-            )}
+            <div className="directorBirth">
+              <span className="labelBold">Birth: </span>
+              <span>{director.Birth.length ? director.Birth : " - "}</span>
+            </div>
           </React.Fragment>
 
           <hr className="lastHr" />
@@ -62,7 +55,7 @@ export class DirectorView extends Component {
           </div>
           <br />
         </div>
-        <Link to={"/home"}>
+        <Link to={"/"}>
           <Button variant="danger" className="btnBack">
             Go Back Me
           </Button>

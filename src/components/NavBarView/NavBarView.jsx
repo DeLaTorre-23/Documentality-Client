@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import axios from "axios";
 
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import logo from "../../assets/images/logoDOC.svg";
 
@@ -45,19 +43,19 @@ export class NavbarView extends Component {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="navBarLinks">
-            <Link to={`/home`}>
+            <NavLink to={`/`} className="navLink">
               <Button className="navLink" variant="link">
                 Documentaries
               </Button>
-            </Link>
-            <Link to={`/genres`}>
+            </NavLink>
+            <NavLink to={`/genres`}>
               <Button className="navLink" variant="link">
-                Genre
+                Genres
               </Button>
-            </Link>
+            </NavLink>
             <Link to={`/directors`}>
               <Button className="navLink" variant="link">
-                Director
+                Directors
               </Button>
             </Link>
             <Link to={`/profile`}>
@@ -65,7 +63,7 @@ export class NavbarView extends Component {
                 Profile
               </Button>
             </Link>
-            <Link to={`/loginView`} onClick={handleLoggedOut}>
+            <Link to={`/login`} onClick={handleLoggedOut}>
               <Button className="navLink" variant="link">
                 Logout
               </Button>

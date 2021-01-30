@@ -57,7 +57,7 @@ export class MovieView extends Component {
           </div>
 
           <div className="btnMovieView">
-            <Link to={`/home`}>
+            <Link to={`/`}>
               <Button className="btnBack" variant="danger">
                 Go Back Me
               </Button>
