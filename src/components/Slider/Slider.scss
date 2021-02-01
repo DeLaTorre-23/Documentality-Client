@@ -1,12 +1,47 @@
+.carousel {
+  display: inline-flex;
+}
+
 .sliderWrap {
+  width: 80%;
+  margin: auto;
+}
+
+.slider-container {
   width: 90%;
   margin: auto;
+}
+/* ---- ---- ---- slider-title & controls ---- ---- ----*/
+
+.slider-title-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  h3 {
+    color: black;
+    font-size: 30px;
+  }
+  .pagination button {
+    height: 5px;
+    width: 15px;
+    cursor: pointer;
+    border: none;
+    margin-right: 5px;
+  }
+
+  .pagination button:hover,
+  .pagination button:active,
+  .pagination button::selection {
+    background: #0cb7f2;
+  }
 }
 
 /* ---- ---- ---- main-container & arrows ---- ---- ----*/
 .slider-favoriteList {
+  width: 80%;
   margin-bottom: 70px;
 }
+
 .slider-favoriteList .main-container {
   display: flex;
   align-items: center;
@@ -17,7 +52,7 @@
 .slider-favoriteList .main-container .right-arrow {
   position: absolute;
   border: none;
-  color: rgba(0, 0, 0, 0.3);
+  background: rgba(83, 212, 255, 0.3);
   font-size: 40px;
   height: 50%;
   top: calc(50% - 25%);
@@ -31,7 +66,8 @@
 
 .slider-favoriteList .main-container .left-arrow:hover,
 .slider-favoriteList .main-container .right-arrow:hover {
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(12, 183, 242, 0.7);
+  color: white;
 }
 
 .slider-favoriteList .main-container .left-arrow {
@@ -40,4 +76,50 @@
 
 .slider-favoriteList .main-container .right-arrow {
   right: 0;
+}
+
+/* ---- ---- ---- Carousel ---- ---- ----*/
+.slider-favoriteList .container-carousel {
+  width: 100%;
+  padding: 20px 0;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  .carousel {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 250px;
+  }
+  .carousel .movieCarousel {
+    min-width: 20%;
+    transition: 0.3s ease all;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    .img-carousel {
+      width: 100%;
+      vertical-align: top;
+      max-height: 280px;
+    }
+  }
+  .carousel .movie:hover {
+    transform: scale(1.2);
+    transform-origin: center;
+  }
+}
+
+/* ---- ---- ---- Media Queries ---- ---- ----*/
+@media screen and (max-width: 800px) {
+  .slider-favoriteList .container-carousel {
+    overflow: visible;
+  }
+
+  .slider-favoriteList .container-carousel .carousel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .slider-favoriteList .pagination,
+  .slider-favoriteList .main-container .left-arrow,
+  .slider-favoriteList .main-container .right-arrow {
+    display: none;
+  }
 }

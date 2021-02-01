@@ -17,7 +17,7 @@ import { DirectorView } from "../DirectorView/DirectorView";
 import { GenreView } from "../GenreView/GenreView";
 import { NavbarView } from "../NavbarView/NavbarView";
 import { FooterView } from "../FooterView/FooterView";
-import { Slider } from "../Slider/Slider";
+//import { Slider } from "../Slider/Slider";
 import { ErrorView } from "../ErrorView/ErrorView";
 
 import { Container } from "react-bootstrap";
@@ -106,7 +106,7 @@ export class MainView extends Component {
               <header>
                 <NavbarView />
               </header>
-              <Slider />
+              {/*<Slider />*/}
             </React.Fragment>
 
             <Container className="center">

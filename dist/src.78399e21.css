@@ -95,6 +95,86 @@ h1 {
   border: 2px solid #53d4ff;
   color: #fff;
 }
+.header-container {
+  border: 5px solid #53d4ff;
+  background: red;
+}
+
+.body-container {
+  width: 80%;
+  /*
+  .btnMovieView {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+
+    .btnAddFavorite {
+      margin-top: 15px;
+      margin-bottom: 5px;
+      width: 203px;
+      background-color: #0069c0;
+      border: 2px solid #53d4ff;
+      color: #fff;
+    }
+
+    .btnBack {
+      margin-top: 15px;
+      margin-bottom: 5px;
+      width: 203px;
+      background-color: rgb(200, 26, 26);
+      border: 2px solid #53d4ff;
+      color: #fff;
+    }
+  }*/
+}
+.body-container .body-info {
+  display: flex;
+  flex-flow: row wrap;
+}
+.body-container .body-info .user-avatar {
+  width: 40%;
+  margin: 10px;
+  padding: 15px;
+  width: 300px;
+  height: 300px;
+  border: 3px solid black;
+}
+.body-container .body-info .user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 60%;
+  border: 2px solid #0069c0;
+}
+.body-container .body-info .user-info .user-email {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 3px;
+}
+.body-container .body-info .user-info .user-birthday {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 3px;
+}
+.body-container .body-info .user-info .user-Password {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 3px;
+}
+.body-container .btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.labelBold {
+  color: #fff;
+  font-size: large;
+  font-family: Trebuchet MS, Helvetica, Arial, sans-serif;
+}
 .movieCard {
   border: solid 2px;
   border-radius: 3px;
@@ -282,50 +362,6 @@ hr {
 .footer p {
   margin: 0px auto;
   padding: 0px auto;
-}
-.sliderWrap {
-  width: 90%;
-  margin: auto;
-}
-
-/* ---- ---- ---- main-container & arrows ---- ---- ----*/
-.slider-favoriteList {
-  margin-bottom: 70px;
-}
-
-.slider-favoriteList .main-container {
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
-.slider-favoriteList .main-container .left-arrow,
-.slider-favoriteList .main-container .right-arrow {
-  position: absolute;
-  border: none;
-  color: rgba(0, 0, 0, 0.3);
-  font-size: 40px;
-  height: 50%;
-  top: calc(50% - 25%);
-  line-height: 40px;
-  width: 50px;
-  color: #fff;
-  cursor: pointer;
-  z-index: 500;
-  transition: 0.2s ease all;
-}
-
-.slider-favoriteList .main-container .left-arrow:hover,
-.slider-favoriteList .main-container .right-arrow:hover {
-  background: rgba(0, 0, 0, 0.9);
-}
-
-.slider-favoriteList .main-container .left-arrow {
-  left: 0;
-}
-
-.slider-favoriteList .main-container .right-arrow {
-  right: 0;
 }
 body {
   text-align: center;

@@ -66,7 +66,7 @@ export function SignUpView(props) {
         </Form.Group>
 
         <Form.Group controlId="birthdaySignUpForm">
-          <Form.Label>Birthday:</Form.Label>
+          <Form.Label>Birth date:</Form.Label>
           <Form.Control
             type="date"
             placeholder="DD/MM/YYYY"
