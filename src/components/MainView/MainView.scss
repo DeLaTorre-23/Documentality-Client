@@ -24,6 +24,14 @@ body {
   flex: 1 0 auto;
 }
 
+.directorTitleWrap,
+.genreTitleWrap {
+  width: 100%;
+}
+
+.titleElement {
+  color: white;
+}
 // Originals
 //background-color: #0cb7f2;
 //border: 3px solid #53d4ff;

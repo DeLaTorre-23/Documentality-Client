@@ -58,7 +58,7 @@ export class NavbarView extends Component {
                 Directors
               </Button>
             </Link>
-            <Link to={`/profile`}>
+            <Link to={`/users`}>
               <Button className="navLink" variant="link">
                 Profile
               </Button>

@@ -1,12 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { LoginView } from "../LoginView/LoginView";
 import { SignUpView } from "../SignUpView/SignUpView";
@@ -31,11 +26,18 @@ export class MainView extends Component {
     // Initialize the state to an empty object so we can destructure it later
     this.state = {
       documentaries: [],
-      //selectedDocumentary: null,
       user: null,
-      //singUp: null,
-      //addFavorite: {},
     };
+  }
+
+  componentDidMount() {
+    let accessToken = localStorage.getItem("token");
+    if (accessToken !== null) {
+      this.setState({
+        user: localStorage.getItem("user"),
+      });
+      this.getDocumentaries(accessToken);
+    }
   }
 
   /* A GET request is made to the 'documentaries' endpoint (of DOCumentality API using Axios) 
@@ -57,14 +59,25 @@ export class MainView extends Component {
       });
   }
 
-  componentDidMount() {
-    let accessToken = localStorage.getItem("token");
-    if (accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem("user"),
+  getUserData(userToken, user) {
+    axios
+      .get(`https://documentality.herokuapp.com/users/${props.user}`, {
+        headers: { Authorization: `Bearer ${props.userToken}` },
+      })
+      .then((response) => {
+        let userData = response.data;
+        this.setState({
+          user: userData.Username,
+          userToken: userToken,
+          favoriteList: userData.FavoriteList,
+          email: userData.Email,
+          birthday: userData.Birthday,
+        });
+        this.getDocumentaries(this.state.userToken);
+      })
+      .catch(function (error) {
+        console.log(error);
       });
-      this.getDocumentaries(accessToken);
-    }
   }
 
   /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
@@ -104,7 +117,7 @@ export class MainView extends Component {
           <Router>
             <React.Fragment>
               <header>
-                <NavbarView />
+                <NavbarView user={user} />
               </header>
               {/*<Slider />*/}
             </React.Fragment>
@@ -116,12 +129,30 @@ export class MainView extends Component {
                   path="/"
                   render={() => {
                     return documentaries.map((m) => (
-                      <MovieCardView key={m.Title} documentary={m} />
+                      <MovieCardView
+                        user={user}
+                        userToken={this.state.userToken}
+                        key={m.Title}
+                        documentary={m}
+                      />
                     ));
                   }}
                 />
 
-                <Route exact path="/profile" render={() => <ProfileView />} />
+                <Route
+                  exact
+                  path="/users"
+                  render={() => (
+                    <React.Fragment>
+                      {/*<Slider />*/}
+                      <ProfileView
+                        user={user}
+                        userToken={this.state.userToken}
+                        documentaries={documentaries}
+                      />
+                    </React.Fragment>
+                  )}
+                />
 
                 <Route
                   path="/documentaries/:documentaryTitle"
@@ -132,6 +163,28 @@ export class MainView extends Component {
                       )}
                     />
                   )}
+                />
+
+                <Route
+                  exact
+                  path="/directors"
+                  render={() => {
+                    return (
+                      <React.Fragment>
+                        <div className="directorTitleWrap">
+                          <h3>Directors Info</h3>
+                          <hr />
+                          <div>
+                            {directors.map((elm, idx) => (
+                              <div key={idx}>
+                                <p>{elm.Name}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </React.Fragment>
+                    );
+                  }}
                 />
 
                 <Route
@@ -154,29 +207,6 @@ export class MainView extends Component {
                 />
 
                 <Route
-                  exact
-                  path="/directors"
-                  render={() => {
-                    return directors.map((elm, idx) => (
-                      <div key={idx}>
-                        <li>{elm.Name}</li>
-                      </div>
-                    ));
-                  }}
-                />
-                <Route
-                  path="/genres"
-                  render={() => {
-                    return genres.map((elm, idx) => (
-                      <div key={idx}>
-                        <li>
-                          {elm.Name} - {elm.Description}
-                        </li>
-                      </div>
-                    ));
-                  }}
-                />
-                <Route
                   path="/directors/:name"
                   render={({ match }) => {
                     if (!documentaries) return <div className="mainView" />;
@@ -194,6 +224,36 @@ export class MainView extends Component {
                 />
 
                 <Route
+                  path="/genres"
+                  render={() => {
+                    return (
+                      <React.Fragment>
+                        <div className="genreTitleWrap">
+                          <h3>Genres Info</h3>
+                          <hr />
+                        </div>
+                        <div>
+                          {genres.map((elm, idx) => (
+                            <div key={idx}>
+                              <p className="titleElement">{elm.Name}</p>
+                              <p>{elm.Description}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </React.Fragment>
+                    );
+                  }}
+                />
+                {/*
+                    return genres.map((elm, idx) => (
+                      <div key={idx}>
+                        <li>
+                          {elm.Name} - {elm.Description}
+                        </li>
+                      </div>
+                    ));
+                     */}
+                <Route
                   path="/genres/:name"
                   render={({ match }) => {
                     if (!documentaries) return <div className="mainView" />;
@@ -204,7 +264,9 @@ export class MainView extends Component {
                             (m) => m.Genre.Name === match.params.name
                           ).Genre
                         }
-                        genres={documentaries}
+                        documentaries={documentaries.filter(
+                          (m) => m.Genre.Name === match.params.name
+                        )}
                       />
                     );
                   }}

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import { ErrorView } from "../ErrorView/ErrorView";
@@ -8,7 +8,7 @@ import Button from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import "./GenreView.scss";
-export class GenreView extends Component {
+export class GenreView extends React.Component {
   constructor() {
     super();
 
@@ -47,7 +47,7 @@ export class GenreView extends Component {
           </div>
           <br />
         </div>
-        <Link to={"/"}>
+        <Link to={`/`}>
           <Button variant="danger" className="btnBack">
             Go Back Me
           </Button>

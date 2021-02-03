@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 
-import Card from "react-bootstrap/Card";
+import axios from "axios";
+
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 
@@ -9,20 +9,46 @@ import { Link } from "react-router-dom";
 
 import "./MovieView.scss";
 export class MovieView extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
-    this.state = {};
+    let addFavorite = false;
+    if (props.addFavorite) {
+      addFavorite = true;
+    }
+
+    this.state = {
+      documentary: this.props.documentary,
+      username: this.props.user,
+      userToken: this.props.userToken,
+      addFavorite: addFavorite,
+    };
   }
+
+  addFavorite = () => {
+    this.setState({
+      addFavorite: false,
+    });
+    axios({
+      method: "post",
+      url: `https://documentality.herokuapp.com/users/${this.state.username}/Documentaries/${this.state.documentary.Title}`,
+      headers: { Authorization: `Bearer ${this.state.userToken}` },
+      data: {},
+    })
+      .then((response) => {
+        const data = response.data;
+        console.log("New Documentary added");
+      })
+      .catch((e) => {
+        console.log(e);
+        console.log("Documentary not added");
+      });
+  };
 
   render() {
     const { documentary } = this.props;
 
     if (!documentary) return null;
-
-    const addFavorite = () => {
-      console.log("Added in Favorite List");
-    };
 
     return (
       <Container className="movieView">
@@ -63,7 +89,7 @@ export class MovieView extends Component {
               </Button>
             </Link>
 
-            <Button className="btnAddFavorite" onClick={addFavorite}>
+            <Button className="btnAddFavorite" onClick={this.addFavorite}>
               Add to Favorites
             </Button>
           </div>
@@ -72,20 +98,6 @@ export class MovieView extends Component {
     );
   }
 }
-
-MovieView.propTypes = {
-  documentary: PropTypes.shape({
-    Title: PropTypes.string.isRequired,
-    Description: PropTypes.string.isRequired,
-    ImagePath: PropTypes.string.isRequired,
-    Genre: PropTypes.shape({
-      Name: PropTypes.string.isRequired,
-    }),
-    Director: PropTypes.shape({
-      Name: PropTypes.string.isRequired,
-    }),
-  }).isRequired,
-};
 
 {
   /*

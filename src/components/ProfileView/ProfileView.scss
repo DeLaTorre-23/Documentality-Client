@@ -3,54 +3,74 @@
   background: red;
 }
 
-.body-container {
+.nameProfileWrap {
+  width: 100%;
+  padding: 30px;
+  // margin-top: 20px;
+  margin-bottom: 20px;
+
+  border: 3px solid #53d4ff;
+}
+.userName {
+  font-size: xxx-large;
+  margin: 0px;
+}
+
+.bodyContainer {
   width: 80%;
-  .body-info {
+
+  .bodyInfo {
     display: flex;
     flex-flow: row wrap;
+    justify-content: center;
+    //.user-avatar {
+    //  width: 40%;
+    //  margin: 10px;
+    //  padding: 15px;
+    //  width: 300px;
+    //  height: 300px;
+    //  border: 3px solid black;
+    //}
 
-    .user-avatar {
-      width: 40%;
-      margin: 10px;
-      padding: 15px;
-      width: 300px;
-      height: 300px;
-      border: 3px solid black;
-    }
-
-    .user-info {
+    .userInfo {
       display: flex;
       flex-direction: column;
-      justify-content: space-around;
+      justify-content: center;
       width: 60%;
 
-      border: 2px solid #0069c0;
-      .user-email {
+      .userEmail {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        padding: 3px;
+        padding: 10px;
       }
 
-      .user-birthday {
+      .userBirthday {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        padding: 3px;
+        padding: 10px;
       }
-      .user-Password {
+      .userPassword {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        padding: 3px;
+        padding: 10px;
       }
     }
   }
-  .btn-container {
+
+  .favoriteListContainer {
+    padding: 20px;
+    margin: 15px;
+  }
+
+  .btnContainer {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
   }
+
   /*
   .btnMovieView {
     display: flex;

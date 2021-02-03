@@ -55,6 +55,7 @@ export class DirectorView extends Component {
           </div>
           <br />
         </div>
+        {/*<Link to={`/documentaries/${documentary.Title}`}>*/}
         <Link to={"/"}>
           <Button variant="danger" className="btnBack">
             Go Back Me

@@ -1,4 +1,189 @@
 import React, { useState } from "react";
+import axios from "axios";
+
+import { MovieCardView } from "../MovieCardView/MovieCardView";
+import { ProfileEditView } from "../ProfileEditView/ProfileEditView";
+
+import { Button, Modal, Row, Container } from "react-bootstrap";
+
+import "./ProfileView.scss";
+
+export function ProfileView(props) {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [birthday, setBirthday] = useState(new Date());
+  const [password, setPassword] = useState([]);
+  const [favoriteList, setFavoriteList] = useState([]);
+  const [edit, setEdit] = useState(false);
+  const [show, setShow] = useState(false);
+
+  if (username === "") {
+    axios
+      .get(`https://documentality.herokuapp.com/users/${props.user}`, {
+        headers: { Authorization: `Bearer ${props.userToken}` },
+      })
+      .then((response) => {
+        let userData = response.data;
+        setUsername(userData.Username);
+        setUser(userData.UserName);
+        setEmail(userData.Email);
+        setBirthday(new Date(userData.Birthday));
+        setFavoriteList(userData.FavoriteList);
+
+        console.log(data);
+        console.log(userData.FavoriteList);
+        console.log(props.FavoriteList);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  if (username === "") return null;
+
+  function deregister() {
+    axios
+      .delete(`https://documentality.herokuapp.com/users/${props.user}`, {
+        headers: { Authorization: `Bearer ${props.userToken}` },
+      })
+      .then((response) => {
+        console.log(response);
+        localStorage.clear();
+        window.open("/", "_self");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  let favorites = props.documentaries.filter(
+    (m) => props.favoriteList && props.favoriteList.includes(m.Title)
+  );
+
+  const updateFavorites = (documentaries) => {
+    setFavoriteList(
+      props.FavoriteList.filter((favDocs) => {
+        return favDocs !== documentaries;
+      })
+    );
+  };
+
+  const editUser = () => {
+    setEdit(!edit);
+  };
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return (
+    <React.Fragment>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Accept Changes</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete your account?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="danger" onClick={deregister}>
+            Delete Account
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      {/* SLIDER Favorite Movies */}
+
+      <div className="nameProfileWrap">
+        <h3 className="userName">{"Hi " + username + ","}</h3>
+      </div>
+
+      <Container className="bodyContainer">
+        <div className="bodyInfo">
+          {/*<div className="user-avatar">
+            <img className="img-avatar" src="#" />
+          </div>*/}
+
+          <div className="userInfo">
+            <div className="userEmail">
+              <span className="labelBold">Email: </span>
+              <span className="value">{email}</span>
+            </div>
+            <div className="userBirthday">
+              <span className="labelBold">Birth date: </span>
+              <span className="value">{birthday.toDateString()}</span>
+            </div>
+            <div className="userPassword">
+              <span className="labelBold">Password: </span>
+              <span className="value">{password}********</span>
+            </div>
+
+            {edit && (
+              <React.Fragment>
+                <div className="editContainer">
+                  <hr />
+                  <ProfileEditView
+                    user={props.user}
+                    userToken={props.userToken}
+                  />
+                </div>
+              </React.Fragment>
+            )}
+          </div>
+        </div>
+        <hr />
+        <div className="favoriteListContainer">
+          <span className="label">Favorite List:</span>
+          <Row className="favoriteDocumentaries">
+            {favorites.map((m) => (
+              <div className="EditViewContainer" key={m.Title}>
+                <MovieCardView
+                  user={props.user}
+                  userToken={props.userToken}
+                  key={m.Title}
+                  documentary={m}
+                  removeFavorite={true}
+                  updateFavorites={updateFavorites}
+                />
+
+                <hr />
+              </div>
+            ))}
+          </Row>
+        </div>
+        <hr />
+        <div className="btnContainer">
+          <Button className="btnDelete" variant="danger" onClick={handleShow}>
+            Delete account
+          </Button>
+
+          <Button
+            className="btnAddFavorite"
+            variant="primary"
+            onClick={updateFavorites}
+          >
+            Favorite List
+          </Button>
+
+          <Button className="btnDelete" variant="warning" onClick={editUser}>
+            Edit account
+          </Button>
+        </div>
+        <hr />
+        {/*<div className="btnBackContainer">
+          <Link to={`/`}>
+            <Button className="btnBack" variant="danger">
+              Go Back Me
+            </Button>
+          </Link>
+            </div>*/}
+      </Container>
+    </React.Fragment>
+  );
+}
+
+{
+  /*
+import React, { useState } from "react";
 
 import { Link, NavLink } from "react-router-dom";
 import Button from "react-bootstrap/Button";
@@ -9,7 +194,10 @@ export class ProfileView extends React.Component {
   render() {
     return (
       <React.Fragment>
-        {/* SLIDER Favorite Movies */}
+        {/* SLIDER Favorite Movies */
+}
+{
+  /*}
         <div className="center">
           <h3 className="user-name">James</h3>
         </div>
@@ -40,22 +228,22 @@ export class ProfileView extends React.Component {
 
           <hr />
           <div className="btn-container">
-            <Button className="btnDelete" variant="warning">
-              Edit account
+            <Button className="btnDelete" variant="danger">
+              Delete account
             </Button>
 
             <Button className="btnAddFavorite" variant="primary">
               Favorite List
             </Button>
 
-            <Button className="btnDelete" variant="danger">
-              Delete account
+            <Button className="btnDelete" variant="warning">
+              Edit account
             </Button>
           </div>
           <hr />
           <div className="btnBack-container">
             <Link to={`/`}>
-              <Button className="btnBack" variant="dark">
+              <Button className="btnBack" variant="danger">
                 Go Back Me
               </Button>
             </Link>
@@ -64,4 +252,71 @@ export class ProfileView extends React.Component {
       </React.Fragment>
     );
   }
+}
+
+*/
+}
+
+{
+  /* 
+<div className="profile-view">
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Accept Changes</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete your account?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="danger" onClick={deregister}>
+            Delete Account
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <div className="username">
+        <span className="label">Username: </span>
+        <span className="value">{username}</span>
+      </div>
+      <div className="email">
+        <span className="label">Email: </span>
+        <span className="value">{email}</span>
+      </div>
+      <div className="birthday">
+        <span className="label">Birthday: </span>
+        <span className="value">{birthday.toDateString()}</span>
+      </div>
+      <Button className="edit-button" variant="primary" onClick={editUser}>
+        Edit
+      </Button>
+      <Button
+        className="deregister-button"
+        variant="outline-danger"
+        onClick={handleShow}
+      >
+        Delete account
+      </Button>
+      {edit && (
+        <ProfileEditView user={props.user} userToken={props.userToken} />
+      )}
+      <div className="favorite-documentaries-container">
+        <span className="label">Favorite List:</span>
+        <Row className="favorite-documentaries">
+          {favorites.map((m) => (
+            <Col xs="auto" key={m.Title}>
+              <MovieCardView
+                user={props.user}
+                userToken={props.userToken}
+                key={m.Title}
+                documentary={m}
+                removeFavorite={true}
+                updateFavorites={updateFavorites}
+              />
+            </Col>
+          ))}
+        </Row>
+      </div>
+    </div>
+*/
 }
