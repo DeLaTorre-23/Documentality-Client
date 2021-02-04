@@ -1,4 +1,68 @@
-.navBar {
+.navbarWrap {
+  height: 120px;
+  width: 100%;
+  padding-left: 60px;
   margin-bottom: 20px;
-  font-family: Trebuchet MS, Helvetica, Arial, sans-serif;
+  font-family: "Segoe UI", Trebuchet MS, Helvetica, Arial, sans-serif;
+  background-color: #0cb7f2;
+  border-top: 3px solid #53d4ff;
+  border-bottom: 5px solid #53d4ff;
+}
+
+.navbar-brand {
+  display: flex;
+  //background-color: red;
+  justify-content: center;
+  align-items: center;
+  margin: 0px;
+  width: 30%;
+  height: 100%;
+
+  .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 90%;
+    color: black;
+    .logoImg {
+      width: 100px;
+      height: 100%;
+      margin-right: 15px;
+    }
+    #brand {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 30px;
+      font-weight: 500;
+    }
+  }
+}
+
+.navbar-collapse {
+  align-items: center;
+  //background-color: orange;
+  width: 70%;
+  height: 100%;
+  margin: 0px auto;
+  float: right;
+  margin-top: 11px;
+  .navBarLinks {
+    background-color: #0cb7f2;
+    margin: 0px auto;
+    margin-right: 19px;
+    //float: right;
+    //background-color: lavender;
+    a {
+      border-top: 3px solid #53d4ff;
+      border-bottom: 3px solid #53d4ff;
+      button {
+        background-color: #0cb7f2;
+        color: black;
+        font-size: large;
+        font-weight: 500;
+      }
+    }
+  }
 }

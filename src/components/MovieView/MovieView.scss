@@ -7,48 +7,48 @@
   font-family: Trebuchet MS, Helvetica, Arial, sans-serif;
 }
 
-.btnAddFavorite {
-  margin-top: 15px;
-  margin-bottom: 5px;
-  width: 203px;
-  background-color: #0069c0;
-  border: 2px solid #53d4ff;
-  color: #fff;
-}
-
-.btnBack {
-  margin-top: 15px;
-  margin-bottom: 5px;
-  width: 203px;
-  background-color: rgb(200, 26, 26);
-  border: 2px solid #53d4ff;
-  color: #fff;
-}
-
 .moviePoster {
   max-height: 400px;
   margin-bottom: 30px;
   border: 5px solid #53d4ff;
 }
 
-.movieInfo {
-  flex-flow: column wrap;
-  font-family: Trebuchet MS, Helvetica, Arial, sans-serif;
-}
-
 .movieInfo > * {
   align-items: left;
   padding: 5px;
+  font-weight: 700;
 }
 
-.btnMovieView {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 15px;
+.movieInfo {
+  flex-flow: column wrap;
+
+  .btnMovieView {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+
+    .btnAddFavorite {
+      margin-top: 15px;
+      margin-bottom: 5px;
+      width: 203px;
+      background-color: #0069c0;
+      border: 2px solid #53d4ff;
+      color: #fff;
+    }
+
+    .btnBack {
+      margin-top: 15px;
+      margin-bottom: 5px;
+      width: 203px;
+      background-color: rgb(200, 26, 26);
+      border: 2px solid #53d4ff;
+      color: #fff;
+    }
+  }
 }
 
 .labelBold {
   color: #fff;
   font-size: large;
-  font-family: sans-serif;
+  font-family: Trebuchet MS, Helvetica, Arial, sans-serif;
 }

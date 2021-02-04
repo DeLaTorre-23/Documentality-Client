@@ -1,15 +1,49 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
 
-import Button from 'react-bootstrap/Button'
+import axios from "axios";
 
-import './MovieView.scss';
-export class MovieView extends React.Component {
-  constructor() {
-    super();
+import Container from "react-bootstrap/Container";
+import Button from "react-bootstrap/Button";
 
-    this.state = {};
+import { Link } from "react-router-dom";
+
+import "./MovieView.scss";
+export class MovieView extends Component {
+  constructor(props) {
+    super(props);
+
+    let addFavorite = false;
+    if (props.addFavorite) {
+      addFavorite = true;
+    }
+
+    this.state = {
+      documentary: this.props.documentary,
+      username: this.props.user,
+      userToken: this.props.userToken,
+      addFavorite: addFavorite,
+    };
   }
+
+  addFavorite = () => {
+    this.setState({
+      addFavorite: false,
+    });
+    axios({
+      method: "post",
+      url: `https://documentality.herokuapp.com/users/${this.state.username}/Documentaries/${this.state.documentary.Title}`,
+      headers: { Authorization: `Bearer ${this.state.userToken}` },
+      data: {},
+    })
+      .then((response) => {
+        const data = response.data;
+        console.log("New Documentary added");
+      })
+      .catch((e) => {
+        console.log(e);
+        console.log("Documentary not added");
+      });
+  };
 
   render() {
     const { documentary } = this.props;
@@ -17,9 +51,9 @@ export class MovieView extends React.Component {
     if (!documentary) return null;
 
     return (
-      <div className="movieView">
-        <img className="moviePoster"  src={documentary.ImagePath} />
-        <div className="movieInfo" >
+      <Container className="movieView">
+        <img className="moviePoster" src={documentary.ImagePath} />
+        <div className="movieInfo">
           <div className="movieTitle">
             <span className="labelBold">Title: </span>
             <span className="value">{documentary.Title}</span>
@@ -32,44 +66,41 @@ export class MovieView extends React.Component {
 
           <div className="movieGenre">
             <span className="labelBold">Genre: </span>
-            <span className="value">{documentary.Genre.Name}</span>
+            <Link to={`/genres/${documentary.Genre.Name}`}>
+              <span className="value">
+                <Button variant="link">{documentary.Genre.Name}</Button>
+              </span>
+            </Link>
           </div>
 
           <div className="movieDirector">
             <span className="labelBold">Director: </span>
-            <span className="value">{documentary.Director.Name}</span>
-          </div>   
+            <Link to={`/directors/${documentary.Director.Name}`}>
+              <span className="value">
+                <Button variant="link">{documentary.Director.Name}</Button>
+              </span>
+            </Link>
+          </div>
 
           <div className="btnMovieView">
-            {/* Reload all the page*/}
-            {/* <a href="window.history.back();">Go Back</a>*/}
+            <Link to={`/`}>
+              <Button className="btnBack" variant="danger">
+                Go Back Me
+              </Button>
+            </Link>
 
-            {/* Don't reload the page, just go back*/}
-            <Button className="btnBack" onClick={this.props.removeDocumentaryFromSelected} variant="danger">Go Back Me</Button>
-            <Button className="btnAddFavorite" onClick={this.addFavorite}>Add to Favorites</Button>
-          </div>     
-        </div>      
-      </div>
+            <Button className="btnAddFavorite" onClick={this.addFavorite}>
+              Add to Favorites
+            </Button>
+          </div>
+        </div>
+      </Container>
     );
   }
 }
 
-MovieView.propTypes = {
-  documentary: PropTypes.shape({
-    Title: PropTypes.string.isRequired,
-    Description: PropTypes.string.isRequired,
-    ImagePath: PropTypes.string.isRequired,
-    Genre: PropTypes.shape({
-      Name: PropTypes.string.isRequired
-    }),
-    Director: PropTypes.shape({
-      Name: PropTypes.string.isRequired
-    }),
-  }).isRequired,
-  onClick: PropTypes.func.isRequired
-};
-
-{/*
+{
+  /*
   <div className='movie-view'>
         <Card style={{ width: '18rem' }}>
           <Card.Img variant='top' src={movie.imagePath} />
@@ -93,4 +124,5 @@ MovieView.propTypes = {
           </Card.Body>
         </Card>
       </div>
-*/}
+*/
+}
