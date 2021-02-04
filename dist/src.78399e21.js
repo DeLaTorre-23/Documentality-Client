@@ -51566,134 +51566,6 @@ function ProfileView(props) {
     onClick: editUser
   }, "Edit account")), _react.default.createElement("hr", null)));
 }
-
-{
-  /*
-  import React, { useState } from "react";
-  import { Link, NavLink } from "react-router-dom";
-  import Button from "react-bootstrap/Button";
-  import { Container } from "react-bootstrap";
-  import "./ProfileView.scss";
-  export class ProfileView extends React.Component {
-  render() {
-    return (
-      <React.Fragment>
-        {/* SLIDER Favorite Movies */
-}
-{
-  /*}
-        <div className="center">
-          <h3 className="user-name">James</h3>
-        </div>
-          <Container className="body-container">
-          <div className="body-info">
-            <div className="user-avatar">
-              <img className="img-avatar" src="#" />
-            </div>
-              <div className="user-info">
-              <div className="user-email">
-                <span className="labelBold">Email: </span>
-                <span className="value">x</span>
-              </div>
-                <div className="user-birthday">
-                <span className="labelBold">Birth date: </span>
-                <span className="value">x</span>
-              </div>
-                <div className="user-Password">
-                <span className="labelBold">Password: </span>
-                <span className="value">x</span>
-              </div>
-            </div>
-          </div>
-            <hr />
-          <div className="btn-container">
-            <Button className="btnDelete" variant="danger">
-              Delete account
-            </Button>
-              <Button className="btnAddFavorite" variant="primary">
-              Favorite List
-            </Button>
-              <Button className="btnDelete" variant="warning">
-              Edit account
-            </Button>
-          </div>
-          <hr />
-          <div className="btnBack-container">
-            <Link to={`/`}>
-              <Button className="btnBack" variant="danger">
-                Go Back Me
-              </Button>
-            </Link>
-          </div>
-        </Container>
-      </React.Fragment>
-    );
-  }
-  }
-  */
-}
-{
-  /* 
-  <div className="profile-view">
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Accept Changes</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Are you sure you want to delete your account?</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="danger" onClick={deregister}>
-            Delete Account
-          </Button>
-        </Modal.Footer>
-      </Modal>
-        <div className="username">
-        <span className="label">Username: </span>
-        <span className="value">{username}</span>
-      </div>
-      <div className="email">
-        <span className="label">Email: </span>
-        <span className="value">{email}</span>
-      </div>
-      <div className="birthday">
-        <span className="label">Birthday: </span>
-        <span className="value">{birthday.toDateString()}</span>
-      </div>
-      <Button className="edit-button" variant="primary" onClick={editUser}>
-        Edit
-      </Button>
-      <Button
-        className="deregister-button"
-        variant="outline-danger"
-        onClick={handleShow}
-      >
-        Delete account
-      </Button>
-      {edit && (
-        <ProfileEditView user={props.user} userToken={props.userToken} />
-      )}
-      <div className="favorite-documentaries-container">
-        <span className="label">Favorite List:</span>
-        <Row className="favorite-documentaries">
-          {favorites.map((m) => (
-            <Col xs="auto" key={m.Title}>
-              <MovieCardView
-                user={props.user}
-                userToken={props.userToken}
-                key={m.Title}
-                documentary={m}
-                removeFavorite={true}
-                updateFavorites={updateFavorites}
-              />
-            </Col>
-          ))}
-        </Row>
-      </div>
-    </div>
-  */
-}
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","../MovieCardView/MovieCardView":"components/MovieCardView/MovieCardView.jsx","../ProfileEditView/ProfileEditView":"components/ProfileEditView/ProfileEditView.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./ProfileView.scss":"components/ProfileView/ProfileView.scss"}],"components/MovieView/MovieView.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
@@ -55089,7 +54961,7 @@ var DocumentalityApplication = /*#__PURE__*/function (_React$Component) {
 }(_react.default.Component); // Find the root of your app
 
 
-var container = document.getElementsByClassName('mainWrap')[0]; // Tells React to render your app in the root DOM element
+var container = document.getElementsByClassName("mainWrap")[0]; // Tells React to render your app in the root DOM element
 
 _reactDom.default.render(_react.default.createElement(DocumentalityApplication), container);
 },{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","bootstrap/dist/css/bootstrap.min.css":"../node_modules/bootstrap/dist/css/bootstrap.min.css","./components/MainView/MainView":"components/MainView/MainView.jsx","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","./index.scss":"index.scss"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -55120,7 +54992,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63423" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54022" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
