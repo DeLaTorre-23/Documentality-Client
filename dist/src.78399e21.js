@@ -51420,33 +51420,61 @@ function ProfileView(props) {
       favoriteList = _useState10[0],
       setFavoriteList = _useState10[1];
 
-  var _useState11 = (0, _react.useState)(false),
+  var _useState11 = (0, _react.useState)([]),
       _useState12 = _slicedToArray(_useState11, 2),
-      edit = _useState12[0],
-      setEdit = _useState12[1];
+      favorite = _useState12[0],
+      setFavorite = _useState12[1];
 
   var _useState13 = (0, _react.useState)(false),
       _useState14 = _slicedToArray(_useState13, 2),
-      show = _useState14[0],
-      setShow = _useState14[1];
+      edit = _useState14[0],
+      setEdit = _useState14[1];
 
-  if (username === "") {
-    _axios.default.get("https://documentality.herokuapp.com/users/".concat(props.user), {
-      headers: {
-        Authorization: "Bearer ".concat(props.userToken)
-      }
-    }).then(function (response) {
-      var userData = response.data;
-      setUsername(userData.Username);
-      setEmail(userData.Email);
-      setBirthday(new Date(userData.Birthday));
-      setFavoriteList(userData.FavoriteList);
-    }).catch(function (error) {
-      console.log(error);
-    });
-  }
+  var _useState15 = (0, _react.useState)(false),
+      _useState16 = _slicedToArray(_useState15, 2),
+      show = _useState16[0],
+      setShow = _useState16[1]; // i dont understand this condition
+  //its pointless to the code
+  //you should use lifecycle
 
-  if (username === "") return null;
+
+  (0, _react.useEffect)(function () {
+    function getUser() {
+      _axios.default.get("https://documentality.herokuapp.com/users/".concat(props.user), {
+        headers: {
+          Authorization: "Bearer ".concat(props.userToken)
+        }
+      }).then(function (response) {
+        var userData = response.data;
+        console.log(userData);
+        setUsername(userData.Username);
+        setEmail(userData.Email);
+        setBirthday(new Date(userData.Birthday));
+        setFavoriteList(userData.FavoriteList);
+        favs(userData.FavoriteList);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+
+    getUser();
+  }, [props.documentaries]); // if (username === "") {
+  //   axios
+  //     .get(`https://documentality.herokuapp.com/users/${props.user}`, {
+  //       headers: { Authorization: `Bearer ${props.userToken}` },
+  //     })
+  //     .then((response) => {
+  //       let userData = response.data;
+  //       setUsername(userData.Username);
+  //       setEmail(userData.Email);
+  //       setBirthday(new Date(userData.Birthday));
+  //       setFavoriteList(userData.FavoriteList);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
+  // if (username === "") return null;
 
   function deregister() {
     _axios.default.delete("https://documentality.herokuapp.com/users/".concat(props.user), {
@@ -51462,9 +51490,22 @@ function ProfileView(props) {
     });
   }
 
-  var favorites = props.documentaries.filter(function (m) {
-    return props.favoriteList && props.favoriteList.includes(m.Title);
-  });
+  function favs(favList) {
+    var f = [];
+    favList.forEach(function (el) {
+      var temp = props.documentaries.find(function (e) {
+        return e._id == el;
+      });
+
+      if (temp) {
+        f.push(temp);
+      }
+    }); // console.log(f);
+
+    setFavorite(f);
+  } // console.log("favorites", favorites);
+  // console.log(props.documentaries);
+
 
   var updateFavorites = function updateFavorites(documentaries) {
     setFavoriteList(props.FavoriteList.filter(function (favDocs) {
@@ -51534,9 +51575,9 @@ function ProfileView(props) {
     className: "label"
   }, "Favorite List:"), _react.default.createElement(_reactBootstrap.Row, {
     className: "favoriteDocumentaries"
-  }, !favorites.length ? _react.default.createElement("h3", {
+  }, !favorite.length ? _react.default.createElement("h3", {
     className: "text-center w-100"
-  }, "No favorites yet") : favorites.map(function (m) {
+  }, "No favorites yet") : favorite.map(function (m) {
     return _react.default.createElement("div", {
       className: "EditViewContainer",
       key: m.Title
@@ -51628,11 +51669,15 @@ var MovieView = /*#__PURE__*/function (_Component) {
     _this.addFavorite = function () {
       _this.setState({
         addFavorite: false
-      });
+      }); // in your own code your routes from your backend doesnt
+      // match your url here
+      // it received the id not the name of the movie
+      //test it and tell me
+
 
       (0, _axios.default)({
         method: "post",
-        url: "https://documentality.herokuapp.com/users/".concat(_this.state.username, "/Documentaries/").concat(_this.state.documentary.Title),
+        url: "https://documentality.herokuapp.com/users/".concat(_this.state.username, "/Documentaries/").concat(_this.state.documentary._id),
         headers: {
           Authorization: "Bearer ".concat(_this.state.userToken)
         },
@@ -51650,11 +51695,15 @@ var MovieView = /*#__PURE__*/function (_Component) {
 
     if (props.addFavorite) {
       addFavorite = true;
-    }
+    } //dont set state like this its not good practice
+    // i will allow it for now
+    //username is empty so i will take it from the localstorage
+
 
     _this.state = {
       documentary: _this.props.documentary,
-      username: _this.props.user,
+      username: localStorage.getItem("user"),
+      //this.props.user,
       userToken: _this.props.userToken,
       addFavorite: addFavorite
     };

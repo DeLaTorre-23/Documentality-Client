@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import { MovieCardView } from "../MovieCardView/MovieCardView";
@@ -14,28 +14,57 @@ export function ProfileView(props) {
   const [birthday, setBirthday] = useState(new Date());
   const [password, setPassword] = useState([]);
   const [favoriteList, setFavoriteList] = useState([]);
+  const [favorite, setFavorite] = useState([]);
   const [edit, setEdit] = useState(false);
   const [show, setShow] = useState(false);
 
-  if (username === "") {
-    axios
-      .get(`https://documentality.herokuapp.com/users/${props.user}`, {
-        headers: { Authorization: `Bearer ${props.userToken}` },
-      })
-      .then((response) => {
-        let userData = response.data;
-        setUsername(userData.Username);
+  // i dont understand this condition
+  //its pointless to the code
+  //you should use lifecycle
 
-        setEmail(userData.Email);
-        setBirthday(new Date(userData.Birthday));
-        setFavoriteList(userData.FavoriteList);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+  useEffect(() => {
+    function getUser() {
+      axios
+        .get(`https://documentality.herokuapp.com/users/${props.user}`, {
+          headers: { Authorization: `Bearer ${props.userToken}` },
+        })
+        .then((response) => {
+          let userData = response.data;
+          console.log(userData);
+          setUsername(userData.Username);
 
-  if (username === "") return null;
+          setEmail(userData.Email);
+          setBirthday(new Date(userData.Birthday));
+          setFavoriteList(userData.FavoriteList);
+          favs(userData.FavoriteList);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+
+    getUser();
+  }, [props.documentaries]);
+
+  // if (username === "") {
+  //   axios
+  //     .get(`https://documentality.herokuapp.com/users/${props.user}`, {
+  //       headers: { Authorization: `Bearer ${props.userToken}` },
+  //     })
+  //     .then((response) => {
+  //       let userData = response.data;
+  //       setUsername(userData.Username);
+
+  //       setEmail(userData.Email);
+  //       setBirthday(new Date(userData.Birthday));
+  //       setFavoriteList(userData.FavoriteList);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
+
+  // if (username === "") return null;
 
   function deregister() {
     axios
@@ -52,10 +81,20 @@ export function ProfileView(props) {
       });
   }
 
-  let favorites = props.documentaries.filter(
-    (m) => props.favoriteList && props.favoriteList.includes(m.Title)
-  );
+  function favs(favList) {
+    let f = [];
+    favList.forEach((el) => {
+      let temp = props.documentaries.find((e) => e._id == el);
+      if (temp) {
+        f.push(temp);
+      }
+    });
+    // console.log(f);
+    setFavorite(f);
+  }
 
+  // console.log("favorites", favorites);
+  // console.log(props.documentaries);
   const updateFavorites = (documentaries) => {
     setFavoriteList(
       props.FavoriteList.filter((favDocs) => {
@@ -130,10 +169,10 @@ export function ProfileView(props) {
         <div className="favoriteListContainer">
           <span className="label">Favorite List:</span>
           <Row className="favoriteDocumentaries">
-            {!favorites.length ? (
+            {!favorite.length ? (
               <h3 className="text-center w-100">No favorites yet</h3>
             ) : (
-              favorites.map((m) => (
+              favorite.map((m) => (
                 <div className="EditViewContainer" key={m.Title}>
                   <MovieCardView
                     user={props.user}
