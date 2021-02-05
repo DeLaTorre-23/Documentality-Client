@@ -16,10 +16,12 @@ export class MovieView extends Component {
     if (props.addFavorite) {
       addFavorite = true;
     }
-
+    //dont set state like this its not good practice
+    // i will allow it for now
+    //username is empty so i will take it from the localstorage
     this.state = {
       documentary: this.props.documentary,
-      username: this.props.user,
+      username: localStorage.getItem("user"), //this.props.user,
       userToken: this.props.userToken,
       addFavorite: addFavorite,
     };
@@ -29,9 +31,14 @@ export class MovieView extends Component {
     this.setState({
       addFavorite: false,
     });
+    // in your own code your routes from your backend doesnt
+    // match your url here
+    // it received the id not the name of the movie
+    //test it and tell me
+
     axios({
       method: "post",
-      url: `https://documentality.herokuapp.com/users/${this.state.username}/Documentaries/${this.state.documentary.Title}`,
+      url: `https://documentality.herokuapp.com/users/${this.state.username}/Documentaries/${this.state.documentary._id}`,
       headers: { Authorization: `Bearer ${this.state.userToken}` },
       data: {},
     })

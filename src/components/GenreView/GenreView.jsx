@@ -5,20 +5,38 @@ import { ErrorView } from "../ErrorView/ErrorView";
 
 import Button from "react-bootstrap";
 
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import "./GenreView.scss";
 export class GenreView extends React.Component {
   constructor() {
     super();
 
-    this.state = {};
+    this.state = {
+      genre: {},
+      error: false,
+    };
   }
 
+  componentDidMount() {
+    let genre = this.props.documentaries.find(
+      (m) => m.Genre.Name === this.props.match.params.name
+    );
+    if (genre) {
+      //if genre exists set state
+      this.setState({ genre: genre.Genre });
+    } else {
+      // if not exist set true
+      this.setState({ error: true });
+    }
+  }
   render() {
-    const { genre, documentaries } = this.props;
+    const { documentaries } = this.props;
+    const { genre, error } = this.state;
 
-    if (!genre) return <ErrorView />;
+    console.log(error);
+
+    if (error) return <ErrorView />;
 
     return (
       <div className="genreView">
@@ -47,11 +65,9 @@ export class GenreView extends React.Component {
           </div>
           <br />
         </div>
-        <Link to={`/`}>
-          <Button variant="danger" className="btnBack">
-            Go Back Me
-          </Button>
-        </Link>
+        <NavLink to={`/`} className="btn btn-danger btnBack">
+          Go Back Me
+        </NavLink>
       </div>
     );
   }
