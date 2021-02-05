@@ -25,14 +25,10 @@ export function ProfileView(props) {
       .then((response) => {
         let userData = response.data;
         setUsername(userData.Username);
-        setUser(userData.UserName);
+
         setEmail(userData.Email);
         setBirthday(new Date(userData.Birthday));
         setFavoriteList(userData.FavoriteList);
-
-        console.log(data);
-        console.log(userData.FavoriteList);
-        console.log(props.FavoriteList);
       })
       .catch((error) => {
         console.log(error);
@@ -134,20 +130,24 @@ export function ProfileView(props) {
         <div className="favoriteListContainer">
           <span className="label">Favorite List:</span>
           <Row className="favoriteDocumentaries">
-            {favorites.map((m) => (
-              <div className="EditViewContainer" key={m.Title}>
-                <MovieCardView
-                  user={props.user}
-                  userToken={props.userToken}
-                  key={m.Title}
-                  documentary={m}
-                  removeFavorite={true}
-                  updateFavorites={updateFavorites}
-                />
+            {!favorites.length ? (
+              <h3 className="text-center w-100">No favorites yet</h3>
+            ) : (
+              favorites.map((m) => (
+                <div className="EditViewContainer" key={m.Title}>
+                  <MovieCardView
+                    user={props.user}
+                    userToken={props.userToken}
+                    key={m.Title}
+                    documentary={m}
+                    removeFavorite={true}
+                    updateFavorites={updateFavorites}
+                  />
 
-                <hr />
-              </div>
-            ))}
+                  <hr />
+                </div>
+              ))
+            )}
           </Row>
         </div>
         <hr />

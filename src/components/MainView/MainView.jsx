@@ -224,6 +224,7 @@ export class MainView extends Component {
                 />
 
                 <Route
+                  exact
                   path="/genres"
                   render={() => {
                     return (
@@ -255,19 +256,11 @@ export class MainView extends Component {
                      */}
                 <Route
                   path="/genres/:name"
-                  render={({ match }) => {
-                    if (!documentaries) return <div className="mainView" />;
+                  render={(props) => {
+                    if (!documentaries.length)
+                      return <div className="mainView" />;
                     return (
-                      <GenreView
-                        genre={
-                          documentaries.find(
-                            (m) => m.Genre.Name === match.params.name
-                          ).Genre
-                        }
-                        documentaries={documentaries.filter(
-                          (m) => m.Genre.Name === match.params.name
-                        )}
-                      />
+                      <GenreView documentaries={documentaries} {...props} />
                     );
                   }}
                 />
