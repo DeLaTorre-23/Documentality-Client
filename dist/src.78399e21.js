@@ -51555,10 +51555,6 @@ function ProfileView(props) {
     variant: "danger",
     onClick: handleShow
   }, "Delete account"), _react.default.createElement(_reactBootstrap.Button, {
-    className: "btnAddFavorite",
-    variant: "primary",
-    onClick: updateFavorites
-  }, "Favorite List"), _react.default.createElement(_reactBootstrap.Button, {
     className: "btnDelete",
     variant: "warning",
     onClick: editUser

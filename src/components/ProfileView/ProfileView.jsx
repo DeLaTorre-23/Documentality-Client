@@ -156,6 +156,7 @@ export function ProfileView(props) {
             Delete account
           </Button>
 
+          {/*
           <Button
             className="btnAddFavorite"
             variant="primary"
@@ -163,6 +164,7 @@ export function ProfileView(props) {
           >
             Favorite List
           </Button>
+          */}
 
           <Button className="btnDelete" variant="warning" onClick={editUser}>
             Edit account
