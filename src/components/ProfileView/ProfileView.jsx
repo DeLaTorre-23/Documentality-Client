@@ -194,13 +194,7 @@ export function ProfileView(props) {
           </Button>
 
           {/*
-          <Button
-            className="btnAddFavorite"
-            variant="primary"
-            onClick={updateFavorites}
-          >
-            Favorite List
-          </Button>
+          
           */}
 
           <Button className="btnDelete" variant="warning" onClick={editUser}>
