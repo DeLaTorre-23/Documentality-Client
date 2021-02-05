@@ -51420,37 +51420,61 @@ function ProfileView(props) {
       favoriteList = _useState10[0],
       setFavoriteList = _useState10[1];
 
-  var _useState11 = (0, _react.useState)(false),
+  var _useState11 = (0, _react.useState)([]),
       _useState12 = _slicedToArray(_useState11, 2),
-      edit = _useState12[0],
-      setEdit = _useState12[1];
+      favorite = _useState12[0],
+      setFavorite = _useState12[1];
 
   var _useState13 = (0, _react.useState)(false),
       _useState14 = _slicedToArray(_useState13, 2),
-      show = _useState14[0],
-      setShow = _useState14[1];
+      edit = _useState14[0],
+      setEdit = _useState14[1];
 
-  if (username === "") {
-    _axios.default.get("https://documentality.herokuapp.com/users/".concat(props.user), {
-      headers: {
-        Authorization: "Bearer ".concat(props.userToken)
-      }
-    }).then(function (response) {
-      var userData = response.data;
-      setUsername(userData.Username);
-      setUser(userData.UserName);
-      setEmail(userData.Email);
-      setBirthday(new Date(userData.Birthday));
-      setFavoriteList(userData.FavoriteList);
-      console.log(data);
-      console.log(userData.FavoriteList);
-      console.log(props.FavoriteList);
-    }).catch(function (error) {
-      console.log(error);
-    });
-  }
+  var _useState15 = (0, _react.useState)(false),
+      _useState16 = _slicedToArray(_useState15, 2),
+      show = _useState16[0],
+      setShow = _useState16[1]; // i dont understand this condition
+  //its pointless to the code
+  //you should use lifecycle
 
-  if (username === "") return null;
+
+  (0, _react.useEffect)(function () {
+    function getUser() {
+      _axios.default.get("https://documentality.herokuapp.com/users/".concat(props.user), {
+        headers: {
+          Authorization: "Bearer ".concat(props.userToken)
+        }
+      }).then(function (response) {
+        var userData = response.data;
+        console.log(userData);
+        setUsername(userData.Username);
+        setEmail(userData.Email);
+        setBirthday(new Date(userData.Birthday));
+        setFavoriteList(userData.FavoriteList);
+        favs(userData.FavoriteList);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+
+    getUser();
+  }, [props.documentaries]); // if (username === "") {
+  //   axios
+  //     .get(`https://documentality.herokuapp.com/users/${props.user}`, {
+  //       headers: { Authorization: `Bearer ${props.userToken}` },
+  //     })
+  //     .then((response) => {
+  //       let userData = response.data;
+  //       setUsername(userData.Username);
+  //       setEmail(userData.Email);
+  //       setBirthday(new Date(userData.Birthday));
+  //       setFavoriteList(userData.FavoriteList);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
+  // if (username === "") return null;
 
   function deregister() {
     _axios.default.delete("https://documentality.herokuapp.com/users/".concat(props.user), {
@@ -51466,9 +51490,22 @@ function ProfileView(props) {
     });
   }
 
-  var favorites = props.documentaries.filter(function (m) {
-    return props.favoriteList && props.favoriteList.includes(m.Title);
-  });
+  function favs(favList) {
+    var f = [];
+    favList.forEach(function (el) {
+      var temp = props.documentaries.find(function (e) {
+        return e._id == el;
+      });
+
+      if (temp) {
+        f.push(temp);
+      }
+    }); // console.log(f);
+
+    setFavorite(f);
+  } // console.log("favorites", favorites);
+  // console.log(props.documentaries);
+
 
   var updateFavorites = function updateFavorites(documentaries) {
     setFavoriteList(props.FavoriteList.filter(function (favDocs) {
@@ -51538,7 +51575,9 @@ function ProfileView(props) {
     className: "label"
   }, "Favorite List:"), _react.default.createElement(_reactBootstrap.Row, {
     className: "favoriteDocumentaries"
-  }, favorites.map(function (m) {
+  }, !favorite.length ? _react.default.createElement("h3", {
+    className: "text-center w-100"
+  }, "No favorites yet") : favorite.map(function (m) {
     return _react.default.createElement("div", {
       className: "EditViewContainer",
       key: m.Title
@@ -51549,7 +51588,7 @@ function ProfileView(props) {
       documentary: m,
       removeFavorite: true,
       updateFavorites: updateFavorites
-    }), _react.default.createElement("hr", null));
+    }));
   }))), _react.default.createElement("hr", null), _react.default.createElement("div", {
     className: "btnContainer"
   }, _react.default.createElement(_reactBootstrap.Button, {
@@ -51557,10 +51596,6 @@ function ProfileView(props) {
     variant: "danger",
     onClick: handleShow
   }, "Delete account"), _react.default.createElement(_reactBootstrap.Button, {
-    className: "btnAddFavorite",
-    variant: "primary",
-    onClick: updateFavorites
-  }, "Favorite List"), _react.default.createElement(_reactBootstrap.Button, {
     className: "btnDelete",
     variant: "warning",
     onClick: editUser
@@ -51634,11 +51669,15 @@ var MovieView = /*#__PURE__*/function (_Component) {
     _this.addFavorite = function () {
       _this.setState({
         addFavorite: false
-      });
+      }); // in your own code your routes from your backend doesnt
+      // match your url here
+      // it received the id not the name of the movie
+      //test it and tell me
+
 
       (0, _axios.default)({
         method: "post",
-        url: "https://documentality.herokuapp.com/users/".concat(_this.state.username, "/Documentaries/").concat(_this.state.documentary.Title),
+        url: "https://documentality.herokuapp.com/users/".concat(_this.state.username, "/Documentaries/").concat(_this.state.documentary._id),
         headers: {
           Authorization: "Bearer ".concat(_this.state.userToken)
         },
@@ -51656,11 +51695,15 @@ var MovieView = /*#__PURE__*/function (_Component) {
 
     if (props.addFavorite) {
       addFavorite = true;
-    }
+    } //dont set state like this its not good practice
+    // i will allow it for now
+    //username is empty so i will take it from the localstorage
+
 
     _this.state = {
       documentary: _this.props.documentary,
-      username: _this.props.user,
+      username: localStorage.getItem("user"),
+      //this.props.user,
       userToken: _this.props.userToken,
       addFavorite: addFavorite
     };
@@ -54296,17 +54339,43 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, GenreView);
 
     _this = _super.call(this);
-    _this.state = {};
+    _this.state = {
+      genre: {},
+      error: false
+    };
     return _this;
   }
 
   _createClass(GenreView, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var genre = this.props.documentaries.find(function (m) {
+        return m.Genre.Name === _this2.props.match.params.name;
+      });
+
+      if (genre) {
+        //if genre exists set state
+        this.setState({
+          genre: genre.Genre
+        });
+      } else {
+        // if not exist set true
+        this.setState({
+          error: true
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this$props = this.props,
-          genre = _this$props.genre,
-          documentaries = _this$props.documentaries;
-      if (!genre) return _react.default.createElement(_ErrorView.ErrorView, null);
+      var documentaries = this.props.documentaries;
+      var _this$state = this.state,
+          genre = _this$state.genre,
+          error = _this$state.error;
+      console.log(error);
+      if (error) return _react.default.createElement(_ErrorView.ErrorView, null);
       return _react.default.createElement("div", {
         className: "genreView"
       }, _react.default.createElement("h2", null, "Genre Info"), _react.default.createElement("hr", null), _react.default.createElement("div", {
@@ -54334,12 +54403,10 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
           className: "documentary",
           key: m.Title
         }, m.Title);
-      })), _react.default.createElement("br", null)), _react.default.createElement(_reactRouterDom.Link, {
-        to: "/"
-      }, _react.default.createElement(_reactBootstrap.default, {
-        variant: "danger",
-        className: "btnBack"
-      }, "Go Back Me")));
+      })), _react.default.createElement("br", null)), _react.default.createElement(_reactRouterDom.NavLink, {
+        to: "/",
+        className: "btn btn-danger btnBack"
+      }, "Go Back Me"));
     }
   }]);
 
@@ -54601,6 +54668,8 @@ var _reactBootstrap = require("react-bootstrap");
 
 require("./MainView.scss");
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
@@ -54825,6 +54894,7 @@ var MainView = /*#__PURE__*/function (_Component) {
           });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
         path: "/genres",
         render: function render() {
           return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("div", {
@@ -54839,24 +54909,18 @@ var MainView = /*#__PURE__*/function (_Component) {
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/genres/:name",
-        render: function render(_ref4) {
-          var match = _ref4.match;
-          if (!documentaries) return _react.default.createElement("div", {
+        render: function render(props) {
+          if (!documentaries.length) return _react.default.createElement("div", {
             className: "mainView"
           });
-          return _react.default.createElement(_GenreView.GenreView, {
-            genre: documentaries.find(function (m) {
-              return m.Genre.Name === match.params.name;
-            }).Genre,
-            documentaries: documentaries.filter(function (m) {
-              return m.Genre.Name === match.params.name;
-            })
-          });
+          return _react.default.createElement(_GenreView.GenreView, _extends({
+            documentaries: documentaries
+          }, props));
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/genres/:name",
-        render: function render(_ref5) {
-          var match = _ref5.match;
+        render: function render(_ref4) {
+          var match = _ref4.match;
           if (!documentaries) return _react.default.createElement("div", {
             className: "mainView"
           });
@@ -54992,7 +55056,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63648" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50382" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
