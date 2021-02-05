@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { LoginView } from "../LoginView/LoginView";
 import { SignUpView } from "../SignUpView/SignUpView";
@@ -15,7 +16,7 @@ import { FooterView } from "../FooterView/FooterView";
 //import { Slider } from "../Slider/Slider";
 import { ErrorView } from "../ErrorView/ErrorView";
 
-import { Container } from "react-bootstrap";
+import { Container, Button } from "react-bootstrap";
 
 import "./MainView.scss";
 
@@ -181,6 +182,12 @@ export class MainView extends Component {
                               </div>
                             ))}
                           </div>
+                          <hr />
+                          <Link to={`/`}>
+                            <Button className="btnBack" variant="danger">
+                              Go Back Me
+                            </Button>
+                          </Link>
                         </div>
                       </React.Fragment>
                     );
@@ -240,20 +247,18 @@ export class MainView extends Component {
                               <p>{elm.Description}</p>
                             </div>
                           ))}
+                          <hr />
+                          <Link to={`/`}>
+                            <Button className="btnBack" variant="danger">
+                              Go Back Me
+                            </Button>
+                          </Link>
                         </div>
                       </React.Fragment>
                     );
                   }}
                 />
-                {/*
-                    return genres.map((elm, idx) => (
-                      <div key={idx}>
-                        <li>
-                          {elm.Name} - {elm.Description}
-                        </li>
-                      </div>
-                    ));
-                     */}
+
                 <Route
                   path="/genres/:name"
                   render={(props) => {

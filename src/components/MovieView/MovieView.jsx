@@ -16,9 +16,9 @@ export class MovieView extends Component {
     if (props.addFavorite) {
       addFavorite = true;
     }
-    //dont set state like this its not good practice
+    //don't set state like this its not good practice
     // i will allow it for now
-    //username is empty so i will take it from the localstorage
+    //username is empty so i will take it from the local storage
     this.state = {
       documentary: this.props.documentary,
       username: localStorage.getItem("user"), //this.props.user,
@@ -31,7 +31,7 @@ export class MovieView extends Component {
     this.setState({
       addFavorite: false,
     });
-    // in your own code your routes from your backend doesnt
+    // in your own code your routes from your backend doesn't
     // match your url here
     // it received the id not the name of the movie
     //test it and tell me
@@ -99,37 +99,18 @@ export class MovieView extends Component {
             <Button className="btnAddFavorite" onClick={this.addFavorite}>
               Add to Favorites
             </Button>
+
+            <Button
+              className="btnDeleteFavorite"
+              variant="warning"
+
+              //onClick={this.deleteFavorite(documentaries)}
+            >
+              Remove from Favorites
+            </Button>
           </div>
         </div>
       </Container>
     );
   }
-}
-
-{
-  /*
-  <div className='movie-view'>
-        <Card style={{ width: '18rem' }}>
-          <Card.Img variant='top' src={movie.imagePath} />
-          <Card.Body>
-            <Card.Title>{movie.title}</Card.Title>
-            <Card.Text>
-              <span className='label text-danger'>Description: </span>
-              <span className='value'>{movie.description}</span>
-            </Card.Text>
-            <Card.Text>
-              <span className='label text-danger'>Genre: </span>
-              <span className='value'>{movie.genre.name}</span>
-            </Card.Text>
-            <Card.Text>
-              <span className='label text-danger'>Director: </span>
-              <span className='value'>{movie.director.name}</span>
-            </Card.Text>
-            <Button onClick={() => onClick()} variant='primary'>
-              Back
-            </Button>
-          </Card.Body>
-        </Card>
-      </div>
-*/
 }

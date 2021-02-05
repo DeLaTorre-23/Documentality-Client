@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+import { Link } from "react-router-dom";
+
 import { MovieCardView } from "../MovieCardView/MovieCardView";
 import { ProfileEditView } from "../ProfileEditView/ProfileEditView";
 
@@ -165,6 +167,15 @@ export function ProfileView(props) {
             )}
           </div>
         </div>
+        <div className="btnContainer">
+          <Button className="btnDelete" variant="danger" onClick={handleShow}>
+            Delete account
+          </Button>
+
+          <Button className="btnDelete" variant="warning" onClick={editUser}>
+            Edit account
+          </Button>
+        </div>
         <hr />
         <div className="favoriteListContainer">
           <span className="label">Favorite List:</span>
@@ -179,7 +190,6 @@ export function ProfileView(props) {
                     userToken={props.userToken}
                     key={m.Title}
                     documentary={m}
-                    removeFavorite={true}
                     updateFavorites={updateFavorites}
                   />
                 </div>
@@ -188,27 +198,11 @@ export function ProfileView(props) {
           </Row>
         </div>
         <hr />
-        <div className="btnContainer">
-          <Button className="btnDelete" variant="danger" onClick={handleShow}>
-            Delete account
+        <Link to={`/`}>
+          <Button className="btnBack" variant="danger">
+            Go Back Me
           </Button>
-
-          {/*
-          
-          */}
-
-          <Button className="btnDelete" variant="warning" onClick={editUser}>
-            Edit account
-          </Button>
-        </div>
-        <hr />
-        {/*<div className="btnBackContainer">
-          <Link to={`/`}>
-            <Button className="btnBack" variant="danger">
-              Go Back Me
-            </Button>
-          </Link>
-            </div>*/}
+        </Link>
       </Container>
     </React.Fragment>
   );
