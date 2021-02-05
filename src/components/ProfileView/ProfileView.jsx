@@ -182,8 +182,6 @@ export function ProfileView(props) {
                     removeFavorite={true}
                     updateFavorites={updateFavorites}
                   />
-
-                  <hr />
                 </div>
               ))
             )}

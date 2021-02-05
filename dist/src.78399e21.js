@@ -51588,7 +51588,7 @@ function ProfileView(props) {
       documentary: m,
       removeFavorite: true,
       updateFavorites: updateFavorites
-    }), _react.default.createElement("hr", null));
+    }));
   }))), _react.default.createElement("hr", null), _react.default.createElement("div", {
     className: "btnContainer"
   }, _react.default.createElement(_reactBootstrap.Button, {
@@ -55056,7 +55056,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65153" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51996" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
