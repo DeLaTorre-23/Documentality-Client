@@ -51435,7 +51435,7 @@ function ProfileView(props) {
   var _useState15 = (0, _react.useState)(false),
       _useState16 = _slicedToArray(_useState15, 2),
       show = _useState16[0],
-      setShow = _useState16[1]; // i dont understand this condition
+      setShow = _useState16[1]; // i don't understand this condition
   //its pointless to the code
   //you should use lifecycle
 
@@ -51718,8 +51718,31 @@ var MovieView = /*#__PURE__*/function (_Component) {
 
   _createClass(MovieView, [{
     key: "render",
+
+    /*
+    deleteFavorite = () => {
+      let f = [];
+      favoriteList.forEach((el) => {
+        let temp = props.documentaries.find((e) => e._id == el);
+        if (temp) {
+          f.delete(temp);
+        }
+      });
+      console.log(f);
+      setFavorite(f);
+    };
+      /*
+    const updateFavorites = (documentaries) => {
+      setFavoriteList(
+        props.FavoriteList.filter((favDocs) => {
+          return favDocs !== documentaries;
+        })
+      );
+    };
+      */
     value: function render() {
       var documentary = this.props.documentary;
+      var deleteFavorite = this.props.deleteFavorite;
       if (!documentary) return null;
       return _react.default.createElement(_Container.default, {
         className: "movieView"
@@ -51762,19 +51785,19 @@ var MovieView = /*#__PURE__*/function (_Component) {
         variant: "link"
       }, documentary.Director.Name)))), _react.default.createElement("div", {
         className: "btnMovieView"
-      }, _react.default.createElement(_reactRouterDom.Link, {
-        to: "/"
       }, _react.default.createElement(_Button.default, {
-        className: "btnBack",
-        variant: "danger"
-      }, "Go Back Me")), _react.default.createElement(_Button.default, {
+        className: "btnDeleteFavorite",
+        variant: "warning" //onClick={deleteFavorite}
+
+      }, "Remove from Favorites"), _react.default.createElement(_Button.default, {
         className: "btnAddFavorite",
         onClick: this.addFavorite
-      }, "Add to Favorites"), _react.default.createElement(_Button.default, {
-        className: "btnDeleteFavorite",
-        variant: "warning" //onClick={this.deleteFavorite(documentaries)}
-
-      }, "Remove from Favorites"))));
+      }, "Add to Favorites")), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/"
+      }, _react.default.createElement("hr", null), _react.default.createElement(_Button.default, {
+        className: "btnBack",
+        variant: "danger"
+      }, "Go Back Me"))));
     }
   }]);
 
@@ -54357,7 +54380,6 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
       var _this$state = this.state,
           genre = _this$state.genre,
           error = _this$state.error;
-      console.log(error);
       if (error) return _react.default.createElement(_ErrorView.ErrorView, null);
       return _react.default.createElement("div", {
         className: "genreView"
@@ -55049,7 +55071,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53089" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62638" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -52,8 +52,33 @@ export class MovieView extends Component {
       });
   };
 
+  /*
+  deleteFavorite = () => {
+    let f = [];
+    favoriteList.forEach((el) => {
+      let temp = props.documentaries.find((e) => e._id == el);
+      if (temp) {
+        f.delete(temp);
+      }
+    });
+    console.log(f);
+    setFavorite(f);
+  };
+
+  /*
+  const updateFavorites = (documentaries) => {
+    setFavoriteList(
+      props.FavoriteList.filter((favDocs) => {
+        return favDocs !== documentaries;
+      })
+    );
+  };
+
+  */
+
   render() {
     const { documentary } = this.props;
+    const { deleteFavorite } = this.props;
 
     if (!documentary) return null;
 
@@ -90,25 +115,24 @@ export class MovieView extends Component {
           </div>
 
           <div className="btnMovieView">
-            <Link to={`/`}>
-              <Button className="btnBack" variant="danger">
-                Go Back Me
-              </Button>
-            </Link>
+            <Button
+              className="btnDeleteFavorite"
+              variant="warning"
+              //onClick={deleteFavorite}
+            >
+              Remove from Favorites
+            </Button>
 
             <Button className="btnAddFavorite" onClick={this.addFavorite}>
               Add to Favorites
             </Button>
-
-            <Button
-              className="btnDeleteFavorite"
-              variant="warning"
-
-              //onClick={this.deleteFavorite(documentaries)}
-            >
-              Remove from Favorites
-            </Button>
           </div>
+          <Link to={`/`}>
+            <hr />
+            <Button className="btnBack" variant="danger">
+              Go Back Me
+            </Button>
+          </Link>
         </div>
       </Container>
     );

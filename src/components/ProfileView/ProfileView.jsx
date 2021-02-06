@@ -20,7 +20,7 @@ export function ProfileView(props) {
   const [edit, setEdit] = useState(false);
   const [show, setShow] = useState(false);
 
-  // i dont understand this condition
+  // i don't understand this condition
   //its pointless to the code
   //you should use lifecycle
 
