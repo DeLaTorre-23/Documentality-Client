@@ -51460,23 +51460,7 @@ function ProfileView(props) {
     }
 
     getUser();
-  }, [props.documentaries]); // if (username === "") {
-  //   axios
-  //     .get(`https://documentality.herokuapp.com/users/${props.user}`, {
-  //       headers: { Authorization: `Bearer ${props.userToken}` },
-  //     })
-  //     .then((response) => {
-  //       let userData = response.data;
-  //       setUsername(userData.Username);
-  //       setEmail(userData.Email);
-  //       setBirthday(new Date(userData.Birthday));
-  //       setFavoriteList(userData.FavoriteList);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
-  // if (username === "") return null;
+  }, [props.documentaries]);
 
   function deregister() {
     _axios.default.delete("https://documentality.herokuapp.com/users/".concat(props.user), {
@@ -51510,7 +51494,7 @@ function ProfileView(props) {
 
 
   var updateFavorites = function updateFavorites(documentaries) {
-    setFavoriteList(props.FavoriteList.filter(function (favDocs) {
+    setFavoriteList(props.favoriteList.filter(function (favDocs) {
       return favDocs !== documentaries;
     }));
   };
@@ -51672,35 +51656,18 @@ var MovieView = /*#__PURE__*/function (_Component) {
 
     _this = _super.call(this, props);
 
-    _this.addFavorite = function () {
-      _this.setState({
-        addFavorite: false
-      }); // in your own code your routes from your backend doesn't
-      // match your url here
-      // it received the id not the name of the movie
-      //test it and tell me
-
-
-      (0, _axios.default)({
-        method: "post",
-        url: "https://documentality.herokuapp.com/users/".concat(_this.state.username, "/Documentaries/").concat(_this.state.documentary._id),
-        headers: {
-          Authorization: "Bearer ".concat(_this.state.userToken)
-        },
-        data: {}
-      }).then(function (response) {
-        var data = response.data;
-        console.log("New Documentary added");
-      }).catch(function (e) {
-        console.log(e);
-        console.log("Documentary not added");
-      });
-    };
+    _initialiseProps.call(_assertThisInitialized(_this));
 
     var addFavorite = false;
 
     if (props.addFavorite) {
       addFavorite = true;
+    }
+
+    var removeFavorite = false;
+
+    if (props.removeFavorite) {
+      removeFavorite = true;
     } //don't set state like this its not good practice
     // i will allow it for now
     //username is empty so i will take it from the local storage
@@ -51711,38 +51678,16 @@ var MovieView = /*#__PURE__*/function (_Component) {
       username: localStorage.getItem("user"),
       //this.props.user,
       userToken: _this.props.userToken,
-      addFavorite: addFavorite
+      addFavorite: addFavorite,
+      removeFavorite: removeFavorite
     };
     return _this;
   }
 
   _createClass(MovieView, [{
     key: "render",
-
-    /*
-    deleteFavorite = () => {
-      let f = [];
-      favoriteList.forEach((el) => {
-        let temp = props.documentaries.find((e) => e._id == el);
-        if (temp) {
-          f.delete(temp);
-        }
-      });
-      console.log(f);
-      setFavorite(f);
-    };
-      /*
-    const updateFavorites = (documentaries) => {
-      setFavoriteList(
-        props.FavoriteList.filter((favDocs) => {
-          return favDocs !== documentaries;
-        })
-      );
-    };
-      */
     value: function render() {
       var documentary = this.props.documentary;
-      var deleteFavorite = this.props.deleteFavorite;
       if (!documentary) return null;
       return _react.default.createElement(_Container.default, {
         className: "movieView"
@@ -51787,8 +51732,8 @@ var MovieView = /*#__PURE__*/function (_Component) {
         className: "btnMovieView"
       }, _react.default.createElement(_Button.default, {
         className: "btnDeleteFavorite",
-        variant: "warning" //onClick={deleteFavorite}
-
+        variant: "warning",
+        onClick: this.removeFavorite
       }, "Remove from Favorites"), _react.default.createElement(_Button.default, {
         className: "btnAddFavorite",
         onClick: this.addFavorite
@@ -51805,6 +51750,56 @@ var MovieView = /*#__PURE__*/function (_Component) {
 }(_react.Component);
 
 exports.MovieView = MovieView;
+
+var _initialiseProps = function _initialiseProps() {
+  var _this2 = this;
+
+  this.addFavorite = function () {
+    _this2.setState({
+      addFavorite: false
+    });
+
+    var updateFavorites = function updateFavorites(documentaries) {
+      setFavoriteList(props.favoriteList.filter(function (favDocs) {
+        return favDocs !== documentaries;
+      }));
+    };
+
+    (0, _axios.default)({
+      method: "post",
+      url: "https://documentality.herokuapp.com/users/".concat(_this2.state.username, "/Documentaries/").concat(_this2.state.documentary._id),
+      headers: {
+        Authorization: "Bearer ".concat(_this2.state.userToken)
+      },
+      data: {}
+    }).then(function (response) {
+      var data = response.data;
+      console.log("New Documentary added");
+    }).catch(function (e) {
+      console.log(e);
+      console.log("Documentary not added");
+    });
+  };
+
+  this.removeFavorite = function () {
+    _this2.updateFavorites(_this2.state.documentary._id);
+
+    _this2.setState({
+      removeFavorite: false
+    });
+
+    _axios.default.delete("https://documentality.herokuapp.com/users/".concat(_this2.state.username, "/Documentaries/").concat(_this2.state.documentary._id), {
+      headers: {
+        Authorization: "Bearer ".concat(_this2.state.userToken)
+      }
+    }).then(function (response) {
+      console.log("Documentary removed");
+    }).catch(function (e) {
+      console.log(e);
+      console.log("Documentary not removed from FavoriteList");
+    });
+  };
+};
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./MovieView.scss":"components/MovieView/MovieView.scss"}],"../node_modules/React/cjs/react.development.js":[function(require,module,exports) {
 /** @license React v17.0.1
  * react.development.js
@@ -55071,7 +55066,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62638" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55694" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

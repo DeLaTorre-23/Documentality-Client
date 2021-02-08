@@ -16,6 +16,12 @@ export class MovieView extends Component {
     if (props.addFavorite) {
       addFavorite = true;
     }
+
+    let removeFavorite = false;
+    if (props.removeFavorite) {
+      removeFavorite = true;
+    }
+
     //don't set state like this its not good practice
     // i will allow it for now
     //username is empty so i will take it from the local storage
@@ -24,6 +30,7 @@ export class MovieView extends Component {
       username: localStorage.getItem("user"), //this.props.user,
       userToken: this.props.userToken,
       addFavorite: addFavorite,
+      removeFavorite: removeFavorite,
     };
   }
 
@@ -31,10 +38,14 @@ export class MovieView extends Component {
     this.setState({
       addFavorite: false,
     });
-    // in your own code your routes from your backend doesn't
-    // match your url here
-    // it received the id not the name of the movie
-    //test it and tell me
+
+    const updateFavorites = (documentaries) => {
+      setFavoriteList(
+        props.favoriteList.filter((favDocs) => {
+          return favDocs !== documentaries;
+        })
+      );
+    };
 
     axios({
       method: "post",
@@ -52,33 +63,29 @@ export class MovieView extends Component {
       });
   };
 
-  /*
-  deleteFavorite = () => {
-    let f = [];
-    favoriteList.forEach((el) => {
-      let temp = props.documentaries.find((e) => e._id == el);
-      if (temp) {
-        f.delete(temp);
-      }
+  removeFavorite = () => {
+    this.updateFavorites(this.state.documentary._id);
+    this.setState({
+      removeFavorite: false,
     });
-    console.log(f);
-    setFavorite(f);
-  };
-
-  /*
-  const updateFavorites = (documentaries) => {
-    setFavoriteList(
-      props.FavoriteList.filter((favDocs) => {
-        return favDocs !== documentaries;
+    axios
+      .delete(
+        `https://documentality.herokuapp.com/users/${this.state.username}/Documentaries/${this.state.documentary._id}`,
+        {
+          headers: { Authorization: `Bearer ${this.state.userToken}` },
+        }
+      )
+      .then((response) => {
+        console.log("Documentary removed");
       })
-    );
+      .catch((e) => {
+        console.log(e);
+        console.log("Documentary not removed from FavoriteList");
+      });
   };
-
-  */
 
   render() {
     const { documentary } = this.props;
-    const { deleteFavorite } = this.props;
 
     if (!documentary) return null;
 
@@ -118,11 +125,20 @@ export class MovieView extends Component {
             <Button
               className="btnDeleteFavorite"
               variant="warning"
-              //onClick={deleteFavorite}
+              onClick={this.removeFavorite}
             >
               Remove from Favorites
             </Button>
 
+            {/*
+            <Button
+              className="btnDeleteFavorite"
+              variant="warning"
+              //onClick={deleteFavorite}
+            >
+              Remove from Favorites
+            </Button>
+            */}
             <Button className="btnAddFavorite" onClick={this.addFavorite}>
               Add to Favorites
             </Button>

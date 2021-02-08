@@ -48,26 +48,6 @@ export function ProfileView(props) {
     getUser();
   }, [props.documentaries]);
 
-  // if (username === "") {
-  //   axios
-  //     .get(`https://documentality.herokuapp.com/users/${props.user}`, {
-  //       headers: { Authorization: `Bearer ${props.userToken}` },
-  //     })
-  //     .then((response) => {
-  //       let userData = response.data;
-  //       setUsername(userData.Username);
-
-  //       setEmail(userData.Email);
-  //       setBirthday(new Date(userData.Birthday));
-  //       setFavoriteList(userData.FavoriteList);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
-
-  // if (username === "") return null;
-
   function deregister() {
     axios
       .delete(`https://documentality.herokuapp.com/users/${props.user}`, {
@@ -99,7 +79,7 @@ export function ProfileView(props) {
   // console.log(props.documentaries);
   const updateFavorites = (documentaries) => {
     setFavoriteList(
-      props.FavoriteList.filter((favDocs) => {
+      props.favoriteList.filter((favDocs) => {
         return favDocs !== documentaries;
       })
     );
