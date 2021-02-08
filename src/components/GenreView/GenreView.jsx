@@ -34,8 +34,6 @@ export class GenreView extends React.Component {
     const { documentaries } = this.props;
     const { genre, error } = this.state;
 
-    console.log(error);
-
     if (error) return <ErrorView />;
 
     return (

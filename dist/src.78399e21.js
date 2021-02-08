@@ -51368,6 +51368,8 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
 
+var _reactRouterDom = require("react-router-dom");
+
 var _MovieCardView = require("../MovieCardView/MovieCardView");
 
 var _ProfileEditView = require("../ProfileEditView/ProfileEditView");
@@ -51433,7 +51435,7 @@ function ProfileView(props) {
   var _useState15 = (0, _react.useState)(false),
       _useState16 = _slicedToArray(_useState15, 2),
       show = _useState16[0],
-      setShow = _useState16[1]; // i dont understand this condition
+      setShow = _useState16[1]; // i don't understand this condition
   //its pointless to the code
   //you should use lifecycle
 
@@ -51458,23 +51460,7 @@ function ProfileView(props) {
     }
 
     getUser();
-  }, [props.documentaries]); // if (username === "") {
-  //   axios
-  //     .get(`https://documentality.herokuapp.com/users/${props.user}`, {
-  //       headers: { Authorization: `Bearer ${props.userToken}` },
-  //     })
-  //     .then((response) => {
-  //       let userData = response.data;
-  //       setUsername(userData.Username);
-  //       setEmail(userData.Email);
-  //       setBirthday(new Date(userData.Birthday));
-  //       setFavoriteList(userData.FavoriteList);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
-  // if (username === "") return null;
+  }, [props.documentaries]);
 
   function deregister() {
     _axios.default.delete("https://documentality.herokuapp.com/users/".concat(props.user), {
@@ -51508,7 +51494,7 @@ function ProfileView(props) {
 
 
   var updateFavorites = function updateFavorites(documentaries) {
-    setFavoriteList(props.FavoriteList.filter(function (favDocs) {
+    setFavoriteList(props.favoriteList.filter(function (favDocs) {
       return favDocs !== documentaries;
     }));
   };
@@ -51569,7 +51555,17 @@ function ProfileView(props) {
   }, _react.default.createElement("hr", null), _react.default.createElement(_ProfileEditView.ProfileEditView, {
     user: props.user,
     userToken: props.userToken
-  }))))), _react.default.createElement("hr", null), _react.default.createElement("div", {
+  }))))), _react.default.createElement("div", {
+    className: "btnContainer"
+  }, _react.default.createElement(_reactBootstrap.Button, {
+    className: "btnDelete",
+    variant: "danger",
+    onClick: handleShow
+  }, "Delete account"), _react.default.createElement(_reactBootstrap.Button, {
+    className: "btnDelete",
+    variant: "warning",
+    onClick: editUser
+  }, "Edit account")), _react.default.createElement("hr", null), _react.default.createElement("div", {
     className: "favoriteListContainer"
   }, _react.default.createElement("span", {
     className: "label"
@@ -51586,22 +51582,16 @@ function ProfileView(props) {
       userToken: props.userToken,
       key: m.Title,
       documentary: m,
-      removeFavorite: true,
       updateFavorites: updateFavorites
     }));
-  }))), _react.default.createElement("hr", null), _react.default.createElement("div", {
-    className: "btnContainer"
+  }))), _react.default.createElement("hr", null), _react.default.createElement(_reactRouterDom.Link, {
+    to: "/"
   }, _react.default.createElement(_reactBootstrap.Button, {
-    className: "btnDelete",
-    variant: "danger",
-    onClick: handleShow
-  }, "Delete account"), _react.default.createElement(_reactBootstrap.Button, {
-    className: "btnDelete",
-    variant: "warning",
-    onClick: editUser
-  }, "Edit account")), _react.default.createElement("hr", null)));
+    className: "btnBack",
+    variant: "danger"
+  }, "Go Back Me"))));
 }
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","../MovieCardView/MovieCardView":"components/MovieCardView/MovieCardView.jsx","../ProfileEditView/ProfileEditView":"components/ProfileEditView/ProfileEditView.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./ProfileView.scss":"components/ProfileView/ProfileView.scss"}],"components/MovieView/MovieView.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../MovieCardView/MovieCardView":"components/MovieCardView/MovieCardView.jsx","../ProfileEditView/ProfileEditView":"components/ProfileEditView/ProfileEditView.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./ProfileView.scss":"components/ProfileView/ProfileView.scss"}],"components/MovieView/MovieView.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -51666,38 +51656,21 @@ var MovieView = /*#__PURE__*/function (_Component) {
 
     _this = _super.call(this, props);
 
-    _this.addFavorite = function () {
-      _this.setState({
-        addFavorite: false
-      }); // in your own code your routes from your backend doesnt
-      // match your url here
-      // it received the id not the name of the movie
-      //test it and tell me
-
-
-      (0, _axios.default)({
-        method: "post",
-        url: "https://documentality.herokuapp.com/users/".concat(_this.state.username, "/Documentaries/").concat(_this.state.documentary._id),
-        headers: {
-          Authorization: "Bearer ".concat(_this.state.userToken)
-        },
-        data: {}
-      }).then(function (response) {
-        var data = response.data;
-        console.log("New Documentary added");
-      }).catch(function (e) {
-        console.log(e);
-        console.log("Documentary not added");
-      });
-    };
+    _initialiseProps.call(_assertThisInitialized(_this));
 
     var addFavorite = false;
 
     if (props.addFavorite) {
       addFavorite = true;
-    } //dont set state like this its not good practice
+    }
+
+    var removeFavorite = false;
+
+    if (props.removeFavorite) {
+      removeFavorite = true;
+    } //don't set state like this its not good practice
     // i will allow it for now
-    //username is empty so i will take it from the localstorage
+    //username is empty so i will take it from the local storage
 
 
     _this.state = {
@@ -51705,7 +51678,8 @@ var MovieView = /*#__PURE__*/function (_Component) {
       username: localStorage.getItem("user"),
       //this.props.user,
       userToken: _this.props.userToken,
-      addFavorite: addFavorite
+      addFavorite: addFavorite,
+      removeFavorite: removeFavorite
     };
     return _this;
   }
@@ -51756,15 +51730,19 @@ var MovieView = /*#__PURE__*/function (_Component) {
         variant: "link"
       }, documentary.Director.Name)))), _react.default.createElement("div", {
         className: "btnMovieView"
-      }, _react.default.createElement(_reactRouterDom.Link, {
-        to: "/"
       }, _react.default.createElement(_Button.default, {
-        className: "btnBack",
-        variant: "danger"
-      }, "Go Back Me")), _react.default.createElement(_Button.default, {
+        className: "btnDeleteFavorite",
+        variant: "warning",
+        onClick: this.removeFavorite
+      }, "Remove from Favorites"), _react.default.createElement(_Button.default, {
         className: "btnAddFavorite",
         onClick: this.addFavorite
-      }, "Add to Favorites"))));
+      }, "Add to Favorites")), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/"
+      }, _react.default.createElement("hr", null), _react.default.createElement(_Button.default, {
+        className: "btnBack",
+        variant: "danger"
+      }, "Go Back Me"))));
     }
   }]);
 
@@ -51772,33 +51750,56 @@ var MovieView = /*#__PURE__*/function (_Component) {
 }(_react.Component);
 
 exports.MovieView = MovieView;
-{
-  /*
-  <div className='movie-view'>
-        <Card style={{ width: '18rem' }}>
-          <Card.Img variant='top' src={movie.imagePath} />
-          <Card.Body>
-            <Card.Title>{movie.title}</Card.Title>
-            <Card.Text>
-              <span className='label text-danger'>Description: </span>
-              <span className='value'>{movie.description}</span>
-            </Card.Text>
-            <Card.Text>
-              <span className='label text-danger'>Genre: </span>
-              <span className='value'>{movie.genre.name}</span>
-            </Card.Text>
-            <Card.Text>
-              <span className='label text-danger'>Director: </span>
-              <span className='value'>{movie.director.name}</span>
-            </Card.Text>
-            <Button onClick={() => onClick()} variant='primary'>
-              Back
-            </Button>
-          </Card.Body>
-        </Card>
-      </div>
-  */
-}
+
+var _initialiseProps = function _initialiseProps() {
+  var _this2 = this;
+
+  this.addFavorite = function () {
+    _this2.setState({
+      addFavorite: false
+    });
+
+    var updateFavorites = function updateFavorites(documentaries) {
+      setFavoriteList(props.favoriteList.filter(function (favDocs) {
+        return favDocs !== documentaries;
+      }));
+    };
+
+    (0, _axios.default)({
+      method: "post",
+      url: "https://documentality.herokuapp.com/users/".concat(_this2.state.username, "/Documentaries/").concat(_this2.state.documentary._id),
+      headers: {
+        Authorization: "Bearer ".concat(_this2.state.userToken)
+      },
+      data: {}
+    }).then(function (response) {
+      var data = response.data;
+      console.log("New Documentary added");
+    }).catch(function (e) {
+      console.log(e);
+      console.log("Documentary not added");
+    });
+  };
+
+  this.removeFavorite = function () {
+    _this2.updateFavorites(_this2.state.documentary._id);
+
+    _this2.setState({
+      removeFavorite: false
+    });
+
+    _axios.default.delete("https://documentality.herokuapp.com/users/".concat(_this2.state.username, "/Documentaries/").concat(_this2.state.documentary._id), {
+      headers: {
+        Authorization: "Bearer ".concat(_this2.state.userToken)
+      }
+    }).then(function (response) {
+      console.log("Documentary removed");
+    }).catch(function (e) {
+      console.log(e);
+      console.log("Documentary not removed from FavoriteList");
+    });
+  };
+};
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./MovieView.scss":"components/MovieView/MovieView.scss"}],"../node_modules/React/cjs/react.development.js":[function(require,module,exports) {
 /** @license React v17.0.1
  * react.development.js
@@ -54374,7 +54375,6 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
       var _this$state = this.state,
           genre = _this$state.genre,
           error = _this$state.error;
-      console.log(error);
       if (error) return _react.default.createElement(_ErrorView.ErrorView, null);
       return _react.default.createElement("div", {
         className: "genreView"
@@ -54861,7 +54861,12 @@ var MainView = /*#__PURE__*/function (_Component) {
             return _react.default.createElement("div", {
               key: idx
             }, _react.default.createElement("p", null, elm.Name));
-          }))));
+          })), _react.default.createElement("hr", null), _react.default.createElement(_reactRouterDom.Link, {
+            to: "/"
+          }, _react.default.createElement(_reactBootstrap.Button, {
+            className: "btnBack",
+            variant: "danger"
+          }, "Go Back Me"))));
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/directors/:name",
@@ -54905,7 +54910,12 @@ var MainView = /*#__PURE__*/function (_Component) {
             }, _react.default.createElement("p", {
               className: "titleElement"
             }, elm.Name), _react.default.createElement("p", null, elm.Description));
-          })));
+          }), _react.default.createElement("hr", null), _react.default.createElement(_reactRouterDom.Link, {
+            to: "/"
+          }, _react.default.createElement(_reactBootstrap.Button, {
+            className: "btnBack",
+            variant: "danger"
+          }, "Go Back Me"))));
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/genres/:name",
@@ -55056,7 +55066,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50382" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55694" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

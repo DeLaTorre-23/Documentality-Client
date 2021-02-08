@@ -16,14 +16,21 @@ export class MovieView extends Component {
     if (props.addFavorite) {
       addFavorite = true;
     }
-    //dont set state like this its not good practice
+
+    let removeFavorite = false;
+    if (props.removeFavorite) {
+      removeFavorite = true;
+    }
+
+    //don't set state like this its not good practice
     // i will allow it for now
-    //username is empty so i will take it from the localstorage
+    //username is empty so i will take it from the local storage
     this.state = {
       documentary: this.props.documentary,
       username: localStorage.getItem("user"), //this.props.user,
       userToken: this.props.userToken,
       addFavorite: addFavorite,
+      removeFavorite: removeFavorite,
     };
   }
 
@@ -31,10 +38,14 @@ export class MovieView extends Component {
     this.setState({
       addFavorite: false,
     });
-    // in your own code your routes from your backend doesnt
-    // match your url here
-    // it received the id not the name of the movie
-    //test it and tell me
+
+    const updateFavorites = (documentaries) => {
+      setFavoriteList(
+        props.favoriteList.filter((favDocs) => {
+          return favDocs !== documentaries;
+        })
+      );
+    };
 
     axios({
       method: "post",
@@ -49,6 +60,27 @@ export class MovieView extends Component {
       .catch((e) => {
         console.log(e);
         console.log("Documentary not added");
+      });
+  };
+
+  removeFavorite = () => {
+    this.updateFavorites(this.state.documentary._id);
+    this.setState({
+      removeFavorite: false,
+    });
+    axios
+      .delete(
+        `https://documentality.herokuapp.com/users/${this.state.username}/Documentaries/${this.state.documentary._id}`,
+        {
+          headers: { Authorization: `Bearer ${this.state.userToken}` },
+        }
+      )
+      .then((response) => {
+        console.log("Documentary removed");
+      })
+      .catch((e) => {
+        console.log(e);
+        console.log("Documentary not removed from FavoriteList");
       });
   };
 
@@ -90,46 +122,35 @@ export class MovieView extends Component {
           </div>
 
           <div className="btnMovieView">
-            <Link to={`/`}>
-              <Button className="btnBack" variant="danger">
-                Go Back Me
-              </Button>
-            </Link>
+            <Button
+              className="btnDeleteFavorite"
+              variant="warning"
+              onClick={this.removeFavorite}
+            >
+              Remove from Favorites
+            </Button>
 
+            {/*
+            <Button
+              className="btnDeleteFavorite"
+              variant="warning"
+              //onClick={deleteFavorite}
+            >
+              Remove from Favorites
+            </Button>
+            */}
             <Button className="btnAddFavorite" onClick={this.addFavorite}>
               Add to Favorites
             </Button>
           </div>
+          <Link to={`/`}>
+            <hr />
+            <Button className="btnBack" variant="danger">
+              Go Back Me
+            </Button>
+          </Link>
         </div>
       </Container>
     );
   }
-}
-
-{
-  /*
-  <div className='movie-view'>
-        <Card style={{ width: '18rem' }}>
-          <Card.Img variant='top' src={movie.imagePath} />
-          <Card.Body>
-            <Card.Title>{movie.title}</Card.Title>
-            <Card.Text>
-              <span className='label text-danger'>Description: </span>
-              <span className='value'>{movie.description}</span>
-            </Card.Text>
-            <Card.Text>
-              <span className='label text-danger'>Genre: </span>
-              <span className='value'>{movie.genre.name}</span>
-            </Card.Text>
-            <Card.Text>
-              <span className='label text-danger'>Director: </span>
-              <span className='value'>{movie.director.name}</span>
-            </Card.Text>
-            <Button onClick={() => onClick()} variant='primary'>
-              Back
-            </Button>
-          </Card.Body>
-        </Card>
-      </div>
-*/
 }

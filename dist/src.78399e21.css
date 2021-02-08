@@ -273,6 +273,13 @@ h1 {
   border: 2px solid #53d4ff;
   color: #fff;
 }
+.movieInfo .btnMovieView .btnDeleteFavorite {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  width: 203px;
+  border: 2px solid #53d4ff;
+  color: black;
+}
 
 .labelBold {
   color: #fff;

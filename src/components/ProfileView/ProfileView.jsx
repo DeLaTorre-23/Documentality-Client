@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+import { Link } from "react-router-dom";
+
 import { MovieCardView } from "../MovieCardView/MovieCardView";
 import { ProfileEditView } from "../ProfileEditView/ProfileEditView";
 
@@ -18,7 +20,7 @@ export function ProfileView(props) {
   const [edit, setEdit] = useState(false);
   const [show, setShow] = useState(false);
 
-  // i dont understand this condition
+  // i don't understand this condition
   //its pointless to the code
   //you should use lifecycle
 
@@ -45,26 +47,6 @@ export function ProfileView(props) {
 
     getUser();
   }, [props.documentaries]);
-
-  // if (username === "") {
-  //   axios
-  //     .get(`https://documentality.herokuapp.com/users/${props.user}`, {
-  //       headers: { Authorization: `Bearer ${props.userToken}` },
-  //     })
-  //     .then((response) => {
-  //       let userData = response.data;
-  //       setUsername(userData.Username);
-
-  //       setEmail(userData.Email);
-  //       setBirthday(new Date(userData.Birthday));
-  //       setFavoriteList(userData.FavoriteList);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
-
-  // if (username === "") return null;
 
   function deregister() {
     axios
@@ -97,7 +79,7 @@ export function ProfileView(props) {
   // console.log(props.documentaries);
   const updateFavorites = (documentaries) => {
     setFavoriteList(
-      props.FavoriteList.filter((favDocs) => {
+      props.favoriteList.filter((favDocs) => {
         return favDocs !== documentaries;
       })
     );
@@ -165,6 +147,15 @@ export function ProfileView(props) {
             )}
           </div>
         </div>
+        <div className="btnContainer">
+          <Button className="btnDelete" variant="danger" onClick={handleShow}>
+            Delete account
+          </Button>
+
+          <Button className="btnDelete" variant="warning" onClick={editUser}>
+            Edit account
+          </Button>
+        </div>
         <hr />
         <div className="favoriteListContainer">
           <span className="label">Favorite List:</span>
@@ -179,7 +170,6 @@ export function ProfileView(props) {
                     userToken={props.userToken}
                     key={m.Title}
                     documentary={m}
-                    removeFavorite={true}
                     updateFavorites={updateFavorites}
                   />
                 </div>
@@ -188,27 +178,11 @@ export function ProfileView(props) {
           </Row>
         </div>
         <hr />
-        <div className="btnContainer">
-          <Button className="btnDelete" variant="danger" onClick={handleShow}>
-            Delete account
+        <Link to={`/`}>
+          <Button className="btnBack" variant="danger">
+            Go Back Me
           </Button>
-
-          {/*
-          
-          */}
-
-          <Button className="btnDelete" variant="warning" onClick={editUser}>
-            Edit account
-          </Button>
-        </div>
-        <hr />
-        {/*<div className="btnBackContainer">
-          <Link to={`/`}>
-            <Button className="btnBack" variant="danger">
-              Go Back Me
-            </Button>
-          </Link>
-            </div>*/}
+        </Link>
       </Container>
     </React.Fragment>
   );
