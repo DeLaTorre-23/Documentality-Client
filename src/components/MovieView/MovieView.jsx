@@ -17,12 +17,10 @@ export class MovieView extends Component {
       addFavorite = true;
     }
 
-    let removeFavorite = false;
-    if (props.removeFavorite) {
-      removeFavorite = true;
+    let updateFavorites = false;
+    if (props.updateFavorites) {
+      updateFavorites = true;
     }
-
-    const { documentaries } = this.props;
 
     //don't set state like this its not good practice
     // i will allow it for now
@@ -32,7 +30,7 @@ export class MovieView extends Component {
       username: localStorage.getItem("user"), //this.props.user,
       userToken: this.props.userToken,
       addFavorite: addFavorite,
-      removeFavorite: removeFavorite,
+      updateFavorites: [],
     };
   }
 
@@ -40,20 +38,46 @@ export class MovieView extends Component {
     this.setState({
       addFavorite: false,
     });
-
     axios({
       method: "post",
-      url: `https://documentality.herokuapp.com/users/${this.state.username}/Documentaries/${this.state.documentary._id}`,
-      headers: { Authorization: `Bearer ${this.state.userToken}` },
+      url: `https://documentality.herokuapp.com/users/${this.props.username}/Documentaries/${this.props.documentary._id}`,
+      headers: { Authorization: `Bearer ${this.props.userToken}` },
       data: {},
     })
       .then((response) => {
         const data = response.data;
         console.log("New Documentary added");
+        //console.log(favoriteList);
       })
       .catch((e) => {
         console.log(e);
         console.log("Documentary not added");
+      });
+  };
+
+  updateFavorites = (documentaries) => {
+    this.setState({
+      setMsg: false,
+    });
+
+    axios({
+      method: "delete",
+      url: `https://documentality.herokuapp.com/users/${this.props.username}/Documentaries/${this.props.documentary._id}`,
+      headers: { Authorization: `Bearer ${this.state.userToken}` },
+    })
+      .then((res) => {
+        console.log(data);
+        let favList = favorite.filter((favDocs) => {
+          return favDocs._id !== documentary;
+        });
+        setFavorite(favList);
+      })
+      .catch((e) => {
+        setMsg(true);
+
+        setTimeout(() => {
+          setMsg(false);
+        }, 2000);
       });
   };
 
@@ -64,6 +88,7 @@ export class MovieView extends Component {
 
     return (
       <Container className="movieView">
+        {/*msg && "unable to remove"*/}
         <img className="moviePoster" src={documentary.ImagePath} />
         <div className="movieInfo">
           <div className="movieTitle">
@@ -98,29 +123,18 @@ export class MovieView extends Component {
             <Button
               className="btnDeleteFavorite"
               variant="warning"
-              onClick={this.removeFavorite}
+              onClick={() => this.updateFavorites(documentary._id)}
+              block
             >
               Remove from Favorites
             </Button>
 
-            {/*
-            <Button
-              className="btnDeleteFavorite"
-              variant="warning"
-              //onClick={deleteFavorite}
-            >
-              Remove from Favorites
-            </Button>
-            */}
             <Button className="btnAddFavorite" onClick={this.addFavorite}>
               Add to Favorites
             </Button>
           </div>
-          <Link to={`/`}>
-            <hr />
-            <Button className="btnBack" variant="danger">
-              Go Back Me
-            </Button>
+          <Link to={`/`} className="btn btn-danger btnBack ">
+            Go Back Me
           </Link>
         </div>
       </Container>

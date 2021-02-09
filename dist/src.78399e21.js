@@ -40123,8 +40123,6 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
 
-var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
-
 var _reactRouterDom = require("react-router-dom");
 
 require("./MovieCardView.scss");
@@ -40171,8 +40169,6 @@ var MovieCardView = /*#__PURE__*/function (_Component) {
   _createClass(MovieCardView, [{
     key: "render",
     value: function render() {
-      var _this = this;
-
       //console.log(this.props.documentary);
       // This is given to the <MovieCardView/> component by the outer world
       // which, in this case, is 'MainView', as 'MainView' is what's
@@ -40187,15 +40183,9 @@ var MovieCardView = /*#__PURE__*/function (_Component) {
         variant: "top",
         src: documentaries.ImagePath
       }), _react.default.createElement(_reactRouterDom.Link, {
-        className: "btn btn-primary btn-block",
+        className: "btnMovieCardView btn btn-primary btn-block",
         to: "/documentaries/".concat(documentaries.Title)
-      }, documentaries.Title), _react.default.createElement(_Button.default, {
-        variant: "danger",
-        onClick: function onClick() {
-          return _this.props.updateFavorites(documentaries._id);
-        },
-        block: true
-      }, "Remove")));
+      }, documentaries.Title)));
     }
   }]);
 
@@ -40209,7 +40199,7 @@ var MovieCardView = /*#__PURE__*/function (_Component) {
 
 
 exports.MovieCardView = MovieCardView;
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./MovieCardView.scss":"components/MovieCardView/MovieCardView.scss"}],"../node_modules/invariant/browser.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./MovieCardView.scss":"components/MovieCardView/MovieCardView.scss"}],"../node_modules/invariant/browser.js":[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -53827,52 +53817,46 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function ProfileView(props) {
-  var _this = this;
-
-  var _useState = (0, _react.useState)(false),
+  //const [msg, setMsg] = useState(false);
+  var _useState = (0, _react.useState)(""),
       _useState2 = _slicedToArray(_useState, 2),
-      msg = _useState2[0],
-      setMsg = _useState2[1];
+      username = _useState2[0],
+      setUsername = _useState2[1];
 
   var _useState3 = (0, _react.useState)(""),
       _useState4 = _slicedToArray(_useState3, 2),
-      username = _useState4[0],
-      setUsername = _useState4[1];
+      email = _useState4[0],
+      setEmail = _useState4[1];
 
-  var _useState5 = (0, _react.useState)(""),
+  var _useState5 = (0, _react.useState)(new Date()),
       _useState6 = _slicedToArray(_useState5, 2),
-      email = _useState6[0],
-      setEmail = _useState6[1];
+      birthday = _useState6[0],
+      setBirthday = _useState6[1];
 
-  var _useState7 = (0, _react.useState)(new Date()),
+  var _useState7 = (0, _react.useState)([]),
       _useState8 = _slicedToArray(_useState7, 2),
-      birthday = _useState8[0],
-      setBirthday = _useState8[1];
+      password = _useState8[0],
+      setPassword = _useState8[1];
 
   var _useState9 = (0, _react.useState)([]),
       _useState10 = _slicedToArray(_useState9, 2),
-      password = _useState10[0],
-      setPassword = _useState10[1];
+      favoriteList = _useState10[0],
+      setFavoriteList = _useState10[1];
 
   var _useState11 = (0, _react.useState)([]),
       _useState12 = _slicedToArray(_useState11, 2),
-      favoriteList = _useState12[0],
-      setFavoriteList = _useState12[1];
+      favorite = _useState12[0],
+      setFavorite = _useState12[1];
 
-  var _useState13 = (0, _react.useState)([]),
+  var _useState13 = (0, _react.useState)(false),
       _useState14 = _slicedToArray(_useState13, 2),
-      favorite = _useState14[0],
-      setFavorite = _useState14[1];
+      edit = _useState14[0],
+      setEdit = _useState14[1];
 
   var _useState15 = (0, _react.useState)(false),
       _useState16 = _slicedToArray(_useState15, 2),
-      edit = _useState16[0],
-      setEdit = _useState16[1];
-
-  var _useState17 = (0, _react.useState)(false),
-      _useState18 = _slicedToArray(_useState17, 2),
-      show = _useState18[0],
-      setShow = _useState18[1];
+      show = _useState16[0],
+      setShow = _useState16[1];
 
   (0, _react.useEffect)(function () {
     function getUser() {
@@ -53927,24 +53911,6 @@ function ProfileView(props) {
   // console.log(props.documentaries);
 
 
-  var updateFavorites = function updateFavorites(documentaries) {
-    _axios.default.delete("https://documentality.herokuapp.com/users/".concat(_this.props.user, "/Documentaries/").concat(_this.props.documentaries._id), {
-      headers: {
-        Authorization: "Bearer ".concat(_this.props.userToken)
-      }
-    }).then(function (res) {
-      var favList = favorite.filter(function (favDocs) {
-        return favDocs._id !== documentaries;
-      });
-      setFavorite(favList);
-    }).catch(function (e) {
-      setMsg(true);
-      setTimeout(function () {
-        setMsg(false);
-      }, 2000);
-    });
-  };
-
   var editUser = function editUser() {
     setEdit(!edit);
   };
@@ -53968,7 +53934,7 @@ function ProfileView(props) {
   }, "Close"), _react.default.createElement(_reactBootstrap.Button, {
     variant: "danger",
     onClick: deregister
-  }, "Delete Account"))), msg && "unable to remove", _react.default.createElement("div", {
+  }, "Delete Account"))), _react.default.createElement("div", {
     className: "nameProfileWrap"
   }, _react.default.createElement("h3", {
     className: "userName"
@@ -54027,8 +53993,9 @@ function ProfileView(props) {
       user: props.user,
       userToken: props.userToken,
       key: m.Title,
-      documentaries: m,
-      updateFavorites: updateFavorites
+      documentaries: m //addFavorite={addFavorite}
+      //updateFavorites={updateFavorites}
+
     }));
   }))), _react.default.createElement("hr", null), _react.default.createElement(_reactRouterDom.Link, {
     to: "/"
@@ -54128,9 +54095,7 @@ function MoviesList(props) {
     className: "filterWrap"
   }, _react.default.createElement(_VisibilityFilterInput.default, {
     visibilityFilter: visibilityFilter
-  })), _react.default.createElement("button", {
-    className: "buttonFilter"
-  }, "Filter by Genre"), _react.default.createElement("div", null, filteredDocumentaries.map(function (m) {
+  })), _react.default.createElement("div", null, filteredDocumentaries.map(function (m) {
     return _react.default.createElement(_MovieCardView.MovieCardView, {
       key: m._id,
       documentaries: m
@@ -54213,17 +54178,42 @@ var MovieView = /*#__PURE__*/function (_Component) {
 
       (0, _axios.default)({
         method: "post",
-        url: "https://documentality.herokuapp.com/users/".concat(_this.state.username, "/Documentaries/").concat(_this.state.documentary._id),
+        url: "https://documentality.herokuapp.com/users/".concat(_this.props.username, "/Documentaries/").concat(_this.props.documentary._id),
         headers: {
-          Authorization: "Bearer ".concat(_this.state.userToken)
+          Authorization: "Bearer ".concat(_this.props.userToken)
         },
         data: {}
       }).then(function (response) {
         var data = response.data;
-        console.log("New Documentary added");
+        console.log("New Documentary added"); //console.log(favoriteList);
       }).catch(function (e) {
         console.log(e);
         console.log("Documentary not added");
+      });
+    };
+
+    _this.updateFavorites = function (documentaries) {
+      _this.setState({
+        setMsg: false
+      });
+
+      (0, _axios.default)({
+        method: "delete",
+        url: "https://documentality.herokuapp.com/users/".concat(_this.props.username, "/Documentaries/").concat(_this.props.documentary._id),
+        headers: {
+          Authorization: "Bearer ".concat(_this.state.userToken)
+        }
+      }).then(function (res) {
+        console.log(data);
+        var favList = favorite.filter(function (favDocs) {
+          return favDocs._id !== documentary;
+        });
+        setFavorite(favList);
+      }).catch(function (e) {
+        setMsg(true);
+        setTimeout(function () {
+          setMsg(false);
+        }, 2000);
       });
     };
 
@@ -54233,15 +54223,14 @@ var MovieView = /*#__PURE__*/function (_Component) {
       addFavorite = true;
     }
 
-    var removeFavorite = false;
+    var updateFavorites = false;
 
-    if (props.removeFavorite) {
-      removeFavorite = true;
-    }
-
-    var documentaries = _this.props.documentaries; //don't set state like this its not good practice
+    if (props.updateFavorites) {
+      updateFavorites = true;
+    } //don't set state like this its not good practice
     // i will allow it for now
     //username is empty so i will take it from the local storage
+
 
     _this.state = {
       documentary: _this.props.documentary,
@@ -54249,7 +54238,7 @@ var MovieView = /*#__PURE__*/function (_Component) {
       //this.props.user,
       userToken: _this.props.userToken,
       addFavorite: addFavorite,
-      removeFavorite: removeFavorite
+      updateFavorites: []
     };
     return _this;
   }
@@ -54257,6 +54246,8 @@ var MovieView = /*#__PURE__*/function (_Component) {
   _createClass(MovieView, [{
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var documentary = this.props.documentary;
       if (!documentary) return null;
       return _react.default.createElement(_Container.default, {
@@ -54303,16 +54294,17 @@ var MovieView = /*#__PURE__*/function (_Component) {
       }, _react.default.createElement(_Button.default, {
         className: "btnDeleteFavorite",
         variant: "warning",
-        onClick: this.removeFavorite
+        onClick: function onClick() {
+          return _this2.updateFavorites(documentary._id);
+        },
+        block: true
       }, "Remove from Favorites"), _react.default.createElement(_Button.default, {
         className: "btnAddFavorite",
         onClick: this.addFavorite
       }, "Add to Favorites")), _react.default.createElement(_reactRouterDom.Link, {
-        to: "/"
-      }, _react.default.createElement("hr", null), _react.default.createElement(_Button.default, {
-        className: "btnBack",
-        variant: "danger"
-      }, "Go Back Me"))));
+        to: "/",
+        className: "btn btn-danger btnBack "
+      }, "Go Back Me")));
     }
   }]);
 
@@ -57308,8 +57300,6 @@ var _MoviesList = _interopRequireDefault(require("../MoviesList/MoviesList"));
 
 var _MovieView = require("../MovieView/MovieView");
 
-var _MovieCardView = require("../MovieCardView/MovieCardView");
-
 var _DirectorView = require("../DirectorView/DirectorView");
 
 var _GenreView = require("../GenreView/GenreView");
@@ -57454,8 +57444,8 @@ var MainView = /*#__PURE__*/function (_Component) {
       // If the state isn't initialized, this will throw on runtime
       // before tha data is initially loaded
       var documentaries = this.props.documentaries;
-      var user = this.state.user;
-      console.log(documentaries);
+      var user = this.state.user; //console.log(documentaries);
+
       var genres = documentaries.map(function (mov) {
         return mov.Genre;
       });
@@ -57588,7 +57578,7 @@ var _default = (0, _reactRedux.connect)(mapStateToProps, {
 })(MainView);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../../actions/actions":"actions/actions.js","../LoginView/LoginView":"components/LoginView/LoginView.jsx","../SignUpView/SignUpView":"components/SignUpView/SignUpView.jsx","../ProfileView/ProfileView":"components/ProfileView/ProfileView.jsx","../MoviesList/MoviesList":"components/MoviesList/MoviesList.jsx","../MovieView/MovieView":"components/MovieView/MovieView.jsx","../MovieCardView/MovieCardView":"components/MovieCardView/MovieCardView.jsx","../DirectorView/DirectorView":"components/DirectorView/DirectorView.jsx","../GenreView/GenreView":"components/GenreView/GenreView.jsx","../NavbarView/NavbarView":"components/NavbarView/NavbarView.jsx","../FooterView/FooterView":"components/FooterView/FooterView.jsx","../GenreView/AllGenresView":"components/GenreView/AllGenresView.jsx","../DirectorView/AllDirectorsView":"components/DirectorView/AllDirectorsView.jsx","../ErrorView/ErrorView":"components/ErrorView/ErrorView.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./MainView.scss":"components/MainView/MainView.scss"}],"reducers/reducers.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../../actions/actions":"actions/actions.js","../LoginView/LoginView":"components/LoginView/LoginView.jsx","../SignUpView/SignUpView":"components/SignUpView/SignUpView.jsx","../ProfileView/ProfileView":"components/ProfileView/ProfileView.jsx","../MoviesList/MoviesList":"components/MoviesList/MoviesList.jsx","../MovieView/MovieView":"components/MovieView/MovieView.jsx","../DirectorView/DirectorView":"components/DirectorView/DirectorView.jsx","../GenreView/GenreView":"components/GenreView/GenreView.jsx","../NavbarView/NavbarView":"components/NavbarView/NavbarView.jsx","../FooterView/FooterView":"components/FooterView/FooterView.jsx","../GenreView/AllGenresView":"components/GenreView/AllGenresView.jsx","../DirectorView/AllDirectorsView":"components/DirectorView/AllDirectorsView.jsx","../ErrorView/ErrorView":"components/ErrorView/ErrorView.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./MainView.scss":"components/MainView/MainView.scss"}],"reducers/reducers.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -57758,7 +57748,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53570" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65534" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

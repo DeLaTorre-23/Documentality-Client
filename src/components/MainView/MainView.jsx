@@ -4,7 +4,6 @@ import axios from "axios";
 import { connect } from "react-redux";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 import { setDocumentaries } from "../../actions/actions";
 
@@ -13,7 +12,6 @@ import { SignUpView } from "../SignUpView/SignUpView";
 import { ProfileView } from "../ProfileView/ProfileView";
 import MoviesList from "../MoviesList/MoviesList";
 import { MovieView } from "../MovieView/MovieView";
-import { MovieCardView } from "../MovieCardView/MovieCardView";
 import { DirectorView } from "../DirectorView/DirectorView";
 import { GenreView } from "../GenreView/GenreView";
 import { NavbarView } from "../NavbarView/NavbarView";
@@ -23,7 +21,7 @@ import AllDirectorsView from "../DirectorView/AllDirectorsView";
 //import { Slider } from "../Slider/Slider";
 import { ErrorView } from "../ErrorView/ErrorView";
 
-import { Container, Button } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 import "./MainView.scss";
 
@@ -103,7 +101,7 @@ export class MainView extends Component {
     const { documentaries } = this.props;
     const { user } = this.state;
 
-    console.log(documentaries);
+    //console.log(documentaries);
     const genres = documentaries.map((mov) => mov.Genre);
 
     const directors = documentaries.map((mov) => mov.Director);

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
 
 import { Link } from "react-router-dom";
 
@@ -29,11 +28,12 @@ export class MovieCardView extends Component {
             src={documentaries.ImagePath}
           />
           <Link
-            className="btn btn-primary btn-block"
+            className="btnMovieCardView btn btn-primary btn-block"
             to={`/documentaries/${documentaries.Title}`}
           >
             {documentaries.Title}
           </Link>
+          {/*
           <Button
             variant="danger"
             onClick={() => this.props.updateFavorites(documentaries._id)}
@@ -41,6 +41,7 @@ export class MovieCardView extends Component {
           >
             Remove
           </Button>
+          */}
         </Card.Body>
       </Card>
     );

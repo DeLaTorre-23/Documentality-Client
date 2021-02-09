@@ -11,7 +11,7 @@ import { Button, Modal, Row, Container } from "react-bootstrap";
 import "./ProfileView.scss";
 
 export function ProfileView(props) {
-  const [msg, setMsg] = useState(false);
+  //const [msg, setMsg] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState(new Date());
@@ -73,28 +73,6 @@ export function ProfileView(props) {
 
   // console.log("favorites", favorites);
   // console.log(props.documentaries);
-  const updateFavorites = (documentaries) => {
-    axios
-      .delete(
-        `https://documentality.herokuapp.com/users/${this.props.user}/Documentaries/${this.props.documentaries._id}`,
-        {
-          headers: { Authorization: `Bearer ${this.props.userToken}` },
-        }
-      )
-      .then((res) => {
-        let favList = favorite.filter((favDocs) => {
-          return favDocs._id !== documentaries;
-        });
-        setFavorite(favList);
-      })
-      .catch((e) => {
-        setMsg(true);
-
-        setTimeout(() => {
-          setMsg(false);
-        }, 2000);
-      });
-  };
 
   const editUser = () => {
     setEdit(!edit);
@@ -120,7 +98,7 @@ export function ProfileView(props) {
         </Modal.Footer>
       </Modal>
       {/* SLIDER Favorite Movies */}
-      {msg && "unable to remove"}
+      {/*msg && "unable to remove"*/}
       <div className="nameProfileWrap">
         <h3 className="userName">{"Hi " + username + ","}</h3>
       </div>
@@ -177,7 +155,8 @@ export function ProfileView(props) {
                     userToken={props.userToken}
                     key={m.Title}
                     documentaries={m}
-                    updateFavorites={updateFavorites}
+                    //addFavorite={addFavorite}
+                    //updateFavorites={updateFavorites}
                   />
                 </div>
               ))

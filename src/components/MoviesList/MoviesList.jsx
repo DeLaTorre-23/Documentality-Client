@@ -28,7 +28,9 @@ function MoviesList(props) {
       <div className="filterWrap">
         <VisibilityFilterInput visibilityFilter={visibilityFilter} />
       </div>
+      {/*
       <button className="buttonFilter">Filter by Genre</button>
+      */}
       <div>
         {filteredDocumentaries.map((m) => (
           <MovieCardView key={m._id} documentaries={m} />
