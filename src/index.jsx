@@ -7,19 +7,19 @@ import { devToolsEnhancer } from "redux-devtools-extension";
 
 import "bootstrap/dist/css/bootstrap.min.css"; //for bootstrap
 
-import { MainView } from "./components/MainView/MainView";
+import MainView from "./components/MainView/MainView";
 import documentariesApp from "./reducers/reducers";
 
 // Import statement to indicate that you need to bundle  `./index.scss`
 import "./index.scss";
 
-const store = createStore(documentariesApp, devToolsEnhancer());
+const documentalityStore = createStore(documentariesApp, devToolsEnhancer());
 
 // Main component (will eventually use all the others)
 class DocumentalityApplication extends React.Component {
   render() {
     return (
-      <Provider store={store}>
+      <Provider store={documentalityStore}>
         <MainView />
       </Provider>
     );

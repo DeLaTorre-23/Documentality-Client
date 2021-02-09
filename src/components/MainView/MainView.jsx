@@ -1,14 +1,19 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+import { connect } from "react-redux";
+
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Link } from "react-router-dom";
+
+import { setDocumentaries } from "../../actions/actions";
 
 import { LoginView } from "../LoginView/LoginView";
 import { SignUpView } from "../SignUpView/SignUpView";
 import { ProfileView } from "../ProfileView/ProfileView";
-import { MovieCardView } from "../MovieCardView/MovieCardView";
+import MoviesList from "../MoviesList/MoviesList";
 import { MovieView } from "../MovieView/MovieView";
+import { MovieCardView } from "../MovieCardView/MovieCardView";
 import { DirectorView } from "../DirectorView/DirectorView";
 import { GenreView } from "../GenreView/GenreView";
 import { NavbarView } from "../NavbarView/NavbarView";
@@ -26,7 +31,6 @@ export class MainView extends Component {
 
     // Initialize the state to an empty object so we can destructure it later
     this.state = {
-      documentaries: [],
       user: null,
     };
   }
@@ -49,11 +53,14 @@ export class MainView extends Component {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
+        /*
         // Assign the result to the state
         this.setState({
           // Its bring data from the response/API
           documentaries: response.data,
         });
+       */
+        this.props.setDocumentaries(response.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -98,19 +105,17 @@ export class MainView extends Component {
   render() {
     // If the state isn't initialized, this will throw on runtime
     // before tha data is initially loaded
-    const { documentaries, user } = this.state;
-    // console.log(documentaries);
+    const { documentaries } = this.props;
+    const { user } = this.state;
+
+    console.log(documentaries);
     const genres = documentaries.map((mov) => mov.Genre);
 
     const directors = documentaries.map((mov) => mov.Director);
 
-    // console.log(genres);
     // If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*
     //if (!user)
     // return <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />;
-
-    // Before the movies have been loaded
-    // if (!documentaries) return <div className="MainView" />;
 
     return (
       <React.Fragment>
@@ -129,14 +134,28 @@ export class MainView extends Component {
                   exact
                   path="/"
                   render={() => {
-                    return documentaries.map((m) => (
+                    return (
+                      <React.Fragment>
+                        <div className="filterWrap">
+                          <MoviesList documentaries={documentaries} />
+                        </div>
+                        <MovieCardView
+                          user={user}
+                          userToken={this.state.userToken}
+                          documentaries={documentaries}
+                        />
+                      </React.Fragment>
+                    );
+
+                    /*
+                      (
                       <MovieCardView
                         user={user}
                         userToken={this.state.userToken}
-                        key={m.Title}
-                        documentary={m}
+                        documentaries={documentaries}
                       />
-                    ));
+                      );
+                    */
                   }}
                 />
 
@@ -311,3 +330,9 @@ export class MainView extends Component {
     );
   }
 }
+
+let mapStateToProps = (state) => {
+  return { documentaries: state.documentaries };
+};
+
+export default connect(mapStateToProps, { setDocumentaries })(MainView);

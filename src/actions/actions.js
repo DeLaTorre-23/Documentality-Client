@@ -11,6 +11,7 @@ export const editTodo = (index, text) => ({
 */}
 
 export function setDocumentaries(value) {
+  console.log('SET_MOVIES action triggered');
   return { 
     type: SET_DOCUMENTARIES, 
     value

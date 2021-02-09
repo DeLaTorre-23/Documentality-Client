@@ -8,6 +8,7 @@ import { combineReducers } from 'redux';
 function documentaries(state = [], action) {
   switch (action.type) {
     case SET_DOCUMENTARIES:
+      console.log('SET_MOVIES reducer reached');
       return action.value;
     default:
       return state;

@@ -22,6 +22,8 @@ export class MovieView extends Component {
       removeFavorite = true;
     }
 
+    const { documentaries } = this.props;
+
     //don't set state like this its not good practice
     // i will allow it for now
     //username is empty so i will take it from the local storage
@@ -38,14 +40,6 @@ export class MovieView extends Component {
     this.setState({
       addFavorite: false,
     });
-
-    const updateFavorites = (documentaries) => {
-      setFavoriteList(
-        props.favoriteList.filter((favDocs) => {
-          return favDocs !== documentaries;
-        })
-      );
-    };
 
     axios({
       method: "post",

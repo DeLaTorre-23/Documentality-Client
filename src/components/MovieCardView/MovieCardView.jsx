@@ -14,11 +14,11 @@ export class MovieCardView extends Component {
     // This is given to the <MovieCardView/> component by the outer world
     // which, in this case, is 'MainView', as 'MainView' is what's
     // connected to your database via the movies endpoint of your API
-    const { documentary } = this.props;
+    const { documentaries } = this.props;
 
     return (
       <React.Fragment>
-        <Link to={`/documentaries/${documentary.Title}`}>
+        <Link to={`/documentaries/${documentaries.Title}`}>
           <Card className="movieCard">
             <Card.Body className="movieCardBody">
               {/*
@@ -28,11 +28,11 @@ export class MovieCardView extends Component {
               <Card.Img
                 className="movieCardImg"
                 variant="top"
-                src={documentary.ImagePath}
+                src={documentaries.ImagePath}
               />
 
               <Button className="btnMovieCardView" variant="primary">
-                {documentary.Title}
+                {documentaries.Title}
               </Button>
             </Card.Body>
           </Card>

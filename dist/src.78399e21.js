@@ -38112,7 +38112,45 @@ if ("development" !== "production") {
     style: _propTypes.default.object
   });
 }
-},{"react-router":"../node_modules/react-router/esm/react-router.js","@babel/runtime/helpers/esm/inheritsLoose":"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../node_modules/react/index.js","history":"../node_modules/history/esm/history.js","prop-types":"../node_modules/prop-types/index.js","tiny-warning":"../node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"../node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"../node_modules/classnames/index.js":[function(require,module,exports) {
+},{"react-router":"../node_modules/react-router/esm/react-router.js","@babel/runtime/helpers/esm/inheritsLoose":"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../node_modules/react/index.js","history":"../node_modules/history/esm/history.js","prop-types":"../node_modules/prop-types/index.js","tiny-warning":"../node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"../node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"actions/actions.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.setDocumentaries = setDocumentaries;
+exports.setFilter = setFilter;
+exports.SET_FILTER = exports.SET_DOCUMENTARIES = void 0;
+var SET_DOCUMENTARIES = 'SET_DOCUMENTARIES';
+exports.SET_DOCUMENTARIES = SET_DOCUMENTARIES;
+var SET_FILTER = 'SET_FILTER'; // We can put the name that we want in "value". value = data
+
+exports.SET_FILTER = SET_FILTER;
+{
+  /*
+  export const editTodo = (index, text) => ({
+   type: EDIT_TODO,
+   index,
+   text
+  })
+  */
+}
+
+function setDocumentaries(value) {
+  console.log('SET_MOVIES action triggered');
+  return {
+    type: SET_DOCUMENTARIES,
+    value: value
+  };
+}
+
+function setFilter(value) {
+  return {
+    type: SET_FILTER,
+    value: value
+  };
+}
+},{}],"../node_modules/classnames/index.js":[function(require,module,exports) {
 var define;
 /*!
   Copyright (c) 2017 Jed Watson.
@@ -40137,9 +40175,9 @@ var MovieCardView = /*#__PURE__*/function (_Component) {
       // This is given to the <MovieCardView/> component by the outer world
       // which, in this case, is 'MainView', as 'MainView' is what's
       // connected to your database via the movies endpoint of your API
-      var documentary = this.props.documentary;
+      var documentaries = this.props.documentaries;
       return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_reactRouterDom.Link, {
-        to: "/documentaries/".concat(documentary.Title)
+        to: "/documentaries/".concat(documentaries.Title)
       }, _react.default.createElement(_Card.default, {
         className: "movieCard"
       }, _react.default.createElement(_Card.default.Body, {
@@ -40147,11 +40185,11 @@ var MovieCardView = /*#__PURE__*/function (_Component) {
       }, _react.default.createElement(_Card.default.Img, {
         className: "movieCardImg",
         variant: "top",
-        src: documentary.ImagePath
+        src: documentaries.ImagePath
       }), _react.default.createElement(_Button.default, {
         className: "btnMovieCardView",
         variant: "primary"
-      }, documentary.Title)))));
+      }, documentaries.Title)))));
     }
   }]);
 
@@ -53977,7 +54015,96 @@ function ProfileView(props) {
     variant: "danger"
   }, "Go Back Me"))));
 }
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../MovieCardView/MovieCardView":"components/MovieCardView/MovieCardView.jsx","../ProfileEditView/ProfileEditView":"components/ProfileEditView/ProfileEditView.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./ProfileView.scss":"components/ProfileView/ProfileView.scss"}],"components/MovieView/MovieView.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../MovieCardView/MovieCardView":"components/MovieCardView/MovieCardView.jsx","../ProfileEditView/ProfileEditView":"components/ProfileEditView/ProfileEditView.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./ProfileView.scss":"components/ProfileView/ProfileView.scss"}],"components/VisibilityFilterInput/VisibilityFilterInput.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _reactRedux = require("react-redux");
+
+var _Form = _interopRequireDefault(require("react-bootstrap/Form"));
+
+var _actions = require("../../actions/actions");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function VisibilityFilterInput(props) {
+  return _react.default.createElement(_Form.default.Control, {
+    onChange: function onChange(e) {
+      return props.setFilter(e.target.value);
+    },
+    value: props.visibilityFilter,
+    placeholder: "filter"
+  });
+}
+
+var _default = (0, _reactRedux.connect)(null, {
+  setFilter: _actions.setFilter
+})(VisibilityFilterInput);
+
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","../../actions/actions":"actions/actions.js"}],"components/MoviesList/MoviesList.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactRedux = require("react-redux");
+
+var _VisibilityFilterInput = _interopRequireDefault(require("../VisibilityFilterInput/VisibilityFilterInput"));
+
+var _MovieCardView = require("../MovieCardView/MovieCardView");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  var visibilityFilter = state.visibilityFilter;
+  return {
+    visibilityFilter: visibilityFilter
+  };
+};
+
+function MoviesList(props) {
+  var documentaries = props.documentaries,
+      visibilityFilter = props.visibilityFilter;
+  var filteredDocumentaries = documentaries;
+
+  if (visibilityFilter !== "") {
+    filteredDocumentaries = documentaries.filter(function (m) {
+      return m.Title.includes(visibilityFilter);
+    });
+  }
+
+  if (!documentaries) return _react.default.createElement("div", {
+    className: "MainView"
+  });
+  return _react.default.createElement("div", {
+    className: "MoviesList"
+  }, _react.default.createElement(_VisibilityFilterInput.default, {
+    visibilityFilter: visibilityFilter
+  }), filteredDocumentaries.map(function (m) {
+    return _react.default.createElement(_MovieCardView.MovieCardView, {
+      key: m._id,
+      documentaries: m
+    });
+  }));
+}
+
+var _default = (0, _reactRedux.connect)(mapStateToProps)(MoviesList);
+
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../VisibilityFilterInput/VisibilityFilterInput":"components/VisibilityFilterInput/VisibilityFilterInput.jsx","../MovieCardView/MovieCardView":"components/MovieCardView/MovieCardView.jsx"}],"components/MovieView/MovieView.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -54042,7 +54169,45 @@ var MovieView = /*#__PURE__*/function (_Component) {
 
     _this = _super.call(this, props);
 
-    _initialiseProps.call(_assertThisInitialized(_this));
+    _this.addFavorite = function () {
+      _this.setState({
+        addFavorite: false
+      });
+
+      (0, _axios.default)({
+        method: "post",
+        url: "https://documentality.herokuapp.com/users/".concat(_this.state.username, "/Documentaries/").concat(_this.state.documentary._id),
+        headers: {
+          Authorization: "Bearer ".concat(_this.state.userToken)
+        },
+        data: {}
+      }).then(function (response) {
+        var data = response.data;
+        console.log("New Documentary added");
+      }).catch(function (e) {
+        console.log(e);
+        console.log("Documentary not added");
+      });
+    };
+
+    _this.removeFavorite = function () {
+      _this.updateFavorites(_this.state.documentary._id);
+
+      _this.setState({
+        removeFavorite: false
+      });
+
+      _axios.default.delete("https://documentality.herokuapp.com/users/".concat(_this.state.username, "/Documentaries/").concat(_this.state.documentary._id), {
+        headers: {
+          Authorization: "Bearer ".concat(_this.state.userToken)
+        }
+      }).then(function (response) {
+        console.log("Documentary removed");
+      }).catch(function (e) {
+        console.log(e);
+        console.log("Documentary not removed from FavoriteList");
+      });
+    };
 
     var addFavorite = false;
 
@@ -54054,10 +54219,11 @@ var MovieView = /*#__PURE__*/function (_Component) {
 
     if (props.removeFavorite) {
       removeFavorite = true;
-    } //don't set state like this its not good practice
+    }
+
+    var documentaries = _this.props.documentaries; //don't set state like this its not good practice
     // i will allow it for now
     //username is empty so i will take it from the local storage
-
 
     _this.state = {
       documentary: _this.props.documentary,
@@ -54136,56 +54302,6 @@ var MovieView = /*#__PURE__*/function (_Component) {
 }(_react.Component);
 
 exports.MovieView = MovieView;
-
-var _initialiseProps = function _initialiseProps() {
-  var _this2 = this;
-
-  this.addFavorite = function () {
-    _this2.setState({
-      addFavorite: false
-    });
-
-    var updateFavorites = function updateFavorites(documentaries) {
-      setFavoriteList(props.favoriteList.filter(function (favDocs) {
-        return favDocs !== documentaries;
-      }));
-    };
-
-    (0, _axios.default)({
-      method: "post",
-      url: "https://documentality.herokuapp.com/users/".concat(_this2.state.username, "/Documentaries/").concat(_this2.state.documentary._id),
-      headers: {
-        Authorization: "Bearer ".concat(_this2.state.userToken)
-      },
-      data: {}
-    }).then(function (response) {
-      var data = response.data;
-      console.log("New Documentary added");
-    }).catch(function (e) {
-      console.log(e);
-      console.log("Documentary not added");
-    });
-  };
-
-  this.removeFavorite = function () {
-    _this2.updateFavorites(_this2.state.documentary._id);
-
-    _this2.setState({
-      removeFavorite: false
-    });
-
-    _axios.default.delete("https://documentality.herokuapp.com/users/".concat(_this2.state.username, "/Documentaries/").concat(_this2.state.documentary._id), {
-      headers: {
-        Authorization: "Bearer ".concat(_this2.state.userToken)
-      }
-    }).then(function (response) {
-      console.log("Documentary removed");
-    }).catch(function (e) {
-      console.log(e);
-      console.log("Documentary not removed from FavoriteList");
-    });
-  };
-};
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./MovieView.scss":"components/MovieView/MovieView.scss"}],"../node_modules/React/cjs/react.development.js":[function(require,module,exports) {
 /** @license React v17.0.1
  * react.development.js
@@ -57022,13 +57138,17 @@ module.hot.accept(reloadCSS);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.MainView = void 0;
+exports.default = exports.MainView = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
 
+var _reactRedux = require("react-redux");
+
 var _reactRouterDom = require("react-router-dom");
+
+var _actions = require("../../actions/actions");
 
 var _LoginView = require("../LoginView/LoginView");
 
@@ -57036,9 +57156,11 @@ var _SignUpView = require("../SignUpView/SignUpView");
 
 var _ProfileView = require("../ProfileView/ProfileView");
 
-var _MovieCardView = require("../MovieCardView/MovieCardView");
+var _MoviesList = _interopRequireDefault(require("../MoviesList/MoviesList"));
 
 var _MovieView = require("../MovieView/MovieView");
+
+var _MovieCardView = require("../MovieCardView/MovieCardView");
 
 var _DirectorView = require("../DirectorView/DirectorView");
 
@@ -57097,7 +57219,6 @@ var MainView = /*#__PURE__*/function (_Component) {
     _this = _super.call(this); // Initialize the state to an empty object so we can destructure it later
 
     _this.state = {
-      documentaries: [],
       user: null
     };
     return _this;
@@ -57128,11 +57249,14 @@ var MainView = /*#__PURE__*/function (_Component) {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
+        /*
         // Assign the result to the state
-        _this2.setState({
+        this.setState({
           // Its bring data from the response/API
-          documentaries: response.data
+          documentaries: response.data,
         });
+        */
+        _this2.props.setDocumentaries(response.data);
       }).catch(function (error) {
         console.log(error);
       });
@@ -57184,21 +57308,17 @@ var MainView = /*#__PURE__*/function (_Component) {
 
       // If the state isn't initialized, this will throw on runtime
       // before tha data is initially loaded
-      var _this$state = this.state,
-          documentaries = _this$state.documentaries,
-          user = _this$state.user; // console.log(documentaries);
-
+      var documentaries = this.props.documentaries;
+      var user = this.state.user;
+      console.log(documentaries);
       var genres = documentaries.map(function (mov) {
         return mov.Genre;
       });
       var directors = documentaries.map(function (mov) {
         return mov.Director;
-      }); // console.log(genres);
-      // If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*
+      }); // If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*
       //if (!user)
       // return <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />;
-      // Before the movies have been loaded
-      // if (!documentaries) return <div className="MainView" />;
 
       return _react.default.createElement(_react.default.Fragment, null, user ? _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("header", null, _react.default.createElement(_NavbarView.NavbarView, {
         user: user
@@ -57208,14 +57328,24 @@ var MainView = /*#__PURE__*/function (_Component) {
         exact: true,
         path: "/",
         render: function render() {
-          return documentaries.map(function (m) {
-            return _react.default.createElement(_MovieCardView.MovieCardView, {
-              user: user,
-              userToken: _this4.state.userToken,
-              key: m.Title,
-              documentary: m
-            });
-          });
+          return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("div", {
+            className: "filterWrap"
+          }, _react.default.createElement(_MoviesList.default, {
+            documentaries: documentaries
+          })), _react.default.createElement(_MovieCardView.MovieCardView, {
+            user: user,
+            userToken: _this4.state.userToken,
+            documentaries: documentaries
+          }));
+          /*
+            (
+            <MovieCardView
+              user={user}
+              userToken={this.state.userToken}
+              documentaries={documentaries}
+            />
+            );
+          */
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
@@ -57354,44 +57484,19 @@ var MainView = /*#__PURE__*/function (_Component) {
 }(_react.Component);
 
 exports.MainView = MainView;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../LoginView/LoginView":"components/LoginView/LoginView.jsx","../SignUpView/SignUpView":"components/SignUpView/SignUpView.jsx","../ProfileView/ProfileView":"components/ProfileView/ProfileView.jsx","../MovieCardView/MovieCardView":"components/MovieCardView/MovieCardView.jsx","../MovieView/MovieView":"components/MovieView/MovieView.jsx","../DirectorView/DirectorView":"components/DirectorView/DirectorView.jsx","../GenreView/GenreView":"components/GenreView/GenreView.jsx","../NavbarView/NavbarView":"components/NavbarView/NavbarView.jsx","../FooterView/FooterView":"components/FooterView/FooterView.jsx","../ErrorView/ErrorView":"components/ErrorView/ErrorView.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./MainView.scss":"components/MainView/MainView.scss"}],"actions/actions.js":[function(require,module,exports) {
-"use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.setDocumentaries = setDocumentaries;
-exports.setFilter = setFilter;
-exports.SET_FILTER = exports.SET_DOCUMENTARIES = void 0;
-var SET_DOCUMENTARIES = 'SET_DOCUMENTARIES';
-exports.SET_DOCUMENTARIES = SET_DOCUMENTARIES;
-var SET_FILTER = 'SET_FILTER'; // We can put the name that we want in "value". value = data
-
-exports.SET_FILTER = SET_FILTER;
-{
-  /*
-  export const editTodo = (index, text) => ({
-   type: EDIT_TODO,
-   index,
-   text
-  })
-  */
-}
-
-function setDocumentaries(value) {
+var mapStateToProps = function mapStateToProps(state) {
   return {
-    type: SET_DOCUMENTARIES,
-    value: value
+    documentaries: state.documentaries
   };
-}
+};
 
-function setFilter(value) {
-  return {
-    type: SET_FILTER,
-    value: value
-  };
-}
-},{}],"reducers/reducers.js":[function(require,module,exports) {
+var _default = (0, _reactRedux.connect)(mapStateToProps, {
+  setDocumentaries: _actions.setDocumentaries
+})(MainView);
+
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../../actions/actions":"actions/actions.js","../LoginView/LoginView":"components/LoginView/LoginView.jsx","../SignUpView/SignUpView":"components/SignUpView/SignUpView.jsx","../ProfileView/ProfileView":"components/ProfileView/ProfileView.jsx","../MoviesList/MoviesList":"components/MoviesList/MoviesList.jsx","../MovieView/MovieView":"components/MovieView/MovieView.jsx","../MovieCardView/MovieCardView":"components/MovieCardView/MovieCardView.jsx","../DirectorView/DirectorView":"components/DirectorView/DirectorView.jsx","../GenreView/GenreView":"components/GenreView/GenreView.jsx","../NavbarView/NavbarView":"components/NavbarView/NavbarView.jsx","../FooterView/FooterView":"components/FooterView/FooterView.jsx","../ErrorView/ErrorView":"components/ErrorView/ErrorView.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./MainView.scss":"components/MainView/MainView.scss"}],"reducers/reducers.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -57411,6 +57516,7 @@ function documentaries() {
 
   switch (action.type) {
     case _actions.SET_DOCUMENTARIES:
+      console.log('SET_MOVIES reducer reached');
       return action.value;
 
     default:
@@ -57473,7 +57579,7 @@ var _reduxDevtoolsExtension = require("redux-devtools-extension");
 
 require("bootstrap/dist/css/bootstrap.min.css");
 
-var _MainView = require("./components/MainView/MainView");
+var _MainView = _interopRequireDefault(require("./components/MainView/MainView"));
 
 var _reducers = _interopRequireDefault(require("./reducers/reducers"));
 
@@ -57503,7 +57609,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var store = (0, _redux.createStore)(_reducers.default, (0, _reduxDevtoolsExtension.devToolsEnhancer)()); // Main component (will eventually use all the others)
+var documentalityStore = (0, _redux.createStore)(_reducers.default, (0, _reduxDevtoolsExtension.devToolsEnhancer)()); // Main component (will eventually use all the others)
 
 var DocumentalityApplication = /*#__PURE__*/function (_React$Component) {
   _inherits(DocumentalityApplication, _React$Component);
@@ -57520,8 +57626,8 @@ var DocumentalityApplication = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       return _react.default.createElement(_reactRedux.Provider, {
-        store: store
-      }, _react.default.createElement(_MainView.MainView, null));
+        store: documentalityStore
+      }, _react.default.createElement(_MainView.default, null));
     }
   }]);
 
@@ -57560,7 +57666,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49365" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54257" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
