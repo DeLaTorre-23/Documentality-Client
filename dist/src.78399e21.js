@@ -53872,10 +53872,7 @@ function ProfileView(props) {
   var _useState17 = (0, _react.useState)(false),
       _useState18 = _slicedToArray(_useState17, 2),
       show = _useState18[0],
-      setShow = _useState18[1]; // i don't understand this condition
-  //its pointless to the code
-  //you should use lifecycle
-
+      setShow = _useState18[1];
 
   (0, _react.useEffect)(function () {
     function getUser() {
@@ -53931,7 +53928,7 @@ function ProfileView(props) {
 
 
   var updateFavorites = function updateFavorites(documentaries) {
-    _axios.default.delete("https://documentality.herokuapp.com/users/".concat(_this.props.user, "/Documentaries/").concat(documentaries._id), {
+    _axios.default.delete("https://documentality.herokuapp.com/users/".concat(_this.props.user, "/Documentaries/").concat(_this.props.documentaries._id), {
       headers: {
         Authorization: "Bearer ".concat(_this.props.userToken)
       }
@@ -53944,12 +53941,7 @@ function ProfileView(props) {
       setMsg(true);
       setTimeout(function () {
         setMsg(false);
-      }, 2000); // setFavoriteList(() => {
-      //   return props.favoriteList.filter((favDocs) => {
-      //     return favDocs !== documentaries;
-      //   })
-      // }
-      // );
+      }, 2000);
     });
   };
 
@@ -54232,25 +54224,6 @@ var MovieView = /*#__PURE__*/function (_Component) {
       }).catch(function (e) {
         console.log(e);
         console.log("Documentary not added");
-      });
-    };
-
-    _this.removeFavorite = function () {
-      _this.updateFavorites(_this.state.documentary._id);
-
-      _this.setState({
-        removeFavorite: false
-      });
-
-      _axios.default.delete("https://documentality.herokuapp.com/users/".concat(_this.documentaries.username, "/Documentaries/").concat(_this.documentaries._id), {
-        headers: {
-          Authorization: "Bearer ".concat(_this.state.userToken)
-        }
-      }).then(function (response) {
-        console.log("Documentary removed");
-      }).catch(function (e) {
-        console.log(e);
-        console.log("Documentary not removed from FavoriteList");
       });
     };
 
@@ -57172,7 +57145,137 @@ var FooterView = /*#__PURE__*/function (_Component) {
 }(_React.Component);
 
 exports.FooterView = FooterView;
-},{"React":"../node_modules/React/index.js","./FooterView.scss":"components/FooterView/FooterView.scss"}],"components/MainView/MainView.scss":[function(require,module,exports) {
+},{"React":"../node_modules/React/index.js","./FooterView.scss":"components/FooterView/FooterView.scss"}],"components/GenreView/AllGenresView.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = AllGenresView;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactRouterDom = require("react-router-dom");
+
+var _axios = _interopRequireDefault(require("axios"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function AllGenresView() {
+  var _useState = (0, _react.useState)([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      genres = _useState2[0],
+      setGenres = _useState2[1];
+
+  (0, _react.useEffect)(function () {
+    function getAllGenres() {
+      (0, _axios.default)("https://documentality.herokuapp.com/genres", {
+        headers: {
+          Authorization: "Bearer ".concat(localStorage.getItem("token"))
+        }
+      }).then(function (res) {
+        setGenres(res.data);
+      }).catch(function (e) {
+        console.log(e);
+      });
+    }
+
+    getAllGenres();
+  });
+  return _react.default.createElement("div", null, _react.default.createElement("div", {
+    className: "genreTitleWrap"
+  }, _react.default.createElement("h3", null, "Genres Info"), _react.default.createElement("hr", null)), _react.default.createElement("div", null, genres.map(function (elm, idx) {
+    return _react.default.createElement("div", {
+      key: idx
+    }, _react.default.createElement("p", {
+      className: "titleElement"
+    }, elm.Name), _react.default.createElement("p", null, elm.Description));
+  }), _react.default.createElement("hr", null), _react.default.createElement(_reactRouterDom.Link, {
+    className: "btn btn-danger btnBack",
+    to: "/"
+  }, "Go Back Me")));
+}
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","axios":"../node_modules/axios/index.js"}],"components/DirectorView/AllDirectorsView.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = AllDirectorsView;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactRouterDom = require("react-router-dom");
+
+var _axios = _interopRequireDefault(require("axios"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function AllDirectorsView() {
+  var _useState = (0, _react.useState)([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      directors = _useState2[0],
+      setDirectors = _useState2[1];
+
+  (0, _react.useEffect)(function () {
+    function getAllDirectors() {
+      (0, _axios.default)("https://documentality.herokuapp.com/directors", {
+        headers: {
+          Authorization: "Bearer ".concat(localStorage.getItem("token"))
+        }
+      }).then(function (res) {
+        setDirectors(res.data);
+      }).catch(function (e) {
+        console.log(e);
+      });
+    }
+
+    getAllDirectors();
+  });
+  return _react.default.createElement("div", {
+    className: "directorTitleWrap"
+  }, _react.default.createElement("h3", null, "Directors Info"), _react.default.createElement("hr", null), _react.default.createElement("div", null, directors.map(function (elm, idx) {
+    return _react.default.createElement("div", {
+      key: idx
+    }, _react.default.createElement("p", null, elm.Name));
+  })), _react.default.createElement("hr", null), _react.default.createElement(_reactRouterDom.Link, {
+    className: "btn btn-danger btnBack",
+    to: "/"
+  }, "Go Back Me"));
+}
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","axios":"../node_modules/axios/index.js"}],"components/MainView/MainView.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -57214,6 +57317,10 @@ var _GenreView = require("../GenreView/GenreView");
 var _NavbarView = require("../NavbarView/NavbarView");
 
 var _FooterView = require("../FooterView/FooterView");
+
+var _AllGenresView = _interopRequireDefault(require("../GenreView/AllGenresView"));
+
+var _AllDirectorsView = _interopRequireDefault(require("../DirectorView/AllDirectorsView"));
 
 var _ErrorView = require("../ErrorView/ErrorView");
 
@@ -57294,13 +57401,6 @@ var MainView = /*#__PURE__*/function (_Component) {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        /*
-        // Assign the result to the state
-        this.setState({
-          // Its bring data from the response/API
-          documentaries: response.data,
-        });
-        */
         _this2.props.setDocumentaries(response.data);
       }).catch(function (error) {
         console.log(error);
@@ -57376,15 +57476,6 @@ var MainView = /*#__PURE__*/function (_Component) {
           return _react.default.createElement(_MoviesList.default, {
             documentaries: documentaries
           });
-          /*
-            (
-            <MovieCardView
-              user={user}
-              userToken={this.state.userToken}
-              documentaries={documentaries}
-            />
-            );
-          */
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
@@ -57410,18 +57501,7 @@ var MainView = /*#__PURE__*/function (_Component) {
         exact: true,
         path: "/directors",
         render: function render() {
-          return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("div", {
-            className: "directorTitleWrap"
-          }, _react.default.createElement("h3", null, "Directors Info"), _react.default.createElement("hr", null), _react.default.createElement("div", null, directors.map(function (elm, idx) {
-            return _react.default.createElement("div", {
-              key: idx
-            }, _react.default.createElement("p", null, elm.Name));
-          })), _react.default.createElement("hr", null), _react.default.createElement(_reactRouterDom.Link, {
-            to: "/"
-          }, _react.default.createElement(_reactBootstrap.Button, {
-            className: "btnBack",
-            variant: "danger"
-          }, "Go Back Me"))));
+          return _react.default.createElement(_AllDirectorsView.default, null);
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/directors/:name",
@@ -57457,20 +57537,7 @@ var MainView = /*#__PURE__*/function (_Component) {
         exact: true,
         path: "/genres",
         render: function render() {
-          return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("div", {
-            className: "genreTitleWrap"
-          }, _react.default.createElement("h3", null, "Genres Info"), _react.default.createElement("hr", null)), _react.default.createElement("div", null, genres.map(function (elm, idx) {
-            return _react.default.createElement("div", {
-              key: idx
-            }, _react.default.createElement("p", {
-              className: "titleElement"
-            }, elm.Name), _react.default.createElement("p", null, elm.Description));
-          }), _react.default.createElement("hr", null), _react.default.createElement(_reactRouterDom.Link, {
-            to: "/"
-          }, _react.default.createElement(_reactBootstrap.Button, {
-            className: "btnBack",
-            variant: "danger"
-          }, "Go Back Me"))));
+          return _react.default.createElement(_AllGenresView.default, null);
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/genres/:name",
@@ -57481,20 +57548,6 @@ var MainView = /*#__PURE__*/function (_Component) {
           return _react.default.createElement(_GenreView.GenreView, _extends({
             documentaries: documentaries
           }, props));
-        }
-      }), _react.default.createElement(_reactRouterDom.Route, {
-        path: "/genres/:name",
-        render: function render(_ref4) {
-          var match = _ref4.match;
-          if (!documentaries) return _react.default.createElement("div", {
-            className: "mainView"
-          });
-          return _react.default.createElement(_GenreView.GenreView, {
-            genre: documentaries.find(function (m) {
-              return m.Genre.Name === match.params.name;
-            }).Genre,
-            genres: documentaries
-          });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         path: "*",
@@ -57535,7 +57588,7 @@ var _default = (0, _reactRedux.connect)(mapStateToProps, {
 })(MainView);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../../actions/actions":"actions/actions.js","../LoginView/LoginView":"components/LoginView/LoginView.jsx","../SignUpView/SignUpView":"components/SignUpView/SignUpView.jsx","../ProfileView/ProfileView":"components/ProfileView/ProfileView.jsx","../MoviesList/MoviesList":"components/MoviesList/MoviesList.jsx","../MovieView/MovieView":"components/MovieView/MovieView.jsx","../MovieCardView/MovieCardView":"components/MovieCardView/MovieCardView.jsx","../DirectorView/DirectorView":"components/DirectorView/DirectorView.jsx","../GenreView/GenreView":"components/GenreView/GenreView.jsx","../NavbarView/NavbarView":"components/NavbarView/NavbarView.jsx","../FooterView/FooterView":"components/FooterView/FooterView.jsx","../ErrorView/ErrorView":"components/ErrorView/ErrorView.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./MainView.scss":"components/MainView/MainView.scss"}],"reducers/reducers.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../../actions/actions":"actions/actions.js","../LoginView/LoginView":"components/LoginView/LoginView.jsx","../SignUpView/SignUpView":"components/SignUpView/SignUpView.jsx","../ProfileView/ProfileView":"components/ProfileView/ProfileView.jsx","../MoviesList/MoviesList":"components/MoviesList/MoviesList.jsx","../MovieView/MovieView":"components/MovieView/MovieView.jsx","../MovieCardView/MovieCardView":"components/MovieCardView/MovieCardView.jsx","../DirectorView/DirectorView":"components/DirectorView/DirectorView.jsx","../GenreView/GenreView":"components/GenreView/GenreView.jsx","../NavbarView/NavbarView":"components/NavbarView/NavbarView.jsx","../FooterView/FooterView":"components/FooterView/FooterView.jsx","../GenreView/AllGenresView":"components/GenreView/AllGenresView.jsx","../DirectorView/AllDirectorsView":"components/DirectorView/AllDirectorsView.jsx","../ErrorView/ErrorView":"components/ErrorView/ErrorView.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./MainView.scss":"components/MainView/MainView.scss"}],"reducers/reducers.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -57705,7 +57758,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64500" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53570" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

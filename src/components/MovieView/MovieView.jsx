@@ -57,27 +57,6 @@ export class MovieView extends Component {
       });
   };
 
-  removeFavorite = () => {
-    this.updateFavorites(this.state.documentary._id);
-    this.setState({
-      removeFavorite: false,
-    });
-    axios
-      .delete(
-        `https://documentality.herokuapp.com/users/${this.documentaries.username}/Documentaries/${this.documentaries._id}`,
-        {
-          headers: { Authorization: `Bearer ${this.state.userToken}` },
-        }
-      )
-      .then((response) => {
-        console.log("Documentary removed");
-      })
-      .catch((e) => {
-        console.log(e);
-        console.log("Documentary not removed from FavoriteList");
-      });
-  };
-
   render() {
     const { documentary } = this.props;
 

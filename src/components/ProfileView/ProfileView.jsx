@@ -21,10 +21,6 @@ export function ProfileView(props) {
   const [edit, setEdit] = useState(false);
   const [show, setShow] = useState(false);
 
-  // i don't understand this condition
-  //its pointless to the code
-  //you should use lifecycle
-
   useEffect(() => {
     function getUser() {
       axios
@@ -45,7 +41,6 @@ export function ProfileView(props) {
           console.log(error);
         });
     }
-
     getUser();
   }, [props.documentaries]);
 
@@ -81,7 +76,7 @@ export function ProfileView(props) {
   const updateFavorites = (documentaries) => {
     axios
       .delete(
-        `https://documentality.herokuapp.com/users/${this.props.user}/Documentaries/${documentaries._id}`,
+        `https://documentality.herokuapp.com/users/${this.props.user}/Documentaries/${this.props.documentaries._id}`,
         {
           headers: { Authorization: `Bearer ${this.props.userToken}` },
         }
@@ -98,13 +93,6 @@ export function ProfileView(props) {
         setTimeout(() => {
           setMsg(false);
         }, 2000);
-
-        // setFavoriteList(() => {
-        //   return props.favoriteList.filter((favDocs) => {
-        //     return favDocs !== documentaries;
-        //   })
-        // }
-        // );
       });
   };
 
@@ -139,10 +127,6 @@ export function ProfileView(props) {
 
       <Container className="bodyContainer">
         <div className="bodyInfo">
-          {/*<div className="user-avatar">
-            <img className="img-avatar" src="#" />
-          </div>*/}
-
           <div className="userInfo">
             <div className="userEmail">
               <span className="labelBold">Email: </span>

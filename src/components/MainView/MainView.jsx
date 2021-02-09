@@ -18,6 +18,8 @@ import { DirectorView } from "../DirectorView/DirectorView";
 import { GenreView } from "../GenreView/GenreView";
 import { NavbarView } from "../NavbarView/NavbarView";
 import { FooterView } from "../FooterView/FooterView";
+import AllGenresView from "../GenreView/AllGenresView";
+import AllDirectorsView from "../DirectorView/AllDirectorsView";
 //import { Slider } from "../Slider/Slider";
 import { ErrorView } from "../ErrorView/ErrorView";
 
@@ -53,13 +55,6 @@ export class MainView extends Component {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        /*
-        // Assign the result to the state
-        this.setState({
-          // Its bring data from the response/API
-          documentaries: response.data,
-        });
-       */
         this.props.setDocumentaries(response.data);
       })
       .catch(function (error) {
@@ -135,16 +130,6 @@ export class MainView extends Component {
                   path="/"
                   render={() => {
                     return <MoviesList documentaries={documentaries} />;
-
-                    /*
-                      (
-                      <MovieCardView
-                        user={user}
-                        userToken={this.state.userToken}
-                        documentaries={documentaries}
-                      />
-                      );
-                    */
                   }}
                 />
 
@@ -178,27 +163,7 @@ export class MainView extends Component {
                   exact
                   path="/directors"
                   render={() => {
-                    return (
-                      <React.Fragment>
-                        <div className="directorTitleWrap">
-                          <h3>Directors Info</h3>
-                          <hr />
-                          <div>
-                            {directors.map((elm, idx) => (
-                              <div key={idx}>
-                                <p>{elm.Name}</p>
-                              </div>
-                            ))}
-                          </div>
-                          <hr />
-                          <Link to={`/`}>
-                            <Button className="btnBack" variant="danger">
-                              Go Back Me
-                            </Button>
-                          </Link>
-                        </div>
-                      </React.Fragment>
-                    );
+                    return <AllDirectorsView />;
                   }}
                 />
 
@@ -242,28 +207,7 @@ export class MainView extends Component {
                   exact
                   path="/genres"
                   render={() => {
-                    return (
-                      <React.Fragment>
-                        <div className="genreTitleWrap">
-                          <h3>Genres Info</h3>
-                          <hr />
-                        </div>
-                        <div>
-                          {genres.map((elm, idx) => (
-                            <div key={idx}>
-                              <p className="titleElement">{elm.Name}</p>
-                              <p>{elm.Description}</p>
-                            </div>
-                          ))}
-                          <hr />
-                          <Link to={`/`}>
-                            <Button className="btnBack" variant="danger">
-                              Go Back Me
-                            </Button>
-                          </Link>
-                        </div>
-                      </React.Fragment>
-                    );
+                    return <AllGenresView />;
                   }}
                 />
 
@@ -278,6 +222,7 @@ export class MainView extends Component {
                   }}
                 />
 
+                {/*
                 <Route
                   path="/genres/:name"
                   render={({ match }) => {
@@ -294,6 +239,7 @@ export class MainView extends Component {
                     );
                   }}
                 />
+                */}
 
                 <Route path="*" component={ErrorView} />
               </Switch>
