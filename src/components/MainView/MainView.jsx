@@ -134,11 +134,7 @@ export class MainView extends Component {
                   exact
                   path="/"
                   render={() => {
-                    return (
-                      <React.Fragment>
-                        <MoviesList documentaries={documentaries} />
-                      </React.Fragment>
-                    );
+                    return <MoviesList documentaries={documentaries} />;
 
                     /*
                       (

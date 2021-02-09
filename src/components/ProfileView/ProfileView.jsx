@@ -11,6 +11,7 @@ import { Button, Modal, Row, Container } from "react-bootstrap";
 import "./ProfileView.scss";
 
 export function ProfileView(props) {
+  const [msg, setMsg] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState(new Date());
@@ -78,11 +79,33 @@ export function ProfileView(props) {
   // console.log("favorites", favorites);
   // console.log(props.documentaries);
   const updateFavorites = (documentaries) => {
-    setFavoriteList(
-      props.favoriteList.filter((favDocs) => {
-        return favDocs !== documentaries;
+    axios
+      .delete(
+        `https://documentality.herokuapp.com/users/${this.props.user}/Documentaries/${documentaries._id}`,
+        {
+          headers: { Authorization: `Bearer ${this.props.userToken}` },
+        }
+      )
+      .then((res) => {
+        let favList = favorite.filter((favDocs) => {
+          return favDocs._id !== documentaries;
+        });
+        setFavorite(favList);
       })
-    );
+      .catch((e) => {
+        setMsg(true);
+
+        setTimeout(() => {
+          setMsg(false);
+        }, 2000);
+
+        // setFavoriteList(() => {
+        //   return props.favoriteList.filter((favDocs) => {
+        //     return favDocs !== documentaries;
+        //   })
+        // }
+        // );
+      });
   };
 
   const editUser = () => {
@@ -109,7 +132,7 @@ export function ProfileView(props) {
         </Modal.Footer>
       </Modal>
       {/* SLIDER Favorite Movies */}
-
+      {msg && "unable to remove"}
       <div className="nameProfileWrap">
         <h3 className="userName">{"Hi " + username + ","}</h3>
       </div>
@@ -169,7 +192,7 @@ export function ProfileView(props) {
                     user={props.user}
                     userToken={props.userToken}
                     key={m.Title}
-                    documentary={m}
+                    documentaries={m}
                     updateFavorites={updateFavorites}
                   />
                 </div>
@@ -187,3 +210,9 @@ export function ProfileView(props) {
     </React.Fragment>
   );
 }
+
+// git add .
+// git commit -m "save changes"
+
+// or
+// git stash

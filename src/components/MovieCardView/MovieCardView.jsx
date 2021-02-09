@@ -17,27 +17,32 @@ export class MovieCardView extends Component {
     const { documentaries } = this.props;
 
     return (
-      <React.Fragment>
-        <Link to={`/documentaries/${documentaries.Title}`}>
-          <Card className="movieCard">
-            <Card.Body className="movieCardBody">
-              {/*
+      <Card className="movieCard">
+        <Card.Body className="movieCardBody">
+          {/*
               <Card.Title>{documentary.Title + ' - ' + documentary.Released}</Card.Title>
               <Card.Text>{documentary.Description}</Card.Text>     
               */}
-              <Card.Img
-                className="movieCardImg"
-                variant="top"
-                src={documentaries.ImagePath}
-              />
-
-              <Button className="btnMovieCardView" variant="primary">
-                {documentaries.Title}
-              </Button>
-            </Card.Body>
-          </Card>
-        </Link>
-      </React.Fragment>
+          <Card.Img
+            className="movieCardImg"
+            variant="top"
+            src={documentaries.ImagePath}
+          />
+          <Link
+            className="btn btn-primary btn-block"
+            to={`/documentaries/${documentaries.Title}`}
+          >
+            {documentaries.Title}
+          </Link>
+          <Button
+            variant="danger"
+            onClick={() => this.props.updateFavorites(documentaries._id)}
+            block
+          >
+            Remove
+          </Button>
+        </Card.Body>
+      </Card>
     );
   }
 }

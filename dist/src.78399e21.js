@@ -40171,14 +40171,14 @@ var MovieCardView = /*#__PURE__*/function (_Component) {
   _createClass(MovieCardView, [{
     key: "render",
     value: function render() {
+      var _this = this;
+
       //console.log(this.props.documentary);
       // This is given to the <MovieCardView/> component by the outer world
       // which, in this case, is 'MainView', as 'MainView' is what's
       // connected to your database via the movies endpoint of your API
       var documentaries = this.props.documentaries;
-      return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_reactRouterDom.Link, {
-        to: "/documentaries/".concat(documentaries.Title)
-      }, _react.default.createElement(_Card.default, {
+      return _react.default.createElement(_Card.default, {
         className: "movieCard"
       }, _react.default.createElement(_Card.default.Body, {
         className: "movieCardBody"
@@ -40186,10 +40186,16 @@ var MovieCardView = /*#__PURE__*/function (_Component) {
         className: "movieCardImg",
         variant: "top",
         src: documentaries.ImagePath
-      }), _react.default.createElement(_Button.default, {
-        className: "btnMovieCardView",
-        variant: "primary"
-      }, documentaries.Title)))));
+      }), _react.default.createElement(_reactRouterDom.Link, {
+        className: "btn btn-primary btn-block",
+        to: "/documentaries/".concat(documentaries.Title)
+      }, documentaries.Title), _react.default.createElement(_Button.default, {
+        variant: "danger",
+        onClick: function onClick() {
+          return _this.props.updateFavorites(documentaries._id);
+        },
+        block: true
+      }, "Remove")));
     }
   }]);
 
@@ -53821,45 +53827,52 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function ProfileView(props) {
-  var _useState = (0, _react.useState)(""),
+  var _this = this;
+
+  var _useState = (0, _react.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
-      username = _useState2[0],
-      setUsername = _useState2[1];
+      msg = _useState2[0],
+      setMsg = _useState2[1];
 
   var _useState3 = (0, _react.useState)(""),
       _useState4 = _slicedToArray(_useState3, 2),
-      email = _useState4[0],
-      setEmail = _useState4[1];
+      username = _useState4[0],
+      setUsername = _useState4[1];
 
-  var _useState5 = (0, _react.useState)(new Date()),
+  var _useState5 = (0, _react.useState)(""),
       _useState6 = _slicedToArray(_useState5, 2),
-      birthday = _useState6[0],
-      setBirthday = _useState6[1];
+      email = _useState6[0],
+      setEmail = _useState6[1];
 
-  var _useState7 = (0, _react.useState)([]),
+  var _useState7 = (0, _react.useState)(new Date()),
       _useState8 = _slicedToArray(_useState7, 2),
-      password = _useState8[0],
-      setPassword = _useState8[1];
+      birthday = _useState8[0],
+      setBirthday = _useState8[1];
 
   var _useState9 = (0, _react.useState)([]),
       _useState10 = _slicedToArray(_useState9, 2),
-      favoriteList = _useState10[0],
-      setFavoriteList = _useState10[1];
+      password = _useState10[0],
+      setPassword = _useState10[1];
 
   var _useState11 = (0, _react.useState)([]),
       _useState12 = _slicedToArray(_useState11, 2),
-      favorite = _useState12[0],
-      setFavorite = _useState12[1];
+      favoriteList = _useState12[0],
+      setFavoriteList = _useState12[1];
 
-  var _useState13 = (0, _react.useState)(false),
+  var _useState13 = (0, _react.useState)([]),
       _useState14 = _slicedToArray(_useState13, 2),
-      edit = _useState14[0],
-      setEdit = _useState14[1];
+      favorite = _useState14[0],
+      setFavorite = _useState14[1];
 
   var _useState15 = (0, _react.useState)(false),
       _useState16 = _slicedToArray(_useState15, 2),
-      show = _useState16[0],
-      setShow = _useState16[1]; // i don't understand this condition
+      edit = _useState16[0],
+      setEdit = _useState16[1];
+
+  var _useState17 = (0, _react.useState)(false),
+      _useState18 = _slicedToArray(_useState17, 2),
+      show = _useState18[0],
+      setShow = _useState18[1]; // i don't understand this condition
   //its pointless to the code
   //you should use lifecycle
 
@@ -53918,9 +53931,26 @@ function ProfileView(props) {
 
 
   var updateFavorites = function updateFavorites(documentaries) {
-    setFavoriteList(props.favoriteList.filter(function (favDocs) {
-      return favDocs !== documentaries;
-    }));
+    _axios.default.delete("https://documentality.herokuapp.com/users/".concat(_this.props.user, "/Documentaries/").concat(documentaries._id), {
+      headers: {
+        Authorization: "Bearer ".concat(_this.props.userToken)
+      }
+    }).then(function (res) {
+      var favList = favorite.filter(function (favDocs) {
+        return favDocs._id !== documentaries;
+      });
+      setFavorite(favList);
+    }).catch(function (e) {
+      setMsg(true);
+      setTimeout(function () {
+        setMsg(false);
+      }, 2000); // setFavoriteList(() => {
+      //   return props.favoriteList.filter((favDocs) => {
+      //     return favDocs !== documentaries;
+      //   })
+      // }
+      // );
+    });
   };
 
   var editUser = function editUser() {
@@ -53946,7 +53976,7 @@ function ProfileView(props) {
   }, "Close"), _react.default.createElement(_reactBootstrap.Button, {
     variant: "danger",
     onClick: deregister
-  }, "Delete Account"))), _react.default.createElement("div", {
+  }, "Delete Account"))), msg && "unable to remove", _react.default.createElement("div", {
     className: "nameProfileWrap"
   }, _react.default.createElement("h3", {
     className: "userName"
@@ -54005,7 +54035,7 @@ function ProfileView(props) {
       user: props.user,
       userToken: props.userToken,
       key: m.Title,
-      documentary: m,
+      documentaries: m,
       updateFavorites: updateFavorites
     }));
   }))), _react.default.createElement("hr", null), _react.default.createElement(_reactRouterDom.Link, {
@@ -54014,7 +54044,10 @@ function ProfileView(props) {
     className: "btnBack",
     variant: "danger"
   }, "Go Back Me"))));
-}
+} // git add .
+// git commit -m "save changes"
+// or
+// git stash
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../MovieCardView/MovieCardView":"components/MovieCardView/MovieCardView.jsx","../ProfileEditView/ProfileEditView":"components/ProfileEditView/ProfileEditView.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./ProfileView.scss":"components/ProfileView/ProfileView.scss"}],"components/VisibilityFilterInput/VisibilityFilterInput.jsx":[function(require,module,exports) {
 "use strict";
 
@@ -54209,7 +54242,7 @@ var MovieView = /*#__PURE__*/function (_Component) {
         removeFavorite: false
       });
 
-      _axios.default.delete("https://documentality.herokuapp.com/users/".concat(_this.state.username, "/Documentaries/").concat(_this.state.documentary._id), {
+      _axios.default.delete("https://documentality.herokuapp.com/users/".concat(_this.documentaries.username, "/Documentaries/").concat(_this.documentaries._id), {
         headers: {
           Authorization: "Bearer ".concat(_this.state.userToken)
         }
@@ -57340,9 +57373,9 @@ var MainView = /*#__PURE__*/function (_Component) {
         exact: true,
         path: "/",
         render: function render() {
-          return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_MoviesList.default, {
+          return _react.default.createElement(_MoviesList.default, {
             documentaries: documentaries
-          }));
+          });
           /*
             (
             <MovieCardView
@@ -57672,7 +57705,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58030" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64500" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

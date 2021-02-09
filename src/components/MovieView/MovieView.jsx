@@ -64,7 +64,7 @@ export class MovieView extends Component {
     });
     axios
       .delete(
-        `https://documentality.herokuapp.com/users/${this.state.username}/Documentaries/${this.state.documentary._id}`,
+        `https://documentality.herokuapp.com/users/${this.documentaries.username}/Documentaries/${this.documentaries._id}`,
         {
           headers: { Authorization: `Bearer ${this.state.userToken}` },
         }
