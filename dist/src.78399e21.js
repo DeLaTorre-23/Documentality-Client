@@ -54037,11 +54037,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function VisibilityFilterInput(props) {
   return _react.default.createElement(_Form.default.Control, {
+    className: "filterInput",
     onChange: function onChange(e) {
       return props.setFilter(e.target.value);
     },
     value: props.visibilityFilter,
-    placeholder: "filter"
+    placeholder: "Filter a documentary"
   });
 }
 
@@ -54050,7 +54051,12 @@ var _default = (0, _reactRedux.connect)(null, {
 })(VisibilityFilterInput);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","../../actions/actions":"actions/actions.js"}],"components/MoviesList/MoviesList.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","../../actions/actions":"actions/actions.js"}],"components/MoviesList/MoviesList.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/MoviesList/MoviesList.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -54065,6 +54071,8 @@ var _reactRedux = require("react-redux");
 var _VisibilityFilterInput = _interopRequireDefault(require("../VisibilityFilterInput/VisibilityFilterInput"));
 
 var _MovieCardView = require("../MovieCardView/MovieCardView");
+
+require("./MoviesList.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -54091,20 +54099,24 @@ function MoviesList(props) {
   });
   return _react.default.createElement("div", {
     className: "MoviesList"
+  }, _react.default.createElement("div", {
+    className: "filterWrap"
   }, _react.default.createElement(_VisibilityFilterInput.default, {
     visibilityFilter: visibilityFilter
-  }), filteredDocumentaries.map(function (m) {
+  })), _react.default.createElement("button", {
+    className: "buttonFilter"
+  }, "Filter by Genre"), _react.default.createElement("div", null, filteredDocumentaries.map(function (m) {
     return _react.default.createElement(_MovieCardView.MovieCardView, {
       key: m._id,
       documentaries: m
     });
-  }));
+  })));
 }
 
 var _default = (0, _reactRedux.connect)(mapStateToProps)(MoviesList);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../VisibilityFilterInput/VisibilityFilterInput":"components/VisibilityFilterInput/VisibilityFilterInput.jsx","../MovieCardView/MovieCardView":"components/MovieCardView/MovieCardView.jsx"}],"components/MovieView/MovieView.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../VisibilityFilterInput/VisibilityFilterInput":"components/VisibilityFilterInput/VisibilityFilterInput.jsx","../MovieCardView/MovieCardView":"components/MovieCardView/MovieCardView.jsx","./MoviesList.scss":"components/MoviesList/MoviesList.scss"}],"components/MovieView/MovieView.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -57328,13 +57340,7 @@ var MainView = /*#__PURE__*/function (_Component) {
         exact: true,
         path: "/",
         render: function render() {
-          return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("div", {
-            className: "filterWrap"
-          }, _react.default.createElement(_MoviesList.default, {
-            documentaries: documentaries
-          })), _react.default.createElement(_MovieCardView.MovieCardView, {
-            user: user,
-            userToken: _this4.state.userToken,
+          return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_MoviesList.default, {
             documentaries: documentaries
           }));
           /*
@@ -57666,7 +57672,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54257" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58030" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

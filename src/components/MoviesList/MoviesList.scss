@@ -1,0 +1,9 @@
+.filterWrap {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+  .filterInput {
+    text-align: center;
+    width: 40%;
+  }
+}

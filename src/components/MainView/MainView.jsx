@@ -136,14 +136,7 @@ export class MainView extends Component {
                   render={() => {
                     return (
                       <React.Fragment>
-                        <div className="filterWrap">
-                          <MoviesList documentaries={documentaries} />
-                        </div>
-                        <MovieCardView
-                          user={user}
-                          userToken={this.state.userToken}
-                          documentaries={documentaries}
-                        />
+                        <MoviesList documentaries={documentaries} />
                       </React.Fragment>
                     );
 
