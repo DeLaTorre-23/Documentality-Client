@@ -56,28 +56,21 @@ export class MovieView extends Component {
   };
 
   updateFavorites = (documentaries) => {
-    this.setState({
-      setMsg: false,
-    });
-
     axios({
       method: "delete",
       url: `https://documentality.herokuapp.com/users/${this.props.username}/Documentaries/${this.props.documentary._id}`,
-      headers: { Authorization: `Bearer ${this.state.userToken}` },
+      headers: { Authorization: `Bearer ${this.props.userToken}` },
     })
       .then((res) => {
-        console.log(data);
-        let favList = favorite.filter((favDocs) => {
-          return favDocs._id !== documentary;
-        });
-        setFavorite(favList);
+        if (res.status == 200) {
+          let updatedFavs = favorite.filter((favDocs) => {
+            return favDocs._id !== documentaries;
+          });
+          setFavorite(updatedFavs);
+        }
       })
       .catch((e) => {
-        setMsg(true);
-
-        setTimeout(() => {
-          setMsg(false);
-        }, 2000);
+        console.log("Movie Not Removed");
       });
   };
 
@@ -140,4 +133,35 @@ export class MovieView extends Component {
       </Container>
     );
   }
+}
+
+{
+  /*
+ updateFavorites = (documentaries) => {
+    this.setState({
+      setMsg: false,
+    });
+
+    axios({
+      method: "delete",
+      url: `https://documentality.herokuapp.com/users/${this.props.username}/Documentaries/${this.props.documentary._id}`,
+      headers: { Authorization: `Bearer ${this.state.userToken}` },
+    })
+      .then((res) => {
+        console.log(data);
+        let favList = favorite.filter((favDocs) => {
+          return favDocs._id !== documentary;
+        });
+        setFavorite(favList);
+      })
+      .catch((e) => {
+        setMsg(true);
+
+        setTimeout(() => {
+          setMsg(false);
+        }, 2000);
+      });
+  };
+
+*/
 }

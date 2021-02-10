@@ -53817,6 +53817,8 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function ProfileView(props) {
+  var _this = this;
+
   //const [msg, setMsg] = useState(false);
   var _useState = (0, _react.useState)(""),
       _useState2 = _slicedToArray(_useState, 2),
@@ -53893,6 +53895,25 @@ function ProfileView(props) {
       console.log(error);
     });
   }
+
+  var updateFavorites = function updateFavorites(documentaries) {
+    (0, _axios.default)({
+      method: "delete",
+      url: "https://documentality.herokuapp.com/users/".concat(_this.props.username, "/Documentaries/").concat(_this.props.documentary._id),
+      headers: {
+        Authorization: "Bearer ".concat(_this.props.userToken)
+      }
+    }).then(function (res) {
+      if (res.status == 200) {
+        var updatedFavs = favorite.filter(function (favDocs) {
+          return favDocs._id !== documentaries;
+        });
+        setFavorite(updatedFavs);
+      }
+    }).catch(function (e) {
+      console.log("Movie Not Removed");
+    });
+  };
 
   function favs(favList) {
     var f = [];
@@ -54193,27 +54214,21 @@ var MovieView = /*#__PURE__*/function (_Component) {
     };
 
     _this.updateFavorites = function (documentaries) {
-      _this.setState({
-        setMsg: false
-      });
-
       (0, _axios.default)({
         method: "delete",
         url: "https://documentality.herokuapp.com/users/".concat(_this.props.username, "/Documentaries/").concat(_this.props.documentary._id),
         headers: {
-          Authorization: "Bearer ".concat(_this.state.userToken)
+          Authorization: "Bearer ".concat(_this.props.userToken)
         }
       }).then(function (res) {
-        console.log(data);
-        var favList = favorite.filter(function (favDocs) {
-          return favDocs._id !== documentary;
-        });
-        setFavorite(favList);
+        if (res.status == 200) {
+          var updatedFavs = favorite.filter(function (favDocs) {
+            return favDocs._id !== documentaries;
+          });
+          setFavorite(updatedFavs);
+        }
       }).catch(function (e) {
-        setMsg(true);
-        setTimeout(function () {
-          setMsg(false);
-        }, 2000);
+        console.log("Movie Not Removed");
       });
     };
 
@@ -54312,6 +54327,33 @@ var MovieView = /*#__PURE__*/function (_Component) {
 }(_react.Component);
 
 exports.MovieView = MovieView;
+{
+  /*
+  updateFavorites = (documentaries) => {
+    this.setState({
+      setMsg: false,
+    });
+      axios({
+      method: "delete",
+      url: `https://documentality.herokuapp.com/users/${this.props.username}/Documentaries/${this.props.documentary._id}`,
+      headers: { Authorization: `Bearer ${this.state.userToken}` },
+    })
+      .then((res) => {
+        console.log(data);
+        let favList = favorite.filter((favDocs) => {
+          return favDocs._id !== documentary;
+        });
+        setFavorite(favList);
+      })
+      .catch((e) => {
+        setMsg(true);
+          setTimeout(() => {
+          setMsg(false);
+        }, 2000);
+      });
+  };
+  */
+}
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./MovieView.scss":"components/MovieView/MovieView.scss"}],"../node_modules/React/cjs/react.development.js":[function(require,module,exports) {
 /** @license React v17.0.1
  * react.development.js
@@ -57748,7 +57790,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65534" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59061" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

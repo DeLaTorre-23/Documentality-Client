@@ -59,6 +59,25 @@ export function ProfileView(props) {
       });
   }
 
+  const updateFavorites = (documentaries) => {
+    axios({
+      method: "delete",
+      url: `https://documentality.herokuapp.com/users/${this.props.username}/Documentaries/${this.props.documentary._id}`,
+      headers: { Authorization: `Bearer ${this.props.userToken}` },
+    })
+      .then((res) => {
+        if (res.status == 200) {
+          let updatedFavs = favorite.filter((favDocs) => {
+            return favDocs._id !== documentaries;
+          });
+          setFavorite(updatedFavs);
+        }
+      })
+      .catch((e) => {
+        console.log("Movie Not Removed");
+      });
+  };
+
   function favs(favList) {
     let f = [];
     favList.forEach((el) => {
