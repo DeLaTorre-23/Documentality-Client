@@ -18,7 +18,7 @@ export class MovieView extends Component {
     this.state = {
       documentary: this.props.documentary,
       username: localStorage.getItem("user"), //this.props.user,
-      userToken: this.props.userToken,
+      userToken: localStorage.getItem("token"),
       addFavorite: addFavorite,
       updateFavorites: [],
       favorite: [],
@@ -41,14 +41,13 @@ export class MovieView extends Component {
     });
     axios({
       method: "post",
-      url: `https://documentality.herokuapp.com/users/${this.props.username}/Documentaries/${this.props.documentary._id}`,
-      headers: { Authorization: `Bearer ${this.props.userToken}` },
-      data: {},
+      url: `https://documentality.herokuapp.com/users/${this.state.username}/Documentaries/${this.props.documentary._id}`,
+      headers: { Authorization: `Bearer ${this.state.userToken}` },
     })
       .then((response) => {
         const data = response.data;
         console.log("New Documentary added");
-        console.log(favorite);
+        console.log(response.data);
       })
       .catch((e) => {
         console.log(e);
@@ -59,8 +58,8 @@ export class MovieView extends Component {
   updateFavorites = (documentaries) => {
     axios({
       method: "delete",
-      url: `https://documentality.herokuapp.com/users/${this.props.username}/Documentaries/${this.props.documentary._id}`,
-      headers: { Authorization: `Bearer ${this.props.userToken}` },
+      url: `https://documentality.herokuapp.com/users/${this.state.username}/Documentaries/${this.props.documentary._id}`,
+      headers: { Authorization: `Bearer ${this.state.userToken}` },
       data: {},
     })
       .then((res) => {

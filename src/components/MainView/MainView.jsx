@@ -21,7 +21,7 @@ import AllDirectorsView from "../DirectorView/AllDirectorsView";
 //import { Slider } from "../Slider/Slider";
 import { ErrorView } from "../ErrorView/ErrorView";
 
-import { Container } from "react-bootstrap";
+import { Container, Button } from "react-bootstrap";
 
 import "./MainView.scss";
 

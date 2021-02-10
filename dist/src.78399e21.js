@@ -40123,6 +40123,8 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
 
+var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
+
 var _reactRouterDom = require("react-router-dom");
 
 require("./MovieCardView.scss");
@@ -40169,11 +40171,14 @@ var MovieCardView = /*#__PURE__*/function (_Component) {
   _createClass(MovieCardView, [{
     key: "render",
     value: function render() {
+      var _this = this;
+
       //console.log(this.props.documentary);
       // This is given to the <MovieCardView/> component by the outer world
       // which, in this case, is 'MainView', as 'MainView' is what's
       // connected to your database via the movies endpoint of your API
       var documentaries = this.props.documentaries;
+      console.log(this.props);
       return _react.default.createElement(_Card.default, {
         className: "movieCard"
       }, _react.default.createElement(_Card.default.Body, {
@@ -40185,7 +40190,13 @@ var MovieCardView = /*#__PURE__*/function (_Component) {
       }), _react.default.createElement(_reactRouterDom.Link, {
         className: "btnMovieCardView btn btn-primary btn-block",
         to: "/documentaries/".concat(documentaries.Title)
-      }, documentaries.Title)));
+      }, documentaries.Title), this.props.profile && _react.default.createElement(_Button.default, {
+        variant: "danger",
+        onClick: function onClick() {
+          return _this.props.updateFavorites(documentaries._id);
+        },
+        block: true
+      }, "Remove")));
     }
   }]);
 
@@ -40199,7 +40210,7 @@ var MovieCardView = /*#__PURE__*/function (_Component) {
 
 
 exports.MovieCardView = MovieCardView;
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./MovieCardView.scss":"components/MovieCardView/MovieCardView.scss"}],"../node_modules/invariant/browser.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./MovieCardView.scss":"components/MovieCardView/MovieCardView.scss"}],"../node_modules/invariant/browser.js":[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -53893,38 +53904,38 @@ function ProfileView(props) {
       console.log(error);
     });
   }
-  /*
-  const updateFavorites = (documentaries) => {
-    axios({
+
+  var updateFavorites = function updateFavorites(documentaries) {
+    (0, _axios.default)({
       method: "delete",
-      url: `https://documentality.herokuapp.com/users/${this.props.username}/Documentaries/${this.props.documentary._id}`,
-      headers: { Authorization: `Bearer ${this.props.userToken}` },
-    })
-      .then((res) => {
-        if (res.status == 200) {
-          let updatedFavs = favorite.filter((favDocs) => {
-            return favDocs._id !== documentaries;
-          });
-          setFavorite(updatedFavs);
-        }
-      })
-      .catch((e) => {
-        console.log("Movie Not Removed");
+      url: "https://documentality.herokuapp.com/users/".concat(props.user, "/Documentaries/").concat(documentaries),
+      headers: {
+        Authorization: "Bearer ".concat(localStorage.getItem("token"))
+      }
+    }).then(function (res) {
+      var updatedFavs = favorite.filter(function (favDocs) {
+        return favDocs._id !== documentaries;
       });
+      setFavorite(updatedFavs);
+    }).catch(function (e) {
+      console.log("Movie Not Removed");
+    });
   };
-    function favs(favList) {
-    let f = [];
-    favList.forEach((el) => {
-      let temp = props.documentaries.find((e) => e._id == el);
+
+  function favs(favList) {
+    var f = [];
+    favList.forEach(function (el) {
+      var temp = props.documentaries.find(function (e) {
+        return e._id == el;
+      });
+
       if (temp) {
         f.push(temp);
       }
-    });
-    // console.log(f);
+    }); // console.log(f);
+
     setFavorite(f);
-  }
-  */
-  // console.log("favorites", favorites);
+  } // console.log("favorites", favorites);
   // console.log(props.documentaries);
 
 
@@ -54010,9 +54021,10 @@ function ProfileView(props) {
       user: props.user,
       userToken: props.userToken,
       key: m.Title,
-      documentaries: m //addFavorite={addFavorite}
-      //updateFavorites={updateFavorites}
-
+      documentaries: m,
+      profile: true //addFavorite={addFavorite}
+      ,
+      updateFavorites: updateFavorites
     }));
   }))), _react.default.createElement("hr", null), _react.default.createElement(_reactRouterDom.Link, {
     to: "/"
@@ -54196,7 +54208,7 @@ var MovieView = /*#__PURE__*/function (_Component) {
       documentary: _this.props.documentary,
       username: localStorage.getItem("user"),
       //this.props.user,
-      userToken: _this.props.userToken,
+      userToken: localStorage.getItem("token"),
       addFavorite: addFavorite,
       updateFavorites: [],
       favorite: []
@@ -54298,15 +54310,14 @@ var _initialiseProps = function _initialiseProps() {
 
     (0, _axios.default)({
       method: "post",
-      url: "https://documentality.herokuapp.com/users/".concat(_this3.props.username, "/Documentaries/").concat(_this3.props.documentary._id),
+      url: "https://documentality.herokuapp.com/users/".concat(_this3.state.username, "/Documentaries/").concat(_this3.props.documentary._id),
       headers: {
-        Authorization: "Bearer ".concat(_this3.props.userToken)
-      },
-      data: {}
+        Authorization: "Bearer ".concat(_this3.state.userToken)
+      }
     }).then(function (response) {
       var data = response.data;
       console.log("New Documentary added");
-      console.log(favorite);
+      console.log(response.data);
     }).catch(function (e) {
       console.log(e);
       console.log("Documentary not added");
@@ -54316,9 +54327,9 @@ var _initialiseProps = function _initialiseProps() {
   this.updateFavorites = function (documentaries) {
     (0, _axios.default)({
       method: "delete",
-      url: "https://documentality.herokuapp.com/users/".concat(_this3.props.username, "/Documentaries/").concat(_this3.props.documentary._id),
+      url: "https://documentality.herokuapp.com/users/".concat(_this3.state.username, "/Documentaries/").concat(_this3.props.documentary._id),
       headers: {
-        Authorization: "Bearer ".concat(_this3.props.userToken)
+        Authorization: "Bearer ".concat(_this3.state.userToken)
       },
       data: {}
     }).then(function (res) {
@@ -57813,7 +57824,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54695" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57516" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

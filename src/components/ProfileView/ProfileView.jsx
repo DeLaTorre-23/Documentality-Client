@@ -59,20 +59,17 @@ export function ProfileView(props) {
       });
   }
 
-  /*
   const updateFavorites = (documentaries) => {
     axios({
       method: "delete",
-      url: `https://documentality.herokuapp.com/users/${this.props.username}/Documentaries/${this.props.documentary._id}`,
-      headers: { Authorization: `Bearer ${this.props.userToken}` },
+      url: `https://documentality.herokuapp.com/users/${props.user}/Documentaries/${documentaries}`,
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     })
       .then((res) => {
-        if (res.status == 200) {
-          let updatedFavs = favorite.filter((favDocs) => {
-            return favDocs._id !== documentaries;
-          });
-          setFavorite(updatedFavs);
-        }
+        let updatedFavs = favorite.filter((favDocs) => {
+          return favDocs._id !== documentaries;
+        });
+        setFavorite(updatedFavs);
       })
       .catch((e) => {
         console.log("Movie Not Removed");
@@ -90,7 +87,6 @@ export function ProfileView(props) {
     // console.log(f);
     setFavorite(f);
   }
-*/
 
   // console.log("favorites", favorites);
   // console.log(props.documentaries);
@@ -176,8 +172,9 @@ export function ProfileView(props) {
                     userToken={props.userToken}
                     key={m.Title}
                     documentaries={m}
+                    profile={true}
                     //addFavorite={addFavorite}
-                    //updateFavorites={updateFavorites}
+                    updateFavorites={updateFavorites}
                   />
                 </div>
               ))

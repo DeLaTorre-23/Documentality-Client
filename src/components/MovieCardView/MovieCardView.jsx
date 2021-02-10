@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 
 import Card from "react-bootstrap/Card";
 
+import Button from "react-bootstrap/Button";
+
 import { Link } from "react-router-dom";
 
 import "./MovieCardView.scss";
@@ -14,6 +16,7 @@ export class MovieCardView extends Component {
     // which, in this case, is 'MainView', as 'MainView' is what's
     // connected to your database via the movies endpoint of your API
     const { documentaries } = this.props;
+    console.log(this.props);
 
     return (
       <Card className="movieCard">
@@ -33,15 +36,15 @@ export class MovieCardView extends Component {
           >
             {documentaries.Title}
           </Link>
-          {/*
-          <Button
-            variant="danger"
-            onClick={() => this.props.updateFavorites(documentaries._id)}
-            block
-          >
-            Remove
-          </Button>
-          */}
+          {this.props.profile && (
+            <Button
+              variant="danger"
+              onClick={() => this.props.updateFavorites(documentaries._id)}
+              block
+            >
+              Remove
+            </Button>
+          )}
         </Card.Body>
       </Card>
     );
