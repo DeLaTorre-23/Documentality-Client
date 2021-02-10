@@ -59,6 +59,7 @@ export function ProfileView(props) {
       });
   }
 
+  /*
   const updateFavorites = (documentaries) => {
     axios({
       method: "delete",
@@ -89,6 +90,7 @@ export function ProfileView(props) {
     // console.log(f);
     setFavorite(f);
   }
+*/
 
   // console.log("favorites", favorites);
   // console.log(props.documentaries);

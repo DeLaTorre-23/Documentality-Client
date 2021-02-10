@@ -12,16 +12,6 @@ export class MovieView extends Component {
   constructor(props) {
     super(props);
 
-    let addFavorite = false;
-    if (props.addFavorite) {
-      addFavorite = true;
-    }
-
-    let updateFavorites = false;
-    if (props.updateFavorites) {
-      updateFavorites = true;
-    }
-
     //don't set state like this its not good practice
     // i will allow it for now
     //username is empty so i will take it from the local storage
@@ -31,7 +21,18 @@ export class MovieView extends Component {
       userToken: this.props.userToken,
       addFavorite: addFavorite,
       updateFavorites: [],
+      favorite: [],
     };
+
+    let addFavorite = false;
+    if (props.addFavorite) {
+      addFavorite = true;
+    }
+
+    let updateFavorites = false;
+    if (props.updateFavorites) {
+      updateFavorites = true;
+    }
   }
 
   addFavorite = () => {
@@ -47,7 +48,7 @@ export class MovieView extends Component {
       .then((response) => {
         const data = response.data;
         console.log("New Documentary added");
-        //console.log(favoriteList);
+        console.log(favorite);
       })
       .catch((e) => {
         console.log(e);
@@ -60,6 +61,7 @@ export class MovieView extends Component {
       method: "delete",
       url: `https://documentality.herokuapp.com/users/${this.props.username}/Documentaries/${this.props.documentary._id}`,
       headers: { Authorization: `Bearer ${this.props.userToken}` },
+      data: {},
     })
       .then((res) => {
         if (res.status == 200) {
@@ -70,8 +72,21 @@ export class MovieView extends Component {
         }
       })
       .catch((e) => {
+        console.log(e);
         console.log("Movie Not Removed");
       });
+  };
+
+  favs = (favList) => {
+    let f = [];
+    favList.forEach((el) => {
+      let temp = props.documentaries.find((e) => e._id == el);
+      if (temp) {
+        f.push(temp);
+      }
+    });
+    // console.log(f);
+    setFavorite(f);
   };
 
   render() {
@@ -122,7 +137,10 @@ export class MovieView extends Component {
               Remove from Favorites
             </Button>
 
-            <Button className="btnAddFavorite" onClick={this.addFavorite}>
+            <Button
+              className="btnAddFavorite"
+              onClick={() => this.addFavorite(documentary._id)}
+            >
               Add to Favorites
             </Button>
           </div>

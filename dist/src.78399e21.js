@@ -53817,8 +53817,6 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function ProfileView(props) {
-  var _this = this;
-
   //const [msg, setMsg] = useState(false);
   var _useState = (0, _react.useState)(""),
       _useState2 = _slicedToArray(_useState, 2),
@@ -53895,40 +53893,38 @@ function ProfileView(props) {
       console.log(error);
     });
   }
-
-  var updateFavorites = function updateFavorites(documentaries) {
-    (0, _axios.default)({
+  /*
+  const updateFavorites = (documentaries) => {
+    axios({
       method: "delete",
-      url: "https://documentality.herokuapp.com/users/".concat(_this.props.username, "/Documentaries/").concat(_this.props.documentary._id),
-      headers: {
-        Authorization: "Bearer ".concat(_this.props.userToken)
-      }
-    }).then(function (res) {
-      if (res.status == 200) {
-        var updatedFavs = favorite.filter(function (favDocs) {
-          return favDocs._id !== documentaries;
-        });
-        setFavorite(updatedFavs);
-      }
-    }).catch(function (e) {
-      console.log("Movie Not Removed");
-    });
-  };
-
-  function favs(favList) {
-    var f = [];
-    favList.forEach(function (el) {
-      var temp = props.documentaries.find(function (e) {
-        return e._id == el;
+      url: `https://documentality.herokuapp.com/users/${this.props.username}/Documentaries/${this.props.documentary._id}`,
+      headers: { Authorization: `Bearer ${this.props.userToken}` },
+    })
+      .then((res) => {
+        if (res.status == 200) {
+          let updatedFavs = favorite.filter((favDocs) => {
+            return favDocs._id !== documentaries;
+          });
+          setFavorite(updatedFavs);
+        }
+      })
+      .catch((e) => {
+        console.log("Movie Not Removed");
       });
-
+  };
+    function favs(favList) {
+    let f = [];
+    favList.forEach((el) => {
+      let temp = props.documentaries.find((e) => e._id == el);
       if (temp) {
         f.push(temp);
       }
-    }); // console.log(f);
-
+    });
+    // console.log(f);
     setFavorite(f);
-  } // console.log("favorites", favorites);
+  }
+  */
+  // console.log("favorites", favorites);
   // console.log(props.documentaries);
 
 
@@ -54190,48 +54186,21 @@ var MovieView = /*#__PURE__*/function (_Component) {
 
     _classCallCheck(this, MovieView);
 
-    _this = _super.call(this, props);
+    _this = _super.call(this, props); //don't set state like this its not good practice
+    // i will allow it for now
+    //username is empty so i will take it from the local storage
 
-    _this.addFavorite = function () {
-      _this.setState({
-        addFavorite: false
-      });
+    _initialiseProps.call(_assertThisInitialized(_this));
 
-      (0, _axios.default)({
-        method: "post",
-        url: "https://documentality.herokuapp.com/users/".concat(_this.props.username, "/Documentaries/").concat(_this.props.documentary._id),
-        headers: {
-          Authorization: "Bearer ".concat(_this.props.userToken)
-        },
-        data: {}
-      }).then(function (response) {
-        var data = response.data;
-        console.log("New Documentary added"); //console.log(favoriteList);
-      }).catch(function (e) {
-        console.log(e);
-        console.log("Documentary not added");
-      });
+    _this.state = {
+      documentary: _this.props.documentary,
+      username: localStorage.getItem("user"),
+      //this.props.user,
+      userToken: _this.props.userToken,
+      addFavorite: addFavorite,
+      updateFavorites: [],
+      favorite: []
     };
-
-    _this.updateFavorites = function (documentaries) {
-      (0, _axios.default)({
-        method: "delete",
-        url: "https://documentality.herokuapp.com/users/".concat(_this.props.username, "/Documentaries/").concat(_this.props.documentary._id),
-        headers: {
-          Authorization: "Bearer ".concat(_this.props.userToken)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          var updatedFavs = favorite.filter(function (favDocs) {
-            return favDocs._id !== documentaries;
-          });
-          setFavorite(updatedFavs);
-        }
-      }).catch(function (e) {
-        console.log("Movie Not Removed");
-      });
-    };
-
     var addFavorite = false;
 
     if (props.addFavorite) {
@@ -54242,19 +54211,8 @@ var MovieView = /*#__PURE__*/function (_Component) {
 
     if (props.updateFavorites) {
       updateFavorites = true;
-    } //don't set state like this its not good practice
-    // i will allow it for now
-    //username is empty so i will take it from the local storage
+    }
 
-
-    _this.state = {
-      documentary: _this.props.documentary,
-      username: localStorage.getItem("user"),
-      //this.props.user,
-      userToken: _this.props.userToken,
-      addFavorite: addFavorite,
-      updateFavorites: []
-    };
     return _this;
   }
 
@@ -54315,7 +54273,9 @@ var MovieView = /*#__PURE__*/function (_Component) {
         block: true
       }, "Remove from Favorites"), _react.default.createElement(_Button.default, {
         className: "btnAddFavorite",
-        onClick: this.addFavorite
+        onClick: function onClick() {
+          return _this2.addFavorite(documentary._id);
+        }
       }, "Add to Favorites")), _react.default.createElement(_reactRouterDom.Link, {
         to: "/",
         className: "btn btn-danger btnBack "
@@ -54327,6 +54287,69 @@ var MovieView = /*#__PURE__*/function (_Component) {
 }(_react.Component);
 
 exports.MovieView = MovieView;
+
+var _initialiseProps = function _initialiseProps() {
+  var _this3 = this;
+
+  this.addFavorite = function () {
+    _this3.setState({
+      addFavorite: false
+    });
+
+    (0, _axios.default)({
+      method: "post",
+      url: "https://documentality.herokuapp.com/users/".concat(_this3.props.username, "/Documentaries/").concat(_this3.props.documentary._id),
+      headers: {
+        Authorization: "Bearer ".concat(_this3.props.userToken)
+      },
+      data: {}
+    }).then(function (response) {
+      var data = response.data;
+      console.log("New Documentary added");
+      console.log(favorite);
+    }).catch(function (e) {
+      console.log(e);
+      console.log("Documentary not added");
+    });
+  };
+
+  this.updateFavorites = function (documentaries) {
+    (0, _axios.default)({
+      method: "delete",
+      url: "https://documentality.herokuapp.com/users/".concat(_this3.props.username, "/Documentaries/").concat(_this3.props.documentary._id),
+      headers: {
+        Authorization: "Bearer ".concat(_this3.props.userToken)
+      },
+      data: {}
+    }).then(function (res) {
+      if (res.status == 200) {
+        var updatedFavs = favorite.filter(function (favDocs) {
+          return favDocs._id !== documentaries;
+        });
+        setFavorite(updatedFavs);
+      }
+    }).catch(function (e) {
+      console.log(e);
+      console.log("Movie Not Removed");
+    });
+  };
+
+  this.favs = function (favList) {
+    var f = [];
+    favList.forEach(function (el) {
+      var temp = props.documentaries.find(function (e) {
+        return e._id == el;
+      });
+
+      if (temp) {
+        f.push(temp);
+      }
+    }); // console.log(f);
+
+    setFavorite(f);
+  };
+};
+
 {
   /*
   updateFavorites = (documentaries) => {
@@ -57790,7 +57813,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59061" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54695" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
