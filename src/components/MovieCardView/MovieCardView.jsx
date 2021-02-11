@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-
 import { Link } from "react-router-dom";
 
 import "./MovieCardView.scss";
@@ -14,37 +13,41 @@ export class MovieCardView extends Component {
     // This is given to the <MovieCardView/> component by the outer world
     // which, in this case, is 'MainView', as 'MainView' is what's
     // connected to your database via the movies endpoint of your API
-    const { documentary } = this.props;
+    const { documentaries } = this.props;
+    //console.log(this.props);
 
     return (
-      <React.Fragment>
-        <Link to={`/documentaries/${documentary.Title}`}>
-          <Card className="movieCard">
-            <Card.Body className="movieCardBody">
-              {/*
-              <Card.Title>{documentary.Title + ' - ' + documentary.Released}</Card.Title>
-              <Card.Text>{documentary.Description}</Card.Text>     
-              */}
-              <Card.Img
-                className="movieCardImg"
-                variant="top"
-                src={documentary.ImagePath}
-              />
-
-              <Button className="btnMovieCardView" variant="primary">
-                {documentary.Title}
-              </Button>
-            </Card.Body>
-          </Card>
-        </Link>
-      </React.Fragment>
+      <Card className="movieCard">
+        <Card.Body className="movieCardBody">
+          <Card.Img
+            className="movieCardImg"
+            variant="top"
+            src={documentaries.ImagePath}
+          />
+          <Link
+            className="btnMovieCardView btn btn-primary btn-block"
+            to={`/documentaries/${documentaries.Title}`}
+          >
+            {documentaries.Title}
+          </Link>
+          {this.props.profile && (
+            <Button
+              variant="danger"
+              onClick={() => this.props.updateFavorites(documentaries._id)}
+              block
+            >
+              Remove
+            </Button>
+          )}
+        </Card.Body>
+      </Card>
     );
   }
 }
 
-// MovieCardView.propTypes = {
-//   documentary: PropTypes.shape({
-//     Title: PropTypes.string.isRequired,
-//     ImagePath: PropTypes.string.isRequired,
-//   }).isRequired,
-// };
+MovieCardView.propTypes = {
+  documentaries: PropTypes.shape({
+    Title: PropTypes.string.isRequired,
+    ImagePath: PropTypes.string.isRequired,
+  }).isRequired,
+};

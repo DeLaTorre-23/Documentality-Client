@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+
+import { Link } from "react-router-dom";
 
 import { MovieCardView } from "../MovieCardView/MovieCardView";
 import { ProfileEditView } from "../ProfileEditView/ProfileEditView";
@@ -9,37 +11,37 @@ import { Button, Modal, Row, Container } from "react-bootstrap";
 import "./ProfileView.scss";
 
 export function ProfileView(props) {
+  const [msg, setMsg] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState(new Date());
   const [password, setPassword] = useState([]);
   const [favoriteList, setFavoriteList] = useState([]);
+  const [favorite, setFavorite] = useState([]);
   const [edit, setEdit] = useState(false);
   const [show, setShow] = useState(false);
 
-  if (username === "") {
-    axios
-      .get(`https://documentality.herokuapp.com/users/${props.user}`, {
-        headers: { Authorization: `Bearer ${props.userToken}` },
-      })
-      .then((response) => {
-        let userData = response.data;
-        setUsername(userData.Username);
-        setUser(userData.UserName);
-        setEmail(userData.Email);
-        setBirthday(new Date(userData.Birthday));
-        setFavoriteList(userData.FavoriteList);
-
-        console.log(data);
-        console.log(userData.FavoriteList);
-        console.log(props.FavoriteList);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  if (username === "") return null;
+  useEffect(() => {
+    function getUser() {
+      axios
+        .get(`https://documentality.herokuapp.com/users/${props.user}`, {
+          headers: { Authorization: `Bearer ${props.userToken}` },
+        })
+        .then((response) => {
+          let userData = response.data;
+          //console.log(userData);
+          setUsername(userData.Username);
+          setEmail(userData.Email);
+          setBirthday(new Date(userData.Birthday));
+          setFavoriteList(userData.FavoriteList);
+          favs(userData.FavoriteList);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+    getUser();
+  }, [props.documentaries]);
 
   function deregister() {
     axios
@@ -56,17 +58,38 @@ export function ProfileView(props) {
       });
   }
 
-  let favorites = props.documentaries.filter(
-    (m) => props.favoriteList && props.favoriteList.includes(m.Title)
-  );
-
   const updateFavorites = (documentaries) => {
-    setFavoriteList(
-      props.FavoriteList.filter((favDocs) => {
-        return favDocs !== documentaries;
+    axios({
+      method: "delete",
+      url: `https://documentality.herokuapp.com/users/${props.user}/Documentaries/${documentaries}`,
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    })
+      .then((res) => {
+        let updatedFavs = favorite.filter((favDocs) => {
+          return favDocs._id !== documentaries;
+        });
+        setFavorite(updatedFavs);
+        console.log("Documentary Removed");
       })
-    );
+      .catch((e) => {
+        console.log("Documentary Not Removed");
+      });
   };
+
+  function favs(favList) {
+    let f = [];
+    favList.forEach((el) => {
+      let temp = props.documentaries.find((e) => e._id == el);
+      if (temp) {
+        f.push(temp);
+      }
+    });
+    // console.log(f);
+    setFavorite(f);
+  }
+
+  // console.log("favorites", favorites);
+  // console.log(props.documentaries);
 
   const editUser = () => {
     setEdit(!edit);
@@ -91,18 +114,15 @@ export function ProfileView(props) {
           </Button>
         </Modal.Footer>
       </Modal>
-      {/* SLIDER Favorite Movies */}
 
+      {/* SLIDER Favorite Movies */}
+      {msg && "unable to remove"}
       <div className="nameProfileWrap">
         <h3 className="userName">{"Hi " + username + ","}</h3>
       </div>
 
       <Container className="bodyContainer">
         <div className="bodyInfo">
-          {/*<div className="user-avatar">
-            <img className="img-avatar" src="#" />
-          </div>*/}
-
           <div className="userInfo">
             <div className="userEmail">
               <span className="labelBold">Email: </span>
@@ -114,68 +134,62 @@ export function ProfileView(props) {
             </div>
             <div className="userPassword">
               <span className="labelBold">Password: </span>
-              <span className="value">{password}********</span>
+              <span className="value">********</span>
             </div>
 
             {edit && (
-              <React.Fragment>
-                <div className="editContainer">
-                  <hr />
-                  <ProfileEditView
-                    user={props.user}
-                    userToken={props.userToken}
-                  />
-                </div>
-              </React.Fragment>
+              <div className="editContainer">
+                <hr />
+                <ProfileEditView
+                  user={props.user}
+                  userToken={props.userToken}
+                />
+              </div>
             )}
           </div>
         </div>
-        <hr />
-        <div className="favoriteListContainer">
-          <span className="label">Favorite List:</span>
-          <Row className="favoriteDocumentaries">
-            {favorites.map((m) => (
-              <div className="EditViewContainer" key={m.Title}>
-                <MovieCardView
-                  user={props.user}
-                  userToken={props.userToken}
-                  key={m.Title}
-                  documentary={m}
-                  removeFavorite={true}
-                  updateFavorites={updateFavorites}
-                />
 
-                <hr />
-              </div>
-            ))}
-          </Row>
-        </div>
-        <hr />
         <div className="btnContainer">
           <Button className="btnDelete" variant="danger" onClick={handleShow}>
             Delete account
-          </Button>
-
-          <Button
-            className="btnAddFavorite"
-            variant="primary"
-            onClick={updateFavorites}
-          >
-            Favorite List
           </Button>
 
           <Button className="btnDelete" variant="warning" onClick={editUser}>
             Edit account
           </Button>
         </div>
+
         <hr />
-        {/*<div className="btnBackContainer">
-          <Link to={`/`}>
-            <Button className="btnBack" variant="danger">
-              Go Back Me
-            </Button>
-          </Link>
-            </div>*/}
+
+        <div className="favoriteListContainer">
+          <span className="label">Favorite List:</span>
+          <Row className="favoriteDocumentaries">
+            {!favorite.length ? (
+              <h3 className="text-center w-100">No favorites yet</h3>
+            ) : (
+              favorite.map((m) => (
+                <div className="EditViewContainer" key={m.Title}>
+                  <MovieCardView
+                    user={props.user}
+                    userToken={props.userToken}
+                    key={m.Title}
+                    documentaries={m}
+                    profile={true}
+                    updateFavorites={updateFavorites}
+                  />
+                </div>
+              ))
+            )}
+          </Row>
+        </div>
+
+        <hr />
+
+        <Link to={`/`}>
+          <Button className="btnBack" variant="danger">
+            Go Back Me
+          </Button>
+        </Link>
       </Container>
     </React.Fragment>
   );

@@ -40,34 +40,34 @@ export class NavbarView extends Component {
             </span>
           </div>
         </Navbar.Brand>
+
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="navBarLinks">
-            <NavLink to={`/`} className="navLink">
-              <Button className="navLink" variant="link">
-                Documentaries
-              </Button>
+            <NavLink to={`/`} className="navLink btn" variant="link">
+              Documentaries
             </NavLink>
-            <NavLink to={`/genres`}>
-              <Button className="navLink" variant="link">
-                Genres
-              </Button>
+
+            <NavLink to={`/genres`} className="navLink btn" variant="link">
+              Genres
             </NavLink>
-            <Link to={`/directors`}>
-              <Button className="navLink" variant="link">
-                Directors
-              </Button>
-            </Link>
-            <Link to={`/users`}>
-              <Button className="navLink" variant="link">
-                Profile
-              </Button>
-            </Link>
-            <Link to={`/login`} onClick={handleLoggedOut}>
-              <Button className="navLink" variant="link">
-                Logout
-              </Button>
-            </Link>
+
+            <NavLink to={`/directors`} className="navLink btn" variant="link">
+              Directors
+            </NavLink>
+
+            <NavLink to={`/users`} className="navLink btn" variant="link">
+              Profile
+            </NavLink>
+
+            <NavLink
+              to={`/login`}
+              className="navLink btn"
+              variant="link"
+              onClick={handleLoggedOut}
+            >
+              Logout
+            </NavLink>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

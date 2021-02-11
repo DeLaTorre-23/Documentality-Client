@@ -1,0 +1,10 @@
+.filterWrap {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+  margin-top: 0px;
+  .filterInput {
+    text-align: center;
+    width: 40%;
+  }
+}

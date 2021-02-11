@@ -1,10 +1,11 @@
 //They are the 'cards class' inside of the mainView
 .movieCard {
+  display: inline-flex;
   border: solid 2px;
   border-radius: 3px;
   height: auto;
   width: 180px;
-  margin-top: 10px;
+  margin: 10px;
   line-height: 45px;
   overflow: hidden;
   border: 5px solid #53d4ff;
@@ -35,6 +36,7 @@
   background-color: #0069c0;
   border: 2px solid #53d4ff;
   color: #fff;
+  margin-top: 4px;
 }
 
 /*

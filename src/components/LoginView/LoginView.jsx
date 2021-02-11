@@ -16,7 +16,7 @@ export function LoginView(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    /* Send an authentication request made for the 'login' endpoint of DOCumentality API using Axios */
+    // Send an authentication request made for the 'login' endpoint of DOCumentality API using Axios
     axios
       .post("https://documentality.herokuapp.com/login", {
         Username: username,
@@ -66,11 +66,7 @@ export function LoginView(props) {
         </Form.Text>
         <Form.Text className="text-muted">
           Don't have an account?
-          <NavLink to="/signup">Register here</NavLink>
-          {/* <a href={`/signup`} className="linkRegister">
-            Register here
-          </a> */}
-          .
+          <NavLink to="/signup">Register here</NavLink>.
         </Form.Text>
       </Form>
     </React.Fragment>
@@ -84,38 +80,3 @@ LoginView.propTypes = {
   }),
   onLoggedIn: PropTypes.func.isRequired,
 };
-
-{
-  /* INPUT
-  <div>
-    <div className="containerUsername">
-    <InputGroup className="mb-3">
-        <InputGroup.Prepend>
-          <i className="usernameIcon"></i>
-        </InputGroup.Prepend>
-        <FormControl
-          value={username} 
-          onChange={e => setUsername(e.target.value)} 
-          placeholder="Username"
-          aria-label="Username"
-          aria-describedby="usernameIcon"
-        />
-      </InputGroup>
-    </div>
-    <div className="containerPassword">
-    <InputGroup className="mb-9" value={password}>
-        <InputGroup.Prepend>
-          <i className="passwordIcon"></i>
-        </InputGroup.Prepend>
-        <FormControl
-          value={password} 
-          onChange={e => setUsername(e.target.value)} 
-          placeholder="Password"
-          aria-label="Password"
-          aria-describedby="passwordIcon"
-        />
-      </InputGroup>
-    </div>
-  </div>
-*/
-}

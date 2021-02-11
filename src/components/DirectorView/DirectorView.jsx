@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 
 import { ErrorView } from "../ErrorView/ErrorView";
 
-import Button from "react-bootstrap/Button";
-
 import { Link } from "react-router-dom";
 
 import "./DirectorView.scss";
@@ -37,29 +35,30 @@ export class DirectorView extends Component {
           </div>
           <br />
 
-          <React.Fragment>
-            <div className="directorBirth">
-              <span className="labelBold">Birth: </span>
-              <span>{director.Birth.length ? director.Birth : " - "}</span>
-            </div>
-          </React.Fragment>
+          <div className="directorBirth">
+            <span className="labelBold">Birth: </span>
+            <span>{director.Birth.length ? director.Birth : " - "}</span>
+          </div>
 
           <hr className="lastHr" />
           <div className="directorDocumentaries">
             <span className="labelBold">More Documentaries: </span>
-            {documentaries.map((m) => (
-              <div className="documentary" key={m.Title}>
-                {m.Title}
+            {documentaries.map((documentaries) => (
+              <div className="documentary" key={documentaries.Title}>
+                <Link
+                  to={`/documentaries/${documentaries.Title}`}
+                  className="link"
+                >
+                  {documentaries.Title}
+                </Link>
               </div>
             ))}
           </div>
           <br />
         </div>
         {/*<Link to={`/documentaries/${documentary.Title}`}>*/}
-        <Link to={"/"}>
-          <Button variant="danger" className="btnBack">
-            Go Back Me
-          </Button>
+        <Link to={`/`} className="btn btn-danger btnBack">
+          Go Back Me
         </Link>
       </div>
     );
