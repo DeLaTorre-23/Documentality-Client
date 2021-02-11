@@ -39685,8 +39685,7 @@ function LoginView(props) {
       setPassword = _useState4[1];
 
   var handleSubmit = function handleSubmit(e) {
-    e.preventDefault();
-    /* Send an authentication request made for the 'login' endpoint of DOCumentality API using Axios */
+    e.preventDefault(); // Send an authentication request made for the 'login' endpoint of DOCumentality API using Axios
 
     _axios.default.post("https://documentality.herokuapp.com/login", {
       Username: username,
@@ -39744,40 +39743,6 @@ LoginView.propTypes = {
   }),
   onLoggedIn: _propTypes.default.func.isRequired
 };
-{
-  /* INPUT
-  <div>
-    <div className="containerUsername">
-    <InputGroup className="mb-3">
-        <InputGroup.Prepend>
-          <i className="usernameIcon"></i>
-        </InputGroup.Prepend>
-        <FormControl
-          value={username} 
-          onChange={e => setUsername(e.target.value)} 
-          placeholder="Username"
-          aria-label="Username"
-          aria-describedby="usernameIcon"
-        />
-      </InputGroup>
-    </div>
-    <div className="containerPassword">
-    <InputGroup className="mb-9" value={password}>
-        <InputGroup.Prepend>
-          <i className="passwordIcon"></i>
-        </InputGroup.Prepend>
-        <FormControl
-          value={password} 
-          onChange={e => setUsername(e.target.value)} 
-          placeholder="Password"
-          aria-label="Password"
-          aria-describedby="passwordIcon"
-        />
-      </InputGroup>
-    </div>
-  </div>
-  */
-}
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","axios":"../node_modules/axios/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./LoginView.scss":"components/LoginView/LoginView.scss"}],"components/SignUpView/SignUpView.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
@@ -39840,8 +39805,7 @@ function SignUpView(props) {
   var _useState7 = (0, _react.useState)(""),
       _useState8 = _slicedToArray(_useState7, 2),
       password = _useState8[0],
-      setPassword = _useState8[1]; //const [phone, setPhone] = useState("");
-
+      setPassword = _useState8[1];
 
   var handleRegister = function handleRegister(e) {
     e.preventDefault();
@@ -40177,8 +40141,8 @@ var MovieCardView = /*#__PURE__*/function (_Component) {
       // This is given to the <MovieCardView/> component by the outer world
       // which, in this case, is 'MainView', as 'MainView' is what's
       // connected to your database via the movies endpoint of your API
-      var documentaries = this.props.documentaries;
-      console.log(this.props);
+      var documentaries = this.props.documentaries; //console.log(this.props);
+
       return _react.default.createElement(_Card.default, {
         className: "movieCard"
       }, _react.default.createElement(_Card.default.Body, {
@@ -40201,15 +40165,15 @@ var MovieCardView = /*#__PURE__*/function (_Component) {
   }]);
 
   return MovieCardView;
-}(_react.Component); // MovieCardView.propTypes = {
-//   documentary: PropTypes.shape({
-//     Title: PropTypes.string.isRequired,
-//     ImagePath: PropTypes.string.isRequired,
-//   }).isRequired,
-// };
-
+}(_react.Component);
 
 exports.MovieCardView = MovieCardView;
+MovieCardView.propTypes = {
+  documentaries: _propTypes.default.shape({
+    Title: _propTypes.default.string.isRequired,
+    ImagePath: _propTypes.default.string.isRequired
+  }).isRequired
+};
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./MovieCardView.scss":"components/MovieCardView/MovieCardView.scss"}],"../node_modules/invariant/browser.js":[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -53828,46 +53792,50 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function ProfileView(props) {
-  //const [msg, setMsg] = useState(false);
-  var _useState = (0, _react.useState)(""),
+  var _useState = (0, _react.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
-      username = _useState2[0],
-      setUsername = _useState2[1];
+      msg = _useState2[0],
+      setMsg = _useState2[1];
 
   var _useState3 = (0, _react.useState)(""),
       _useState4 = _slicedToArray(_useState3, 2),
-      email = _useState4[0],
-      setEmail = _useState4[1];
+      username = _useState4[0],
+      setUsername = _useState4[1];
 
-  var _useState5 = (0, _react.useState)(new Date()),
+  var _useState5 = (0, _react.useState)(""),
       _useState6 = _slicedToArray(_useState5, 2),
-      birthday = _useState6[0],
-      setBirthday = _useState6[1];
+      email = _useState6[0],
+      setEmail = _useState6[1];
 
-  var _useState7 = (0, _react.useState)([]),
+  var _useState7 = (0, _react.useState)(new Date()),
       _useState8 = _slicedToArray(_useState7, 2),
-      password = _useState8[0],
-      setPassword = _useState8[1];
+      birthday = _useState8[0],
+      setBirthday = _useState8[1];
 
   var _useState9 = (0, _react.useState)([]),
       _useState10 = _slicedToArray(_useState9, 2),
-      favoriteList = _useState10[0],
-      setFavoriteList = _useState10[1];
+      password = _useState10[0],
+      setPassword = _useState10[1];
 
   var _useState11 = (0, _react.useState)([]),
       _useState12 = _slicedToArray(_useState11, 2),
-      favorite = _useState12[0],
-      setFavorite = _useState12[1];
+      favoriteList = _useState12[0],
+      setFavoriteList = _useState12[1];
 
-  var _useState13 = (0, _react.useState)(false),
+  var _useState13 = (0, _react.useState)([]),
       _useState14 = _slicedToArray(_useState13, 2),
-      edit = _useState14[0],
-      setEdit = _useState14[1];
+      favorite = _useState14[0],
+      setFavorite = _useState14[1];
 
   var _useState15 = (0, _react.useState)(false),
       _useState16 = _slicedToArray(_useState15, 2),
-      show = _useState16[0],
-      setShow = _useState16[1];
+      edit = _useState16[0],
+      setEdit = _useState16[1];
+
+  var _useState17 = (0, _react.useState)(false),
+      _useState18 = _slicedToArray(_useState17, 2),
+      show = _useState18[0],
+      setShow = _useState18[1];
 
   (0, _react.useEffect)(function () {
     function getUser() {
@@ -53876,8 +53844,8 @@ function ProfileView(props) {
           Authorization: "Bearer ".concat(props.userToken)
         }
       }).then(function (response) {
-        var userData = response.data;
-        console.log(userData);
+        var userData = response.data; //console.log(userData);
+
         setUsername(userData.Username);
         setEmail(userData.Email);
         setBirthday(new Date(userData.Birthday));
@@ -53917,8 +53885,9 @@ function ProfileView(props) {
         return favDocs._id !== documentaries;
       });
       setFavorite(updatedFavs);
+      console.log("Documentary Removed");
     }).catch(function (e) {
-      console.log("Movie Not Removed");
+      console.log("Documentary Not Removed");
     });
   };
 
@@ -53962,7 +53931,7 @@ function ProfileView(props) {
   }, "Close"), _react.default.createElement(_reactBootstrap.Button, {
     variant: "danger",
     onClick: deregister
-  }, "Delete Account"))), _react.default.createElement("div", {
+  }, "Delete Account"))), msg && "unable to remove", _react.default.createElement("div", {
     className: "nameProfileWrap"
   }, _react.default.createElement("h3", {
     className: "userName"
@@ -53990,12 +53959,12 @@ function ProfileView(props) {
     className: "labelBold"
   }, "Password: "), _react.default.createElement("span", {
     className: "value"
-  }, password, "********")), edit && _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("div", {
+  }, "********")), edit && _react.default.createElement("div", {
     className: "editContainer"
   }, _react.default.createElement("hr", null), _react.default.createElement(_ProfileEditView.ProfileEditView, {
     user: props.user,
     userToken: props.userToken
-  }))))), _react.default.createElement("div", {
+  })))), _react.default.createElement("div", {
     className: "btnContainer"
   }, _react.default.createElement(_reactBootstrap.Button, {
     className: "btnDelete",
@@ -54022,8 +53991,7 @@ function ProfileView(props) {
       userToken: props.userToken,
       key: m.Title,
       documentaries: m,
-      profile: true //addFavorite={addFavorite}
-      ,
+      profile: true,
       updateFavorites: updateFavorites
     }));
   }))), _react.default.createElement("hr", null), _react.default.createElement(_reactRouterDom.Link, {
@@ -54032,10 +54000,7 @@ function ProfileView(props) {
     className: "btnBack",
     variant: "danger"
   }, "Go Back Me"))));
-} // git add .
-// git commit -m "save changes"
-// or
-// git stash
+}
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../MovieCardView/MovieCardView":"components/MovieCardView/MovieCardView.jsx","../ProfileEditView/ProfileEditView":"components/ProfileEditView/ProfileEditView.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./ProfileView.scss":"components/ProfileView/ProfileView.scss"}],"components/VisibilityFilterInput/VisibilityFilterInput.jsx":[function(require,module,exports) {
 "use strict";
 
@@ -54045,8 +54010,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _reactRedux = require("react-redux");
 
@@ -54072,7 +54035,7 @@ var _default = (0, _reactRedux.connect)(null, {
 })(VisibilityFilterInput);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","../../actions/actions":"actions/actions.js"}],"components/MoviesList/MoviesList.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","../../actions/actions":"actions/actions.js"}],"components/MoviesList/MoviesList.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -54198,9 +54161,7 @@ var MovieView = /*#__PURE__*/function (_Component) {
 
     _classCallCheck(this, MovieView);
 
-    _this = _super.call(this, props); //don't set state like this its not good practice
-    // i will allow it for now
-    //username is empty so i will take it from the local storage
+    _this = _super.call(this, props);
 
     _initialiseProps.call(_assertThisInitialized(_this));
 
@@ -54277,13 +54238,6 @@ var MovieView = /*#__PURE__*/function (_Component) {
       }, documentary.Director.Name)))), _react.default.createElement("div", {
         className: "btnMovieView"
       }, _react.default.createElement(_Button.default, {
-        className: "btnDeleteFavorite",
-        variant: "warning",
-        onClick: function onClick() {
-          return _this2.updateFavorites(documentary._id);
-        },
-        block: true
-      }, "Remove from Favorites"), _react.default.createElement(_Button.default, {
         className: "btnAddFavorite",
         onClick: function onClick() {
           return _this2.addFavorite(documentary._id);
@@ -54316,8 +54270,7 @@ var _initialiseProps = function _initialiseProps() {
       }
     }).then(function (response) {
       var data = response.data;
-      console.log("New Documentary added");
-      console.log(response.data);
+      console.log("New Documentary added"); //console.log(response.data);
     }).catch(function (e) {
       console.log(e);
       console.log("Documentary not added");
@@ -56730,11 +56683,11 @@ var ErrorView = /*#__PURE__*/function (_Component) {
   _createClass(ErrorView, [{
     key: "render",
     value: function render() {
-      return _React.default.createElement(_React.default.Fragment, null, _React.default.createElement("section", {
+      return _React.default.createElement("section", {
         className: "center"
       }, _React.default.createElement("h2", {
         className: "ErrorTitle"
-      }, "Page Not Found"), _React.default.createElement("h3", null, "We couldn't find what you were looking for.")));
+      }, "Page Not Found"), _React.default.createElement("h3", null, "We couldn't find what you were looking for."));
     }
   }]);
 
@@ -56760,8 +56713,6 @@ var _react = _interopRequireWildcard(require("react"));
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _ErrorView = require("../ErrorView/ErrorView");
-
-var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _reactRouterDom = require("react-router-dom");
 
@@ -56833,27 +56784,28 @@ var DirectorView = /*#__PURE__*/function (_Component) {
         className: "labelBold"
       }, "Description: "), _react.default.createElement("span", {
         className: "value"
-      }, director.Bio)), _react.default.createElement("br", null), _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("div", {
+      }, director.Bio)), _react.default.createElement("br", null), _react.default.createElement("div", {
         className: "directorBirth"
       }, _react.default.createElement("span", {
         className: "labelBold"
-      }, "Birth: "), _react.default.createElement("span", null, director.Birth.length ? director.Birth : " - "))), _react.default.createElement("hr", {
+      }, "Birth: "), _react.default.createElement("span", null, director.Birth.length ? director.Birth : " - ")), _react.default.createElement("hr", {
         className: "lastHr"
       }), _react.default.createElement("div", {
         className: "directorDocumentaries"
       }, _react.default.createElement("span", {
         className: "labelBold"
-      }, "More Documentaries: "), documentaries.map(function (m) {
+      }, "More Documentaries: "), documentaries.map(function (documentaries) {
         return _react.default.createElement("div", {
           className: "documentary",
-          key: m.Title
-        }, m.Title);
+          key: documentaries.Title
+        }, _react.default.createElement(_reactRouterDom.Link, {
+          to: "/documentaries/".concat(documentaries.Title),
+          className: "link"
+        }, documentaries.Title));
       })), _react.default.createElement("br", null)), _react.default.createElement(_reactRouterDom.Link, {
-        to: "/"
-      }, _react.default.createElement(_Button.default, {
-        variant: "danger",
-        className: "btnBack"
-      }, "Go Back Me")));
+        to: "/",
+        className: "btn btn-danger btnBack"
+      }, "Go Back Me"));
     }
   }]);
 
@@ -56868,7 +56820,7 @@ DirectorView.propTypes = {
     Birth: _propTypes.default.string.isRequired
   })
 };
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","../ErrorView/ErrorView":"components/ErrorView/ErrorView.jsx","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./DirectorView.scss":"components/DirectorView/DirectorView.scss"}],"components/GenreView/GenreView.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","../ErrorView/ErrorView":"components/ErrorView/ErrorView.jsx","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./DirectorView.scss":"components/DirectorView/DirectorView.scss"}],"components/GenreView/GenreView.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -56886,8 +56838,6 @@ var _react = _interopRequireDefault(require("react"));
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _ErrorView = require("../ErrorView/ErrorView");
-
-var _reactBootstrap = _interopRequireDefault(require("react-bootstrap"));
 
 var _reactRouterDom = require("react-router-dom");
 
@@ -56943,6 +56893,23 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
       var genre = this.props.documentaries.find(function (m) {
         return m.Genre.Name === _this2.props.match.params.name;
       });
+      {
+        /*
+        let filterDocumentaries = () => {
+        this.setState({
+          filterDocumentaries: filterDocumentaries,
+        });
+        let genre = this.props.documentaries
+          .find((m) => m.Genre.Name === this.props.match.params.name)
+          .Genre.then(() => {
+            let documentaries = documentaries.filter(
+              (m) => m.Director.Name === this.props.match.params.name
+            );
+          });
+        setDocumentaries();
+        };
+        */
+      }
 
       if (genre) {
         //if genre exists set state
@@ -56990,8 +56957,10 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
         return _react.default.createElement("div", {
           className: "documentary",
           key: m.Title
-        }, m.Title);
-      })), _react.default.createElement("br", null)), _react.default.createElement(_reactRouterDom.NavLink, {
+        }, _react.default.createElement(_reactRouterDom.Link, {
+          to: "/documentaries/".concat(m.Title)
+        }, m.Title));
+      })), _react.default.createElement("br", null)), _react.default.createElement(_reactRouterDom.Link, {
         to: "/",
         className: "btn btn-danger btnBack"
       }, "Go Back Me"));
@@ -57008,7 +56977,7 @@ GenreView.propTypes = {
     Description: _propTypes.default.string.isRequired
   })
 };
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","../ErrorView/ErrorView":"components/ErrorView/ErrorView.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./GenreView.scss":"components/GenreView/GenreView.scss"}],"assets/images/logoDOC.svg":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","../ErrorView/ErrorView":"components/ErrorView/ErrorView.jsx","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./GenreView.scss":"components/GenreView/GenreView.scss"}],"assets/images/logoDOC.svg":[function(require,module,exports) {
 module.exports = "/logoDOC.416af8a2.svg";
 },{}],"components/NavbarView/NavbarView.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
@@ -57111,32 +57080,26 @@ var NavbarView = /*#__PURE__*/function (_Component) {
         className: "navBarLinks"
       }, _react.default.createElement(_reactRouterDom.NavLink, {
         to: "/",
-        className: "navLink"
-      }, _react.default.createElement(_Button.default, {
-        className: "navLink",
+        className: "navLink btn",
         variant: "link"
-      }, "Documentaries")), _react.default.createElement(_reactRouterDom.NavLink, {
-        to: "/genres"
-      }, _react.default.createElement(_Button.default, {
-        className: "navLink",
+      }, "Documentaries"), _react.default.createElement(_reactRouterDom.NavLink, {
+        to: "/genres",
+        className: "navLink btn",
         variant: "link"
-      }, "Genres")), _react.default.createElement(_reactRouterDom.Link, {
-        to: "/directors"
-      }, _react.default.createElement(_Button.default, {
-        className: "navLink",
+      }, "Genres"), _react.default.createElement(_reactRouterDom.NavLink, {
+        to: "/directors",
+        className: "navLink btn",
         variant: "link"
-      }, "Directors")), _react.default.createElement(_reactRouterDom.Link, {
-        to: "/users"
-      }, _react.default.createElement(_Button.default, {
-        className: "navLink",
+      }, "Directors"), _react.default.createElement(_reactRouterDom.NavLink, {
+        to: "/users",
+        className: "navLink btn",
         variant: "link"
-      }, "Profile")), _react.default.createElement(_reactRouterDom.Link, {
+      }, "Profile"), _react.default.createElement(_reactRouterDom.NavLink, {
         to: "/login",
+        className: "navLink btn",
+        variant: "link",
         onClick: handleLoggedOut
-      }, _react.default.createElement(_Button.default, {
-        className: "navLink",
-        variant: "link"
-      }, "Logout")))));
+      }, "Logout"))));
     }
   }]);
 
@@ -57266,14 +57229,15 @@ function AllGenresView() {
 
     getAllGenres();
   });
-  return _react.default.createElement("div", null, _react.default.createElement("div", {
+  return _react.default.createElement("div", {
     className: "genreTitleWrap"
-  }, _react.default.createElement("h3", null, "Genres Info"), _react.default.createElement("hr", null)), _react.default.createElement("div", null, genres.map(function (elm, idx) {
+  }, _react.default.createElement("h3", null, "Genres Info"), _react.default.createElement("hr", null), _react.default.createElement("div", null, genres.map(function (elm, idx) {
     return _react.default.createElement("div", {
       key: idx
-    }, _react.default.createElement("p", {
+    }, _react.default.createElement(_reactRouterDom.Link, {
+      to: "/genres/".concat(elm.Name),
       className: "titleElement"
-    }, elm.Name), _react.default.createElement("p", null, elm.Description));
+    }, elm.Name));
   }), _react.default.createElement("hr", null), _react.default.createElement(_reactRouterDom.Link, {
     className: "btn btn-danger btnBack",
     to: "/"
@@ -57337,7 +57301,10 @@ function AllDirectorsView() {
   }, _react.default.createElement("h3", null, "Directors Info"), _react.default.createElement("hr", null), _react.default.createElement("div", null, directors.map(function (elm, idx) {
     return _react.default.createElement("div", {
       key: idx
-    }, _react.default.createElement("p", null, elm.Name));
+    }, _react.default.createElement(_reactRouterDom.Link, {
+      to: "/directors/".concat(elm.Name),
+      className: "titleElement"
+    }, elm.Name));
   })), _react.default.createElement("hr", null), _react.default.createElement(_reactRouterDom.Link, {
     className: "btn btn-danger btnBack",
     to: "/"
@@ -57489,8 +57456,10 @@ var MainView = /*#__PURE__*/function (_Component) {
           userToken: userToken,
           favoriteList: userData.FavoriteList,
           email: userData.Email,
-          birthday: userData.Birthday
-        });
+          birthday: userData.Birthday // password: userData.Password,
+
+        }); // console.log(userData);
+
 
         _this3.getDocumentaries(_this3.state.userToken);
       }).catch(function (error) {
@@ -57509,9 +57478,7 @@ var MainView = /*#__PURE__*/function (_Component) {
       localStorage.setItem("token", authData.token);
       localStorage.setItem("user", authData.user.Username);
       this.getDocumentaries(authData.token);
-    } // This overrides the render() method of the superclass
-    // No need to call super() though, as it does nothing by default
-
+    }
   }, {
     key: "render",
     value: function render() {
@@ -57520,20 +57487,35 @@ var MainView = /*#__PURE__*/function (_Component) {
       // If the state isn't initialized, this will throw on runtime
       // before tha data is initially loaded
       var documentaries = this.props.documentaries;
-      var user = this.state.user; //console.log(documentaries);
+      var user = this.state.user; // console.log(documentaries);
 
       var genres = documentaries.map(function (mov) {
         return mov.Genre;
       });
       var directors = documentaries.map(function (mov) {
         return mov.Director;
-      }); // If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*
-      //if (!user)
-      // return <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />;
-
-      return _react.default.createElement(_react.default.Fragment, null, user ? _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("header", null, _react.default.createElement(_NavbarView.NavbarView, {
+      });
+      return _react.default.createElement(_react.default.Fragment, null, !user ? _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: "/signup",
+        render: function render() {
+          return _react.default.createElement(_SignUpView.SignUpView, null);
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: "/",
+        render: function render() {
+          return (// If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*
+            _react.default.createElement(_LoginView.LoginView, {
+              onLoggedIn: function onLoggedIn(user) {
+                return _this4.onLoggedIn(user);
+              }
+            })
+          );
+        }
+      }))) : _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("header", null, _react.default.createElement(_NavbarView.NavbarView, {
         user: user
-      }))), _react.default.createElement(_reactBootstrap.Container, {
+      })), _react.default.createElement(_reactBootstrap.Container, {
         className: "center"
       }, _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
@@ -57586,20 +57568,6 @@ var MainView = /*#__PURE__*/function (_Component) {
           });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
-        path: "/directors/:name",
-        render: function render(_ref3) {
-          var match = _ref3.match;
-          if (!documentaries) return _react.default.createElement("div", {
-            className: "mainView"
-          });
-          return _react.default.createElement(_DirectorView.DirectorView, {
-            director: documentaries.find(function (m) {
-              return m.Director.Name === match.params.name;
-            }).Director,
-            directors: documentaries
-          });
-        }
-      }), _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
         path: "/genres",
         render: function render() {
@@ -57618,23 +57586,7 @@ var MainView = /*#__PURE__*/function (_Component) {
       }), _react.default.createElement(_reactRouterDom.Route, {
         path: "*",
         component: _ErrorView.ErrorView
-      }))), _react.default.createElement(_FooterView.FooterView, null)) : _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
-        exact: true,
-        path: "/signup",
-        render: function render() {
-          return _react.default.createElement(_SignUpView.SignUpView, null);
-        }
-      }), _react.default.createElement(_reactRouterDom.Route, {
-        exact: true,
-        path: "/",
-        render: function render() {
-          return _react.default.createElement(_LoginView.LoginView, {
-            onLoggedIn: function onLoggedIn(user) {
-              return _this4.onLoggedIn(user);
-            }
-          });
-        }
-      }))));
+      }))), _react.default.createElement(_FooterView.FooterView, null)));
     }
   }]);
 
@@ -57824,7 +57776,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57516" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63057" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

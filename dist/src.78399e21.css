@@ -234,6 +234,7 @@ h1 {
   display: flex;
   justify-content: center;
   margin: 20px;
+  margin-top: 0px;
 }
 .filterWrap .filterInput {
   text-align: center;
@@ -266,11 +267,10 @@ h1 {
 .movieInfo .btnMovieView {
   display: flex;
   justify-content: space-around;
-  margin-top: 15px;
+  margin: 15px;
 }
 .movieInfo .btnMovieView .btnAddFavorite {
-  margin-top: 15px;
-  margin-bottom: 5px;
+  margin: 15px;
   width: 203px;
   background-color: #0069c0;
   border: 2px solid #53d4ff;
@@ -361,13 +361,10 @@ hr {
   background-color: #0cb7f2;
   margin: 0px auto;
   margin-right: 19px;
-}
-.navbar-collapse .navBarLinks a {
   border-top: 3px solid #53d4ff;
   border-bottom: 3px solid #53d4ff;
 }
-.navbar-collapse .navBarLinks a button {
-  background-color: #0cb7f2;
+.navbar-collapse .navBarLinks a {
   color: black;
   font-size: large;
   font-weight: 500;

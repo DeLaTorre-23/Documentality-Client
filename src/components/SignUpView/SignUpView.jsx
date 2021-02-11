@@ -12,7 +12,6 @@ export function SignUpView(props) {
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
   const [password, setPassword] = useState("");
-  //const [phone, setPhone] = useState("");
 
   const handleRegister = (e) => {
     e.preventDefault();

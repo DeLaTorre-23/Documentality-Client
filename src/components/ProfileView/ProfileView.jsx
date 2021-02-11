@@ -11,7 +11,7 @@ import { Button, Modal, Row, Container } from "react-bootstrap";
 import "./ProfileView.scss";
 
 export function ProfileView(props) {
-  //const [msg, setMsg] = useState(false);
+  const [msg, setMsg] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState(new Date());
@@ -29,9 +29,8 @@ export function ProfileView(props) {
         })
         .then((response) => {
           let userData = response.data;
-          console.log(userData);
+          //console.log(userData);
           setUsername(userData.Username);
-
           setEmail(userData.Email);
           setBirthday(new Date(userData.Birthday));
           setFavoriteList(userData.FavoriteList);
@@ -70,9 +69,10 @@ export function ProfileView(props) {
           return favDocs._id !== documentaries;
         });
         setFavorite(updatedFavs);
+        console.log("Documentary Removed");
       })
       .catch((e) => {
-        console.log("Movie Not Removed");
+        console.log("Documentary Not Removed");
       });
   };
 
@@ -114,8 +114,9 @@ export function ProfileView(props) {
           </Button>
         </Modal.Footer>
       </Modal>
+
       {/* SLIDER Favorite Movies */}
-      {/*msg && "unable to remove"*/}
+      {msg && "unable to remove"}
       <div className="nameProfileWrap">
         <h3 className="userName">{"Hi " + username + ","}</h3>
       </div>
@@ -133,22 +134,21 @@ export function ProfileView(props) {
             </div>
             <div className="userPassword">
               <span className="labelBold">Password: </span>
-              <span className="value">{password}********</span>
+              <span className="value">********</span>
             </div>
 
             {edit && (
-              <React.Fragment>
-                <div className="editContainer">
-                  <hr />
-                  <ProfileEditView
-                    user={props.user}
-                    userToken={props.userToken}
-                  />
-                </div>
-              </React.Fragment>
+              <div className="editContainer">
+                <hr />
+                <ProfileEditView
+                  user={props.user}
+                  userToken={props.userToken}
+                />
+              </div>
             )}
           </div>
         </div>
+
         <div className="btnContainer">
           <Button className="btnDelete" variant="danger" onClick={handleShow}>
             Delete account
@@ -158,7 +158,9 @@ export function ProfileView(props) {
             Edit account
           </Button>
         </div>
+
         <hr />
+
         <div className="favoriteListContainer">
           <span className="label">Favorite List:</span>
           <Row className="favoriteDocumentaries">
@@ -173,7 +175,6 @@ export function ProfileView(props) {
                     key={m.Title}
                     documentaries={m}
                     profile={true}
-                    //addFavorite={addFavorite}
                     updateFavorites={updateFavorites}
                   />
                 </div>
@@ -181,7 +182,9 @@ export function ProfileView(props) {
             )}
           </Row>
         </div>
+
         <hr />
+
         <Link to={`/`}>
           <Button className="btnBack" variant="danger">
             Go Back Me
@@ -191,9 +194,3 @@ export function ProfileView(props) {
     </React.Fragment>
   );
 }
-
-// git add .
-// git commit -m "save changes"
-
-// or
-// git stash

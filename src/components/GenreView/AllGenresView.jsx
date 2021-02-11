@@ -19,17 +19,19 @@ export default function AllGenresView() {
     }
     getAllGenres();
   });
+
   return (
-    <div>
-      <div className="genreTitleWrap">
-        <h3>Genres Info</h3>
-        <hr />
-      </div>
+    <div className="genreTitleWrap">
+      <h3>Genres Info</h3>
+      <hr />
+
       <div>
         {genres.map((elm, idx) => (
           <div key={idx}>
-            <p className="titleElement">{elm.Name}</p>
-            <p>{elm.Description}</p>
+            <Link to={`/genres/${elm.Name}`} className="titleElement">
+              {elm.Name}
+            </Link>
+            {/* <p>{elm.Description}</p> */}
           </div>
         ))}
         <hr />

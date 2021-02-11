@@ -12,9 +12,6 @@ export class MovieView extends Component {
   constructor(props) {
     super(props);
 
-    //don't set state like this its not good practice
-    // i will allow it for now
-    //username is empty so i will take it from the local storage
     this.state = {
       documentary: this.props.documentary,
       username: localStorage.getItem("user"), //this.props.user,
@@ -47,7 +44,7 @@ export class MovieView extends Component {
       .then((response) => {
         const data = response.data;
         console.log("New Documentary added");
-        console.log(response.data);
+        //console.log(response.data);
       })
       .catch((e) => {
         console.log(e);
@@ -127,6 +124,7 @@ export class MovieView extends Component {
           </div>
 
           <div className="btnMovieView">
+            {/*
             <Button
               className="btnDeleteFavorite"
               variant="warning"
@@ -135,6 +133,7 @@ export class MovieView extends Component {
             >
               Remove from Favorites
             </Button>
+            */}
 
             <Button
               className="btnAddFavorite"

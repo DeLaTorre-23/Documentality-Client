@@ -2,10 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { ErrorView } from "../ErrorView/ErrorView";
-
-import Button from "react-bootstrap";
-
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./GenreView.scss";
 export class GenreView extends React.Component {
@@ -22,6 +19,25 @@ export class GenreView extends React.Component {
     let genre = this.props.documentaries.find(
       (m) => m.Genre.Name === this.props.match.params.name
     );
+
+    {
+      /*
+    let filterDocumentaries = () => {
+      this.setState({
+        filterDocumentaries: filterDocumentaries,
+      });
+      let genre = this.props.documentaries
+        .find((m) => m.Genre.Name === this.props.match.params.name)
+        .Genre.then(() => {
+          let documentaries = documentaries.filter(
+            (m) => m.Director.Name === this.props.match.params.name
+          );
+        });
+      setDocumentaries();
+    };
+    */
+    }
+
     if (genre) {
       //if genre exists set state
       this.setState({ genre: genre.Genre });
@@ -57,15 +73,16 @@ export class GenreView extends React.Component {
             <span className="labelBold">More Documentaries: </span>
             {documentaries.map((m) => (
               <div className="documentary" key={m.Title}>
-                {m.Title}
+                <Link to={`/documentaries/${m.Title}`}>{m.Title}</Link>
               </div>
             ))}
           </div>
           <br />
         </div>
-        <NavLink to={`/`} className="btn btn-danger btnBack">
+
+        <Link to={`/`} className="btn btn-danger btnBack">
           Go Back Me
-        </NavLink>
+        </Link>
       </div>
     );
   }

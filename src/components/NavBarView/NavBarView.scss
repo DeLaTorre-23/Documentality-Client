@@ -54,15 +54,12 @@
     margin-right: 19px;
     //float: right;
     //background-color: lavender;
+    border-top: 3px solid #53d4ff;
+    border-bottom: 3px solid #53d4ff;
     a {
-      border-top: 3px solid #53d4ff;
-      border-bottom: 3px solid #53d4ff;
-      button {
-        background-color: #0cb7f2;
-        color: black;
-        font-size: large;
-        font-weight: 500;
-      }
+      color: black;
+      font-size: large;
+      font-weight: 500;
     }
   }
 }

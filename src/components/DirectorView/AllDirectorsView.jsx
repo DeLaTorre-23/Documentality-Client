@@ -19,14 +19,19 @@ export default function AllDirectorsView() {
     }
     getAllDirectors();
   });
+
   return (
     <div className="directorTitleWrap">
       <h3>Directors Info</h3>
       <hr />
+
       <div>
         {directors.map((elm, idx) => (
           <div key={idx}>
-            <p>{elm.Name}</p>
+            <Link to={`/directors/${elm.Name}`} className="titleElement">
+              {elm.Name}
+            </Link>
+            {/* <p>{elm.Bio}</p> */}
           </div>
         ))}
       </div>

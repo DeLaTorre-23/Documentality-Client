@@ -21,7 +21,7 @@ import AllDirectorsView from "../DirectorView/AllDirectorsView";
 //import { Slider } from "../Slider/Slider";
 import { ErrorView } from "../ErrorView/ErrorView";
 
-import { Container, Button } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 import "./MainView.scss";
 
@@ -73,7 +73,9 @@ export class MainView extends Component {
           favoriteList: userData.FavoriteList,
           email: userData.Email,
           birthday: userData.Birthday,
+          // password: userData.Password,
         });
+        // console.log(userData);
         this.getDocumentaries(this.state.userToken);
       })
       .catch(function (error) {
@@ -93,33 +95,37 @@ export class MainView extends Component {
     this.getDocumentaries(authData.token);
   }
 
-  // This overrides the render() method of the superclass
-  // No need to call super() though, as it does nothing by default
   render() {
     // If the state isn't initialized, this will throw on runtime
     // before tha data is initially loaded
     const { documentaries } = this.props;
     const { user } = this.state;
 
-    //console.log(documentaries);
+    // console.log(documentaries);
     const genres = documentaries.map((mov) => mov.Genre);
-
     const directors = documentaries.map((mov) => mov.Director);
-
-    // If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*
-    //if (!user)
-    // return <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />;
 
     return (
       <React.Fragment>
-        {user ? (
+        {!user ? (
           <Router>
-            <React.Fragment>
-              <header>
-                <NavbarView user={user} />
-              </header>
-              {/*<Slider />*/}
-            </React.Fragment>
+            <Switch>
+              <Route exact path="/signup" render={() => <SignUpView />} />
+              <Route
+                exact
+                path="/"
+                render={() => (
+                  // If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*
+                  <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
+                )}
+              />
+            </Switch>
+          </Router>
+        ) : (
+          <Router>
+            <header>
+              <NavbarView user={user} />
+            </header>
 
             <Container className="center">
               <Switch>
@@ -136,7 +142,6 @@ export class MainView extends Component {
                   path="/users"
                   render={() => (
                     <React.Fragment>
-                      {/*<Slider />*/}
                       <ProfileView
                         user={user}
                         userToken={this.state.userToken}
@@ -185,23 +190,6 @@ export class MainView extends Component {
                 />
 
                 <Route
-                  path="/directors/:name"
-                  render={({ match }) => {
-                    if (!documentaries) return <div className="mainView" />;
-                    return (
-                      <DirectorView
-                        director={
-                          documentaries.find(
-                            (m) => m.Director.Name === match.params.name
-                          ).Director
-                        }
-                        directors={documentaries}
-                      />
-                    );
-                  }}
-                />
-
-                <Route
                   exact
                   path="/genres"
                   render={() => {
@@ -220,43 +208,11 @@ export class MainView extends Component {
                   }}
                 />
 
-                {/*
-                <Route
-                  path="/genres/:name"
-                  render={({ match }) => {
-                    if (!documentaries) return <div className="mainView" />;
-                    return (
-                      <GenreView
-                        genre={
-                          documentaries.find(
-                            (m) => m.Genre.Name === match.params.name
-                          ).Genre
-                        }
-                        genres={documentaries}
-                      />
-                    );
-                  }}
-                />
-                */}
-
                 <Route path="*" component={ErrorView} />
               </Switch>
             </Container>
 
             <FooterView />
-          </Router>
-        ) : (
-          <Router>
-            <Switch>
-              <Route exact path="/signup" render={() => <SignUpView />} />
-              <Route
-                exact
-                path="/"
-                render={() => (
-                  <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
-                )}
-              />
-            </Switch>
           </Router>
         )}
       </React.Fragment>

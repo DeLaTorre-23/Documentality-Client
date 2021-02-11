@@ -48,6 +48,7 @@ export function ProfileEditView(props) {
             onChange={(e) => setUsername(e.target.value)}
           />
         </Form.Group>
+
         <Form.Group controlId="formBasicEmail">
           <Form.Label>New Email</Form.Label>
           <Form.Control
@@ -57,6 +58,7 @@ export function ProfileEditView(props) {
             onChange={(e) => setEmail(e.target.value)}
           />
         </Form.Group>
+
         <Form.Group controlId="formBasicBirthday">
           <Form.Label>Birthday</Form.Label>
           <Form.Control
@@ -66,6 +68,7 @@ export function ProfileEditView(props) {
             onChange={(e) => setBirthday(e.target.value)}
           />
         </Form.Group>
+
         <Form.Group controlId="formBasicPassword">
           <Form.Label>New Password</Form.Label>
           <Form.Control
@@ -75,6 +78,7 @@ export function ProfileEditView(props) {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
+
         <Button variant="primary" type="submit" onClick={handleSubmit}>
           Apply
         </Button>
