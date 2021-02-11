@@ -27,7 +27,7 @@ export default function AllGenresView() {
 
       <div>
         {genres.map((elm, idx) => (
-          <div key={idx}>
+          <div key={idx} className="titleElement">
             <Link to={`/genres/${elm.Name}`} className="titleElement">
               {elm.Name}
             </Link>

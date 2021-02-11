@@ -109,6 +109,7 @@ h1 {
   text-align: center;
   font-family: "Segoe UI", Trebuchet MS, Helvetica, Arial, sans-serif;
   margin-bottom: 25px;
+  background-color: #1e1e1e;
 }
 
 .movieCardBody {
@@ -133,6 +134,7 @@ h1 {
   border: 2px solid #53d4ff;
   color: #fff;
   margin-top: 4px;
+  font-weight: 500;
 }
 
 /*
@@ -157,6 +159,8 @@ h1 {
 .userName {
   font-size: xxx-large;
   margin: 0px;
+  font-weight: 500;
+  color: #1e1e1e;
 }
 
 .bodyContainer {
@@ -219,6 +223,11 @@ h1 {
   margin: 15px;
   text-align: center;
 }
+.bodyContainer .favoriteListContainer .favLabel {
+  font-weight: 700;
+  color: #1e1e1e;
+  font-size: large;
+}
 .bodyContainer .btnContainer {
   display: flex;
   flex-direction: row;
@@ -253,6 +262,11 @@ h1 {
   max-height: 400px;
   margin-bottom: 30px;
   border: 5px solid #53d4ff;
+}
+
+.btn-link {
+  color: #1e1e1e;
+  font-weight: 700;
 }
 
 .movieInfo > * {
@@ -309,6 +323,25 @@ hr {
 .lastHr {
   margin-top: 30px;
 }
+.value {
+  color: #1e1e1e;
+  font-size: large;
+  font-weight: 500;
+}
+
+.titleElement {
+  color: #fff;
+  font-size: large;
+  font-weight: 500;
+  margin: 13px;
+}
+
+.documentary a {
+  color: #1e1e1e;
+  font-size: large;
+  font-weight: 500;
+  margin: 5px;
+}
 .navbarWrap {
   height: 120px;
   width: 100%;
@@ -318,6 +351,7 @@ hr {
   background-color: #0cb7f2;
   border-top: 3px solid #53d4ff;
   border-bottom: 5px solid #53d4ff;
+  color: #1e1e1e;
 }
 
 .navbar-brand {
@@ -334,7 +368,7 @@ hr {
   align-items: center;
   width: 90%;
   height: 90%;
-  color: black;
+  color: #1e1e1e;
 }
 .navbar-brand .logo .logoImg {
   width: 100px;
@@ -359,13 +393,14 @@ hr {
 }
 .navbar-collapse .navBarLinks {
   background-color: #0cb7f2;
+  color: #1e1e1e;
   margin: 0px auto;
   margin-right: 19px;
   border-top: 3px solid #53d4ff;
   border-bottom: 3px solid #53d4ff;
 }
 .navbar-collapse .navBarLinks a {
-  color: black;
+  color: #1e1e1e;
   font-size: large;
   font-weight: 500;
 }
@@ -381,9 +416,11 @@ hr {
   font-size: x-large;
   background-color: #0cb7f2;
   border-top: 3px solid #53d4ff;
+  color: #1e1e1e;
 }
 .footer p {
   margin: 0px auto;
+  color: #1e1e1e;
   padding: 0px auto;
 }
 body {
@@ -395,6 +432,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -moz-osx-font-smoothing: antialiased;
+  background-color: #1e1e1e;
 }
 
 .center {
@@ -407,6 +445,7 @@ body {
   margin-bottom: 50px;
   background-color: #0cb7f2;
   border: 3px solid #53d4ff;
+  color: #1e1e1e;
   font-family: Trebuchet MS, Helvetica, Arial, sans-serif;
   flex: 1 0 auto;
 }

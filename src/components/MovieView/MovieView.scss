@@ -13,6 +13,11 @@
   border: 5px solid #53d4ff;
 }
 
+.btn-link {
+  color: #1e1e1e;
+  font-weight: 700;
+}
+
 .movieInfo > * {
   align-items: left;
   padding: 5px;
@@ -29,7 +34,6 @@
 
     .btnAddFavorite {
       margin: 15px;
-
       width: 203px;
       background-color: #0069c0;
       border: 2px solid #53d4ff;

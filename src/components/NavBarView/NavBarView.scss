@@ -7,6 +7,7 @@
   background-color: #0cb7f2;
   border-top: 3px solid #53d4ff;
   border-bottom: 5px solid #53d4ff;
+  color: #1e1e1e;
 }
 
 .navbar-brand {
@@ -24,7 +25,7 @@
     align-items: center;
     width: 90%;
     height: 90%;
-    color: black;
+    color: #1e1e1e;
     .logoImg {
       width: 100px;
       height: 100%;
@@ -50,14 +51,13 @@
   margin-top: 11px;
   .navBarLinks {
     background-color: #0cb7f2;
+    color: #1e1e1e;
     margin: 0px auto;
     margin-right: 19px;
-    //float: right;
-    //background-color: lavender;
     border-top: 3px solid #53d4ff;
     border-bottom: 3px solid #53d4ff;
     a {
-      color: black;
+      color: #1e1e1e;
       font-size: large;
       font-weight: 500;
     }

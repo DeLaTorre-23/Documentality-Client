@@ -53977,7 +53977,7 @@ function ProfileView(props) {
   }, "Edit account")), _react.default.createElement("hr", null), _react.default.createElement("div", {
     className: "favoriteListContainer"
   }, _react.default.createElement("span", {
-    className: "label"
+    className: "label favLabel"
   }, "Favorite List:"), _react.default.createElement(_reactBootstrap.Row, {
     className: "favoriteDocumentaries"
   }, !favorite.length ? _react.default.createElement("h3", {
@@ -57233,7 +57233,8 @@ function AllGenresView() {
     className: "genreTitleWrap"
   }, _react.default.createElement("h3", null, "Genres Info"), _react.default.createElement("hr", null), _react.default.createElement("div", null, genres.map(function (elm, idx) {
     return _react.default.createElement("div", {
-      key: idx
+      key: idx,
+      className: "titleElement"
     }, _react.default.createElement(_reactRouterDom.Link, {
       to: "/genres/".concat(elm.Name),
       className: "titleElement"
@@ -57300,7 +57301,8 @@ function AllDirectorsView() {
     className: "directorTitleWrap"
   }, _react.default.createElement("h3", null, "Directors Info"), _react.default.createElement("hr", null), _react.default.createElement("div", null, directors.map(function (elm, idx) {
     return _react.default.createElement("div", {
-      key: idx
+      key: idx,
+      className: "titleElement"
     }, _react.default.createElement(_reactRouterDom.Link, {
       to: "/directors/".concat(elm.Name),
       className: "titleElement"
@@ -57776,7 +57778,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64976" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57704" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

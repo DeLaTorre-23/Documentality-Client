@@ -162,7 +162,7 @@ export function ProfileView(props) {
         <hr />
 
         <div className="favoriteListContainer">
-          <span className="label">Favorite List:</span>
+          <span className="label favLabel">Favorite List:</span>
           <Row className="favoriteDocumentaries">
             {!favorite.length ? (
               <h3 className="text-center w-100">No favorites yet</h3>

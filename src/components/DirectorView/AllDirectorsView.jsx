@@ -27,7 +27,7 @@ export default function AllDirectorsView() {
 
       <div>
         {directors.map((elm, idx) => (
-          <div key={idx}>
+          <div key={idx} className="titleElement">
             <Link to={`/directors/${elm.Name}`} className="titleElement">
               {elm.Name}
             </Link>
