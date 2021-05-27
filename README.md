@@ -1,6 +1,6 @@
 # Documentality-Client
 
-Documentality is an React application that allows users to get information about movies, genres, and directors.Users are able to create an account and browse their favorite documentaries. They can modify account information, add or remove documentaries from their list of favorites, or delete their account. This application uses my existing server-side REST API and MongoDB database.
+Documentality is an React application that allows users to get information about movies, genres, and directors. Users are able to create an account and browse their favorite documentaries. They can modify account information, add or remove documentaries from their favorite list, or delete their account. This application uses my existing server-side REST API and MongoDB database.
 
 ## Technologies
 
