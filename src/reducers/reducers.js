@@ -1,6 +1,6 @@
-import { SET_FILTER, SET_DOCUMENTARIES } from '../actions/actions';
+import { SET_FILTER, SET_DOCUMENTARIES } from "../actions/actions";
 
-import { combineReducers } from 'redux';
+import { combineReducers } from "redux";
 
 // Reducers
 
@@ -8,7 +8,7 @@ import { combineReducers } from 'redux';
 function documentaries(state = [], action) {
   switch (action.type) {
     case SET_DOCUMENTARIES:
-      console.log('SET_MOVIES reducer reached');
+      console.log("SET_MOVIES reducer reached");
       return action.value;
     default:
       return state;
@@ -16,9 +16,9 @@ function documentaries(state = [], action) {
 }
 
 // Setting defaults in this way is essential for any reducer "(state = '', action)"
-// If state were to be undefined and the action out of scope for a reducer 
+// If state were to be undefined and the action out of scope for a reducer
 //  the reducer would return whatever it was passed as the visibilityFilter state, in this case, an empty string ''.
-function visibilityFilter(state = '', action) {
+function visibilityFilter(state = "", action) {
   switch (action.type) {
     case SET_FILTER:
       return action.value;
@@ -28,20 +28,11 @@ function visibilityFilter(state = '', action) {
   }
 }
 
-{/*
-// combine reducer ( made form other reducers)
-
-function documentariesApp (state = {}, action) {
-  return {
-    visibilityFilter: visibilityFilter(state.visibilityFilter, action),
-    documentaries: documentaries(state.documentaries, action)
-  }
-}
-*/}
+// combine reducer
 
 const documentariesApp = combineReducers({
   documentaries,
-  visibilityFilter
+  visibilityFilter,
 });
 
 export default documentariesApp;
